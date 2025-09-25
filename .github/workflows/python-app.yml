@@ -15,14 +15,14 @@ jobs:
               --add-data "templates;templates"
               --add-data "static;static"
               main.py
-            artifact: ps4debugportal.exe
+            artifact: dist/ps4debugportal.exe
           - os: ubuntu-latest
             pyinstaller-args: >
               --onefile --clean --name ps4debugportal
               --add-data "templates:templates"
               --add-data "static:static"
               main.py
-            artifact: ps4debugportal
+            artifact: dist/ps4debugportal
 
     steps:
       - name: Checkout code
@@ -46,5 +46,13 @@ jobs:
       - name: Upload executable to artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.artifact }}
-          path: dist/${{ matrix.artifact }}
+          name: ${{ matrix.os }}-ps4debugportal
+          path: ${{ matrix.artifact }}
+
+      - name: Upload executable to GitHub Release
+        uses: ncipollo/release-action@v1.14.0
+        with:
+          artifacts: ${{ matrix.artifact }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ github.ref_name }}-Run#${{ github.run_id }}-Attempt#${{ github.run_attempt }}
+          allowUpdates: true
