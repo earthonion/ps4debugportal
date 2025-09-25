@@ -27,7 +27,7 @@ python app.py
 
 4. Open your browser and navigate to:
 ```
-http://localhost:5000
+http://localhost:5001
 ```
 
 ## Usage
