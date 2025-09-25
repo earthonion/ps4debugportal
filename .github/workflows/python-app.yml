@@ -203,7 +203,7 @@ jobs:
           echo "capstone>=5.0.0" >> requirements.txt
           echo "construct>=2.10.0" >> requirements.txt
           echo "pywebview>=4.0.0" >> requirements.txt
-          echo "ps4debug @ git+https://github.com/ps4-python/ps4debug.git" >> requirements.txt
+          echo "ps4debug" >> requirements.txt
 
       - name: Install Python dependencies
         run: |
