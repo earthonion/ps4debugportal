@@ -10,7 +10,11 @@ A full-featured web-based PS4 memory debugger with real-time monitoring, disasse
 - **Real-time Monitor**: Monitor memory addresses with live updates via WebSocket
 - **Process Manager**: Connect to PS4 and select target process
 - **Auto-discovery**: Automatically find PS4 on the network
-
+## Screenshots
+![alt text](https://github.com/earthonion/ps4debugportal/blob/main/screenshots/1.png?raw=true)
+![alt text](https://github.com/earthonion/ps4debugportal/blob/main/screenshots/2.png?raw=true)
+![alt text](https://github.com/earthonion/ps4debugportal/blob/main/screenshots/3.png?raw=true)
+![alt text](https://github.com/earthonion/ps4debugportal/blob/main/screenshots/4.png?raw=true)
 ## Installation
 
 1. Install dependencies:
