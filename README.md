@@ -60,6 +60,12 @@ http://localhost:5001
 3. Set update interval in milliseconds
 4. Watch values update in real-time
 
+### Debugger
+1. set a breakpoint
+2. look at the registers when it hits
+3. note: you may need to run as root to listen on port 755
+4. also, it defaults to auto resume on hit. it doesnt pause. can be changed in source code
+
 ## API Endpoints
 
 - `POST /api/connect` - Connect to PS4
