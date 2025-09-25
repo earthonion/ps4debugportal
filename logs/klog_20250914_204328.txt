@@ -1,0 +1,956 @@
+[2025-09-14T20:43:17.208006]  pid=0x2b[Syscore App] attributeExe= 0
+[2025-09-14T20:43:17.208399] <118>[Syscore App] Ready to exec
+[2025-09-14T20:43:17.208651] <118>[Syscore App] wait for NOTE_EXIT|NOTE_EXEC
+[2025-09-14T20:43:17.209653] <118>[Syscore App] Add event : pid=0x2b
+[2025-09-14T20:43:17.209863] <118>[AppMgr Trace]: New Process, pid=0x2b, created.
+[2025-09-14T20:43:17.210772] <118>[AppMgr Trace]: New App, appId=0x60000302, created
+[2025-09-14T20:43:17.211153] <118>[Syscore App]  ExpandCpuSetMode : enable
+[2025-09-14T20:43:17.211381] <118>[SceShellCore] START Game Live Streaming
+[2025-09-14T20:43:17.211520] <118>[SceLncService] launchApp(NPXS21000)
+[2025-09-14T20:43:17.211641] <118>[SceLncService] category={gdd} VRMode={0,0}
+[2025-09-14T20:43:17.211791] <118>[SceLncService] hnm,psnf,pc,tk,ns={0,0,0,0,0} appBootMode={-1}
+[2025-09-14T20:43:17.211910] <118>[SceLncService] appType={SCE_LNC_APP_TYPE_DAEMON} [] appVer={00.00}
+[2025-09-14T20:43:17.212054] <118>[SceLncService] Num. of logged-in users is 1
+[2025-09-14T20:43:17.212197] <118>[SceLncService] PrepareProcessLaunchDebuggerCheck()
+[2025-09-14T20:43:17.212303] <118>[SceLncService] PrepareProcessLaunchDebuggerCheck() returned
+[2025-09-14T20:43:17.212411] <118>[SceLncService] PrepareProcessLaunchDebugger()
+[2025-09-14T20:43:17.212523] <118>[SceLncService] PrepareProcessLaunchDebugger() returned
+[2025-09-14T20:43:17.212631] <118>[SceLncService] spawnApp
+[2025-09-14T20:43:17.212767] <118>[Syscore App] createApp NPXS21000
+[2025-09-14T20:43:17.212873] <118>[Syscore App] processSpawn(pid, 0x60000403, 0x10403040, appParam, processParam, 0, 0, 1, param, debug, 0)
+[2025-09-14T20:43:17.212979] <118>[Syscore App] appParam: appType = 0x2, rootPath = /mnt/sandbox/NPXS21000_000, titleId = NPXS21000
+[2025-09-14T20:43:17.213091] <118>[Syscore App] processParam: elfPath = /app0/eboot.bin, fullPath = /system/vsh/app/NPXS21000/eboot.bin
+[2025-09-14T20:43:17.213218] <118>[Syscore App] new pid=0x2c[Syscore App] attributeExe= 0
+[2025-09-14T20:43:17.213380] <118>[Syscore App] Ready to exec
+[2025-09-14T20:43:17.217743] <118>[Syscore App] wait for NOTE_EXIT|NOTE_EXEC
+[2025-09-14T20:43:17.217975] <118>[Syscore App] Add event : pid=0x2c
+[2025-09-14T20:43:17.218128] <118>[AppMgr Trace]: New Process, pid=0x2c, created.
+[2025-09-14T20:43:17.218264] <118>[AppMgr Trace]: New App, appId=0x60000403, created
+[2025-09-14T20:43:17.218393] <118>[Syscore App]  ExpandCpuSetMode : enable
+[2025-09-14T20:43:17.218524] <118>[SceShellCore] START Party Daemon
+[2025-09-14T20:43:17.218640] <118>[SceLncService] launchApp(NPXS21002)
+[2025-09-14T20:43:17.218793] <118>[SceLncService] category={gdd} VRMode={0,0}
+[2025-09-14T20:43:17.218905] <118>[SceLncService] hnm,psnf,pc,tk,ns={0,0,0,0,0} appBootMode={-1}
+[2025-09-14T20:43:17.219012] <118>[SceLncService] appType={SCE_LNC_APP_TYPE_DAEMON} [] appVer={00.00}
+[2025-09-14T20:43:17.220244] <118>[SceLncService] Num. of logged-in users is 1
+[2025-09-14T20:43:17.220430] <118>[SceLncService] PrepareProcessLaunchDebuggerCheck()
+[2025-09-14T20:43:17.220565] <118>[SceLncService] PrepareProcessLaunchDebuggerCheck() returned
+[2025-09-14T20:43:17.220676] <118>[SceLncService] PrepareProcessLaunchDebugger()
+[2025-09-14T20:43:17.220832] <118>[SceLncService] PrepareProcessLaunchDebugger() returned
+[2025-09-14T20:43:17.220935] <118>[SceShellCore] Skipped periodic check
+[2025-09-14T20:43:17.221040] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 45912213704
+[2025-09-14T20:43:17.221159] <118>[SceLncService] spawnApp
+[2025-09-14T20:43:17.221299] <118>[Syscore App] createApp NPXS21002
+[2025-09-14T20:43:17.221425] <118>[Syscore App] processSpawn(pid, 0x60000504, 0x10504050, appParam, processParam, 0, 0, 1, param, debug, 0)
+[2025-09-14T20:43:17.221568] <118>[Syscore App] appParam: appType = 0x2, rootPath = /mnt/sandbox/NPXS21002_000, titleId = NPXS21002
+[2025-09-14T20:43:17.222390] <118>[Syscore App] processParam: elfPath = /app0/eboot.bin, fullPath = /system/vsh/app/NPXS21002/eboot.bin
+[2025-09-14T20:43:17.222633] <118>[Syscore App] new pid=0x2d[Syscore App] attributeExe= 0
+[2025-09-14T20:43:17.222824] <118>[Syscore App] Ready to exec
+[2025-09-14T20:43:17.222958] <118>[Syscore App] wait for NOTE_EXIT|NOTE_EXEC
+[2025-09-14T20:43:17.223069] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.223174] <118>[Syscore App] Add event : pid=0x2d
+[2025-09-14T20:43:17.223277] <118>[AppMgr Trace]: New Process, pid=0x2d, created.
+[2025-09-14T20:43:17.223376] <118>[AppMgr Trace]: New App, appId=0x60000504, created
+[2025-09-14T20:43:17.223478] <118>[Syscore App]  ExpandCpuSetMode : enable
+[2025-09-14T20:43:17.223582] <118>[SceShellCore] START Video Core Server
+[2025-09-14T20:43:17.223688] <118>[SceLncService] launchApp(NPXS21004)
+[2025-09-14T20:43:17.223820] <118>[SceLncService] category={gdd} VRMode={0,0}
+[2025-09-14T20:43:17.223919] <118>[SceLncService] hnm,psnf,pc,tk,ns={0,0,0,0,0} appBootMode={-1}
+[2025-09-14T20:43:17.224017] <118>[SceLncService] appType={SCE_LNC_APP_TYPE_DAEMON} [] appVer={00.00}
+[2025-09-14T20:43:17.224117] <118>[SceLncService] Num. of logged-in users is 1
+[2025-09-14T20:43:17.224221] <118>[SceLncService] PrepareProcessLaunchDebuggerCheck()
+[2025-09-14T20:43:17.224319] <118>[SceLncService] PrepareProcessLaunchDebuggerCheck() returned
+[2025-09-14T20:43:17.224420] <118>[SceLncService] PrepareProcessLaunchDebugger()
+[2025-09-14T20:43:17.224517] <118>[SceLncService] PrepareProcessLaunchDebugger() returned
+[2025-09-14T20:43:17.224612] <118>[SceLncService] spawnApp
+[2025-09-14T20:43:17.224739] <118>[Syscore App] createApp NPXS21004
+[2025-09-14T20:43:17.224841] <118>[Syscore App] processSpawn(pid, 0x60000605, 0x10605060, appParam, processParam, 0, 0, 1, param, debug, 0)
+[2025-09-14T20:43:17.224941] <118>[Syscore App] appParam: appType = 0x2, rootPath = /mnt/sandbox/NPXS21004_000, titleId = NPXS21004
+[2025-09-14T20:43:17.225040] <118>[Syscore App] processParam: elfPath = /app0/eboot.bin, fullPath = /system/vsh/app/NPXS21004/eboot.bin
+[2025-09-14T20:43:17.225137] <118>[Syscore App] new pid=0x2e[Syscore App] attributeExe= 0
+[2025-09-14T20:43:17.225593] <118>[Syscore App] Ready to exec
+[2025-09-14T20:43:17.225860] <118>[Syscore App] wait for NOTE_EXIT|NOTE_EXEC
+[2025-09-14T20:43:17.226002] <118>[Syscore App] Add event : pid=0x2e
+[2025-09-14T20:43:17.226140] <118>[AppMgr Trace]: New Process, pid=0x2e, created.
+[2025-09-14T20:43:17.226252] <118>[AppMgr Trace]: New App, appId=0x60000605, created
+[2025-09-14T20:43:17.226316] <118>[Syscore App]  ExpandCpuSetMode : enable
+[2025-09-14T20:43:17.226376] <118>[SceShellCore] START Remote Play Daemon
+[2025-09-14T20:43:17.226435] <118>[SceLncService] launchApp(NPXS21006)
+[2025-09-14T20:43:17.226492] <118>[SceLncService] category={gdd} VRMode={0,0}
+[2025-09-14T20:43:17.226548] <118>[SceLncService] hnm,psnf,pc,tk,ns={0,0,0,0,0} appBootMode={-1}
+[2025-09-14T20:43:17.226606] <118>[SceLncService] appType={SCE_LNC_APP_TYPE_DAEMON} [] appVer={00.00}
+[2025-09-14T20:43:17.226662] <118>[SceLncService] Num. of logged-in users is 1
+[2025-09-14T20:43:17.226767] <118>[SceLncService] PrepareProcessLaunchDebuggerCheck()
+[2025-09-14T20:43:17.226864] <118>[SceLncService] PrepareProcessLaunchDebuggerCheck() returned
+[2025-09-14T20:43:17.226925] <118>[SceLncService] PrepareProcessLaunchDebugger()
+[2025-09-14T20:43:17.226983] <118>[SceLncService] PrepareProcessLaunchDebugger() returned
+[2025-09-14T20:43:17.227038] <118>[SceLncService] No heart beat of Shell UI has been observed for 1011 msec.
+[2025-09-14T20:43:17.227093] <118>[SceLncService] spawnApp
+[2025-09-14T20:43:17.227148] <118>[Syscore App] createApp NPXS21006
+[2025-09-14T20:43:17.227204] <118>[Syscore App] processSpawn(pid, 0x60000706, 0x10706070, appParam, processParam, 0, 0, 1, param, debug, 0)
+[2025-09-14T20:43:17.227263] <118>[Syscore App] appParam: appType = 0x2, rootPath = /mnt/sandbox/NPXS21006_000, titleId = NPXS21006
+[2025-09-14T20:43:17.227319] <118>[Syscore App] processParam: elfPath = /app0/eboot.bin, fullPath = /system/vsh/app/NPXS21006/eboot.bin
+[2025-09-14T20:43:17.227378] <118>[Syscore App] new pid=0x2f[Syscore App] attributeExe= 0
+[2025-09-14T20:43:17.227433] <118>[Syscore App] Ready to exec
+[2025-09-14T20:43:17.227505] <118>[Syscore App] wait for NOTE_EXIT|NOTE_EXEC
+[2025-09-14T20:43:17.227611] <118>[Syscore App] Add event : pid=0x2f
+[2025-09-14T20:43:17.227800] <118>[AppMgr Trace]: New Process, pid=0x2f, created.
+[2025-09-14T20:43:17.227908] <118>[AppMgr Trace]: New App, appId=0x60000706, created
+[2025-09-14T20:43:17.227970] <118>[Syscore App]  ExpandCpuSetMode : enable
+[2025-09-14T20:43:17.228070] <118>[SceShellCore] START PS Cloud Daemon
+[2025-09-14T20:43:17.228175] <118>[SceLncService] launchApp(NPXS21010)
+[2025-09-14T20:43:17.228270] <118>[SceLncService] category={gdd} VRMode={0,0}
+[2025-09-14T20:43:17.228363] <118>[SceLncService] hnm,psnf,pc,tk,ns={0,0,0,0,0} appBootMode={-1}
+[2025-09-14T20:43:17.228460] <118>[SceLncService] appType={SCE_LNC_APP_TYPE_DAEMON} [] appVer={00.00}
+[2025-09-14T20:43:17.228558] <118>[SceLncService] Num. of logged-in users is 1
+[2025-09-14T20:43:17.228671] <118>[SceLncService] PrepareProcessLaunchDebuggerCheck()
+[2025-09-14T20:43:17.228803] <118>[SceLncService] PrepareProcessLaunchDebuggerCheck() returned
+[2025-09-14T20:43:17.228913] <118>[SceLncService] PrepareProcessLaunchDebugger()
+[2025-09-14T20:43:17.229016] <118>[SceLncService] PrepareProcessLaunchDebugger() returned
+[2025-09-14T20:43:17.229114] <118>[SceLncService] spawnApp
+[2025-09-14T20:43:17.229212] <118>[Syscore App] createApp NPXS21010
+[2025-09-14T20:43:17.229312] <118>[Syscore App] processSpawn(pid, 0x60000807, 0x10807080, appParam, processParam, 0, 0, 1, param, debug, 0)
+[2025-09-14T20:43:17.229414] <118>[Syscore App] appParam: appType = 0x2, rootPath = /mnt/sandbox/NPXS21010_000, titleId = NPXS21010
+[2025-09-14T20:43:17.229512] <118>[Syscore App] processParam: elfPath = /app0/eboot.bin, fullPath = /system/vsh/app/NPXS21010/eboot.bin
+[2025-09-14T20:43:17.229620] <118>[Syscore App] new pid=0x30[Syscore App] attributeExe= 0
+[2025-09-14T20:43:17.229814] <118>[Syscore App] Ready to exec
+[2025-09-14T20:43:17.229959] <118>[Syscore App] wait for NOTE_EXIT|NOTE_EXEC
+[2025-09-14T20:43:17.230136] <118>[Syscore App] Add event : pid=0x30
+[2025-09-14T20:43:17.230281] <118>[AppMgr Trace]: New Process, pid=0x30, created.
+[2025-09-14T20:43:17.230411] <118>[AppMgr Trace]: New App, appId=0x60000807, created
+[2025-09-14T20:43:17.231776] <118>[Syscore App]  ExpandCpuSetMode : enable
+[2025-09-14T20:43:17.231936] <118>[SceShellCore] START SP ZeroConf
+[2025-09-14T20:43:17.232072] <118>[SceLncService] launchApp(NPXS21016)
+[2025-09-14T20:43:17.232204] <118>[SceLncService] category={gdd} VRMode={0,0}
+[2025-09-14T20:43:17.232325] <118>[SceLncService] hnm,psnf,pc,tk,ns={0,0,0,0,0} appBootMode={-1}
+[2025-09-14T20:43:17.232457] <118>[SceLncService] appType={SCE_LNC_APP_TYPE_DAEMON} [] appVer={00.00}
+[2025-09-14T20:43:17.232611] <118>[SceLncService] Num. of logged-in users is 1
+[2025-09-14T20:43:17.232779] <118>[SceLncService] PrepareProcessLaunchDebuggerCheck()
+[2025-09-14T20:43:17.232901] <118>[SceLncService] PrepareProcessLaunchDebuggerCheck() returned
+[2025-09-14T20:43:17.233045] <118>[SceLncService] PrepareProcessLaunchDebugger()
+[2025-09-14T20:43:17.233171] <118>[SceLncService] PrepareProcessLaunchDebugger() returned
+[2025-09-14T20:43:17.233294] <118>[SceLncService] spawnApp
+[2025-09-14T20:43:17.233404] <118>[Syscore App] createApp NPXS21016
+[2025-09-14T20:43:17.233518] <118>[Syscore App] processSpawn(pid, 0x60000908, 0x10908090, appParam, processParam, 0, 0, 1, param, debug, 0)
+[2025-09-14T20:43:17.233650] <118>[Syscore App] appParam: appType = 0x2, rootPath = /mnt/sandbox/NPXS21016_000, titleId = NPXS21016
+[2025-09-14T20:43:17.233804] <118>[Syscore App] processParam: elfPath = /app0/eboot.bin, fullPath = /system/vsh/app/NPXS21016/eboot.bin
+[2025-09-14T20:43:17.233912] <118>[Syscore App] new pid=0x31[Syscore App] attributeExe= 0
+[2025-09-14T20:43:17.234013] <118>[Syscore App] Ready to exec
+[2025-09-14T20:43:17.234114] <118>[Syscore App] wait for NOTE_EXIT|NOTE_EXEC
+[2025-09-14T20:43:17.234237] <118>[Syscore App] Add event : pid=0x31
+[2025-09-14T20:43:17.234606] <118>[AppMgr Trace]: New Process, pid=0x31, created.
+[2025-09-14T20:43:17.234841] <118>[AppMgr Trace]: New App, appId=0x60000908, created
+[2025-09-14T20:43:17.234977] <118>[Syscore App]  ExpandCpuSetMode : enable
+[2025-09-14T20:43:17.235102] <118>[SceShellCore] START Social Screen Manager
+[2025-09-14T20:43:17.235231] <118>[SceLncService] launchApp(NPXS21019)
+[2025-09-14T20:43:17.235358] <118>[SceLncService] category={gdd} VRMode={0,0}
+[2025-09-14T20:43:17.235463] <118>[SceLncService] hnm,psnf,pc,tk,ns={0,0,0,0,0} appBootMode={-1}
+[2025-09-14T20:43:17.236474] <118>[SceLncService] appType={SCE_LNC_APP_TYPE_DAEMON} [] appVer={00.00}
+[2025-09-14T20:43:17.236689] <118>[SceLncService] Num. of logged-in users is 1
+[2025-09-14T20:43:17.236869] <118>[SceLncService] PrepareProcessLaunchDebuggerCheck()
+[2025-09-14T20:43:17.236998] <118>[SceLncService] PrepareProcessLaunchDebuggerCheck() returned
+[2025-09-14T20:43:17.237154] <118>[SceLncService] PrepareProcessLaunchDebugger()
+[2025-09-14T20:43:17.237300] <118>[SceLncService] PrepareProcessLaunchDebugger() returned
+[2025-09-14T20:43:17.237432] <118>[SceLncService] W:\Build\J02541112\vsh\shell\shell_core\lnc_service\lnc_manager.cpp(2037) getAppId: LNC_ISOK::0x80940004->0xffffffff
+[2025-09-14T20:43:17.237550] <118>[Syscore App] Start sceApplicationAddProcess /app0/webrtc_daemon.self
+[2025-09-14T20:43:17.237656] <118>[Syscore App] calling add process
+[2025-09-14T20:43:17.237845] <118>[Syscore App] processSpawn(pid, 0x60000504, 0x105040a1, appParam, processParam, 0, 0, 0, param, debug, 0)
+[2025-09-14T20:43:17.238163] <118>[Syscore App] appParam: appType = 0x2, rootPath = /mnt/sandbox/NPXS21002_000, titleId = NPXS21002
+[2025-09-14T20:43:17.238284] <118>[Syscore App] processParam: elfPath = /app0/webrtc_daemon.self, fullPath = /system/vsh/app/NPXS21002/webrtc_daemon.self
+[2025-09-14T20:43:17.238400] <118>[SceLncService] spawnApp
+[2025-09-14T20:43:17.238507] <118>[Syscore App] createApp NPXS21019
+[2025-09-14T20:43:17.238610] <118>[Syscore App] new pid=0x32[Syscore App] attributeExe= 0
+[2025-09-14T20:43:17.238743] <118>[Syscore App] Ready to exec
+[2025-09-14T20:43:17.238859] <118>[Syscore App] wait for NOTE_EXIT|NOTE_EXEC
+[2025-09-14T20:43:17.238966] <118>[Syscore App] Add event : pid=0x32
+[2025-09-14T20:43:17.239069] <118>[AppMgr Trace]: New Process, pid=0x32, created.
+[2025-09-14T20:43:17.239171] <118>[Syscore App] processSpawn(pid, 0x60000a09, 0x10a090b0, appParam, processParam, 0, 0, 1, param, debug, 0)
+[2025-09-14T20:43:17.239293] <118>[Syscore App] appParam: appType = 0x2, rootPath = /mnt/sandbox/NPXS21019_000, titleId = NPXS21019
+[2025-09-14T20:43:17.239442] <118>[Syscore App] processParam: elfPath = /app0/eboot.bin, fullPath = /system/vsh/app/NPXS21019/eboot.bin
+[2025-09-14T20:43:17.239577] <118>[Syscore App] new pid=0x33[Syscore App] attributeExe= 0
+[2025-09-14T20:43:17.240048] <118>[Syscore App] Ready to exec
+[2025-09-14T20:43:17.240198] <118>[Syscore App] wait for NOTE_EXIT|NOTE_EXEC
+[2025-09-14T20:43:17.240312] <118>[Syscore App] Add event : pid=0x33
+[2025-09-14T20:43:17.240427] <118>[AppMgr Trace]: New Process, pid=0x33, created.
+[2025-09-14T20:43:17.240566] <118>[AppMgr Trace]: New App, appId=0x60000a09, created
+[2025-09-14T20:43:17.240753] <118>[Syscore App]  ExpandCpuSetMode : enable
+[2025-09-14T20:43:17.240930] <118>[SceShellCore] START Music Core Server
+[2025-09-14T20:43:17.241113] <118>[SceLncService] launchApp(NPXS21007)
+[2025-09-14T20:43:17.241224] <118>[SceLncService] category={gdd} VRMode={0,0}
+[2025-09-14T20:43:17.241329] <118>[SceLncService] hnm,psnf,pc,tk,ns={0,0,0,0,0} appBootMode={-1}
+[2025-09-14T20:43:17.241431] <118>[SceLncService] appType={SCE_LNC_APP_TYPE_DAEMON} [] appVer={00.00}
+[2025-09-14T20:43:17.241530] <118>[SceLncService] Num. of logged-in users is 1
+[2025-09-14T20:43:17.241629] <118>[SceLncService] PrepareProcessLaunchDebuggerCheck()
+[2025-09-14T20:43:17.242850] <118>[SceLncService] PrepareProcessLaunchDebuggerCheck() returned
+[2025-09-14T20:43:17.243081] <118>[SceLncService] PrepareProcessLaunchDebugger()
+[2025-09-14T20:43:17.244309] <118>[SceLncService] PrepareProcessLaunchDebugger() returned
+[2025-09-14T20:43:17.244490] <118>[SceLncService] spawnApp
+[2025-09-14T20:43:17.245219] <118>[Syscore App] createApp NPXS21007
+[2025-09-14T20:43:17.245393] <118>[Syscore App] processSpawn(pid, 0x60000b0a, 0x10b0a0c0, appParam, processParam, 0, 0, 1, param, debug, 0)
+[2025-09-14T20:43:17.245529] <118>[Syscore App] appParam: appType = 0x2, rootPath = /mnt/sandbox/NPXS21007_000, titleId = NPXS21007
+[2025-09-14T20:43:17.246383] <118>[Syscore App] processParam: elfPath = /app0/eboot.bin, fullPath = /system/vsh/app/NPXS21007/eboot.bin
+[2025-09-14T20:43:17.246569] <118>[Syscore App] new pid=0x34[Syscore App] attributeExe= 0
+[2025-09-14T20:43:17.246774] <118>[Syscore App] Ready to exec
+[2025-09-14T20:43:17.246946] <118>[Syscore App] wait for NOTE_EXIT|NOTE_EXEC
+[2025-09-14T20:43:17.247087] <118>[Syscore App] Add event : pid=0x34
+[2025-09-14T20:43:17.247225] <118>[AppMgr Trace]: New Process, pid=0x34, created.
+[2025-09-14T20:43:17.247474] <118>[AppMgr Trace]: New App, appId=0x60000b0a, created
+[2025-09-14T20:43:17.247624] <118>[Syscore App]  ExpandCpuSetMode : enable
+[2025-09-14T20:43:17.247772] <118>[SceShellCore] START Voice and Agent
+[2025-09-14T20:43:17.247889] <118>[SceLncService] launchApp(NPXS21020)
+[2025-09-14T20:43:17.247993] <118>[SceLncService] category={gdd} VRMode={0,0}
+[2025-09-14T20:43:17.248103] <118>[SceLncService] hnm,psnf,pc,tk,ns={0,0,0,0,0} appBootMode={-1}
+[2025-09-14T20:43:17.248230] <118>[SceLncService] appType={SCE_LNC_APP_TYPE_DAEMON} [] appVer={00.00}
+[2025-09-14T20:43:17.248385] <118>[SceLncService] Num. of logged-in users is 1
+[2025-09-14T20:43:17.248496] <118>[SceLncService] PrepareProcessLaunchDebuggerCheck()
+[2025-09-14T20:43:17.248762] <118>[SceLncService] PrepareProcessLaunchDebuggerCheck() returned
+[2025-09-14T20:43:17.248907] <118>[SceLncService] PrepareProcessLaunchDebugger()
+[2025-09-14T20:43:17.249014] <118>[SceLncService] PrepareProcessLaunchDebugger() returned
+[2025-09-14T20:43:17.249265] <118>[SceLncService] spawnApp
+[2025-09-14T20:43:17.249748] <118>[Syscore App] createApp NPXS21020
+[2025-09-14T20:43:17.249893] <118>[Syscore App] processSpawn(pid, 0x60000c0b, 0x10c0b0d0, appParam, processParam, 0, 0, 1, param, debug, 0)
+[2025-09-14T20:43:17.250002] <118>[Syscore App] appParam: appType = 0x2, rootPath = /mnt/sandbox/NPXS21020_000, titleId = NPXS21020
+[2025-09-14T20:43:17.250106] <118>[Syscore App] processParam: elfPath = /app0/eboot.bin, fullPath = /system/vsh/app/NPXS21020/eboot.bin
+[2025-09-14T20:43:17.250210] <118>[Syscore App] new pid=0x35[Syscore App] attributeExe= 0
+[2025-09-14T20:43:17.250307] <118>[Syscore App] Ready to exec
+[2025-09-14T20:43:17.250408] <118>[Syscore App] wait for NOTE_EXIT|NOTE_EXEC
+[2025-09-14T20:43:17.250978] <118>[Syscore App] Add event : pid=0x35
+[2025-09-14T20:43:17.251122] <118>[AppMgr Trace]: New Process, pid=0x35, created.
+[2025-09-14T20:43:17.251233] <118>[AppMgr Trace]: New App, appId=0x60000c0b, created
+[2025-09-14T20:43:17.251334] <118>[Syscore App]  ExpandCpuSetMode : enable
+[2025-09-14T20:43:17.251436] <118>[SceSysCore] spawn /system/sys/fs_cleaner.elf OK
+[2025-09-14T20:43:17.251536] <118>fs_cleaner: fs_clean(172)  * cleaned mountpoints=0/654, files=0
+[2025-09-14T20:43:17.251638] <118>[UMD MAIN] launching VdecProxy PID=0x37
+[2025-09-14T20:43:17.251769] <118>[UMD MAIN] launching VencProxy PID=0x38
+[2025-09-14T20:43:17.251870] <118>[mbus] onNewClient. clientNum 8 over 8
+[2025-09-14T20:43:17.251966] <118>[mbus] onNewClient. clientNum 9 over 8
+[2025-09-14T20:43:17.252079] <118>[SceLncService] W:\Build\J02541112\vsh\shell\shell_core\lnc_service\lnc_manager.cpp(2037) getAppId: LNC_ISOK::0x80940004->0xffffffff
+[2025-09-14T20:43:17.252202] <118>[BGFT] [RDL2] [SoC] onAdd() <<< start checking user = 10df5bd5, Not Primary >>
+[2025-09-14T20:43:17.252336] <118>[BGFT] [RDL2] [SoC] onCancel() <<< start checking user = 10df5bd5 >>
+[2025-09-14T20:43:17.252443] <118>[BGFT] [RDL2] [SoC] Error : getNotificationDetail(usercancelled) = 0x80550006
+[2025-09-14T20:43:17.252550] <118>[BGFT] [RDL2] [SoC] onAdd() <<< start checking user = 10df5bd6, Not Primary >>
+[2025-09-14T20:43:17.252657] <118>[BGFT] [RDL2] [SoC] onCancel() <<< start checking user = 10df5bd6 >>
+[2025-09-14T20:43:17.252793] <118>[BGFT] [RDL2] [SoC] Error : getNotificationDetail(usercancelled) = 0x8055000a
+[2025-09-14T20:43:17.252860] SERIAL_PRINT_TIME_TICK#: 28355 msec -- StartFarsightUI : end
+[2025-09-14T20:43:17.252961] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 47887050002
+[2025-09-14T20:43:17.253084] <118>[SceShellUI] I/PSM.UI : SceneQ : Loaded[1970.11msec] Layout[0.00msec/0widgets] : QuickMenuPlugin : QuickMenuPlugin
+[2025-09-14T20:43:17.253201] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.253339] <118>SetDeviceIndexBehavior: mode=SpecificUser, param=0x10df5bd5
+[2025-09-14T20:43:17.253441] <118>[Theme/I] : ActiveUserChanged : From : [NONE(userId = ffffffff)] (Mount processing..)
+[2025-09-14T20:43:17.253550] <118>[Theme/I] : ActiveUserChanged : To   : [NONE(userId = 10df5bd5)] (Mount processing..)
+[2025-09-14T20:43:17.253664] <118>@ busStatusChangeSubscribe:L4750
+[2025-09-14T20:43:17.253815] <118>[SceShellUI] I/PSM.UI : [WebRunLoop] Initialize
+[2025-09-14T20:43:17.253927] <118>[Theme/I] : Mount[ANONYMOUS] : [Icons] : default icons
+[2025-09-14T20:43:17.254031] <118>[Theme/I] : Mount[ANONYMOUS] : [BgSceneGraph] : [HomeScreen:N/A][FuncScreen:N/A]
+[2025-09-14T20:43:17.254137] <118>[Theme/I] : Mount[ANONYMOUS] : [Color] : [Font:FFFFFFFF][FontShadow:00000000][ThemedFocus:0000BAFF]
+[2025-09-14T20:43:17.254245] <118>[Theme/I] : Mount[ANONYMOUS] : [Dimmer] : [Home:00000000][Function:00000000][Title:00000000]
+[2025-09-14T20:43:17.254348] <118>[Theme/I] : Mount[ANONYMOUS] : [Bgm/SE] : [bgmHome:D][seDecide:D][seCancel:D][seCursor:D]
+[2025-09-14T20:43:17.254447] <118>[Theme/I] : ** Mount finished : [ANONYMOUS][Type:Original] **
+[2025-09-14T20:43:17.254550] <118>[Syscore App] Start sceApplicationAddProcess /ns48PBbnM6/common/lib/SecureUIProcess.self
+[2025-09-14T20:43:17.254809] <118>[Syscore App] calling add process
+[2025-09-14T20:43:17.254930] <118>[Syscore App] processSpawn(pid, 0x60000201, 0x102010e1, appParam, processParam, 0, 0, 0, param, debug, 0)
+[2025-09-14T20:43:17.255035] <118>[Syscore App] appParam: appType = 0x5, rootPath = /mnt/sandbox/NPXS20001_000, titleId = NPXS20001
+[2025-09-14T20:43:17.255136] <118>[Syscore App] processParam: elfPath = /ns48PBbnM6/common/lib/SecureUIProcess.self, fullPath = /system/common/lib/SecureUIProcess.self
+[2025-09-14T20:43:17.255239] <118>[Syscore App] new pid=0x39[Syscore App] attributeExe= 0
+[2025-09-14T20:43:17.255335] <118>[Syscore App] Ready to exec
+[2025-09-14T20:43:17.255434] <118>[Syscore App] wait for NOTE_EXIT|NOTE_EXEC
+[2025-09-14T20:43:17.255536] <118>[ShellUI][SharedWebView][BVT] Constructor : 0 ms
+[2025-09-14T20:43:17.255635] <118>[Syscore Umd] Event id=SCE_UMD_SYSTEM_VSH_READY(0xa), phase=0 start
+[2025-09-14T20:43:17.255777] <118>[Syscore Umd] Event id=SCE_UMD_SYSTEM_VSH_READY(0xa), phase=0 end
+[2025-09-14T20:43:17.255882] <118>[Syscore Umd] Event id=SCE_UMD_SYSTEM_VSH_READY(0xa), phase=1 start
+[2025-09-14T20:43:17.255987] <118>[Syscore Umd] Event id=SCE_UMD_SYSTEM_VSH_READY(0xa), phase=1 end
+[2025-09-14T20:43:17.256109] <118>[Syscore Umd] Event id=SCE_UMD_SYSTEM_VSH_READY(0xa), phase=2 start
+[2025-09-14T20:43:17.256210] <118>[Syscore Umd] Event id=SCE_UMD_SYSTEM_VSH_READY(0xa), phase=2 end
+[2025-09-14T20:43:17.256322] <118>[Syscore Umd] Event id=SCE_UMD_SYSTEM_VSH_READY(0xa), phase=3 start
+[2025-09-14T20:43:17.256437] <118>[Syscore Umd] Event id=SCE_UMD_SYSTEM_VSH_READY(0xa), phase=3 end
+[2025-09-14T20:43:17.256808] <118>[Syscore Umd] Event id=SCE_UMD_SYSTEM_VSH_READY(0xa), phase=4 start
+[2025-09-14T20:43:17.256948] <118>[Syscore Umd] Event id=SCE_UMD_SYSTEM_VSH_READY(0xa), phase=4 end
+[2025-09-14T20:43:17.257053] <118>[BOOT TIME]   ShellUI:   31174 msec: vsh resume progress: ready to boot game
+[2025-09-14T20:43:17.257158] <118>[Sce.Vsh.Db.Shared.ConnectionManager] Open /ns48PBbnM6/priv/mms/notification.db, ReadWrite 
+[2025-09-14T20:43:17.257263] <118>[Performance Warning] framedrop count 139
+[2025-09-14T20:43:17.257364] <118>[Syscore App] Add event : pid=0x39
+[2025-09-14T20:43:17.257463] <118>[AppMgr Trace]: New Process, pid=0x39, created.
+[2025-09-14T20:43:17.257581] <118>[Theme/I] : ** Mount started **
+[2025-09-14T20:43:17.257734] <118>[Theme/I] : Mount : [UID:10df5bd5:BLUE]
+[2025-09-14T20:43:17.257862] <118>[Theme/I] : Mount : DualColor theme user.
+[2025-09-14T20:43:17.257990] <118>[Theme/I] : Mount[BLUE] : [ThemeColor] : DualColor3
+[2025-09-14T20:43:17.258125] <118>[Theme/I] : Mount[BLUE] : [BgTexture] : [HomeScreen:N/A][FuncScreen:N/A]
+[2025-09-14T20:43:17.258253] <118>[Theme/I] : Mount[BLUE] : [Icons] : default icons
+[2025-09-14T20:43:17.258358] <118>[Theme/I] : Mount[BLUE] : [BgSceneGraph] : [HomeScreen:N/A][FuncScreen:N/A]
+[2025-09-14T20:43:17.258462] <118>[Theme/I] : Mount[BLUE] : [Color] : [Font:FFFFFFFF][FontShadow:00000000][ThemedFocus:0000BAFF]
+[2025-09-14T20:43:17.258562] <118>[Theme/I] : Mount[BLUE] : [Dimmer] : [Home:00000000][Function:00000000][Title:00000000]
+[2025-09-14T20:43:17.258658] <118>[Theme/I] : Mount[BLUE] : [Bgm/SE] : [bgmHome:D][seDecide:D][seCancel:D][seCursor:D]
+[2025-09-14T20:43:17.258818] <118>[Theme/I] : ** Mount finished : [BLUE][Type:SystemEmbedded] **
+[2025-09-14T20:43:17.258937] SERIAL_PRINT_TIME_TICK#: 30170 msec -- ProcessBackgroundInit : end
+[2025-09-14T20:43:17.259062] SERIAL_PRINT_TIME_TICK#: 30209 msec -- LAP : HealthWarningController : ShowHealthWarning : finish animation
+[2025-09-14T20:43:17.259216] <118>[SceShellUI] I/PSM.UI : ** Unload enqueue: HealthWarning : Scene
+[2025-09-14T20:43:17.259386] <118>[AppDb] EraseMediaDiscThumbnailAndTitleName()[269]: called
+[2025-09-14T20:43:17.259537] <118>[AppDb] eraseAllFilesInDir()[115]: opendir error: path = [/user/temp/media_event_listener/thumbnail/]
+[2025-09-14T20:43:17.259688] <118>[AppDb][Server] Rcv Event 3
+[2025-09-14T20:43:17.259833] <118>enableMediaEvent()[923]: [MediaEvent] enableMediaEvent()
+[2025-09-14T20:43:17.259909] <118>enableMediaEvent()[926]: [MediaEvent] enableMediaEvent() locked.
+[2025-09-14T20:43:17.259979] <118>enableDiscEvent()[665]: [MediaEvent] enableDiscEvent() locked.
+[2025-09-14T20:43:17.260058] <118>-- boot sequence finished --
+[2025-09-14T20:43:17.260202] <118>MSG AutoMounterMelUtil(int32_t sceAutomounterMelUtil::unregisterDiscInsertionCallback() 1238):
+[2025-09-14T20:43:17.260343] <118>	callback for disc insertion event has not been registered yet.
+[2025-09-14T20:43:17.260476] <118>MSG AutoMounterMelUtil(int32_t sceAutomounterMelUtil::unregisterDiscEjectionCallback() 1279):
+[2025-09-14T20:43:17.260625] <118>	callback for disc insertion event has not been registered yet.
+[2025-09-14T20:43:17.260798] <118>MSG AutoMounterMelUtil(int32_t sceAutomounterMelUtil::unregisterDiscMountCallback() 1130):
+[2025-09-14T20:43:17.260910] <118>	callback for mount event has been not registered yet.
+[2025-09-14T20:43:17.261011] <118>MSG AutoMounterMelUtil(int32_t sceAutomounterMelUtil::unregisterDiscUnmountCallback() 1190):
+[2025-09-14T20:43:17.261111] <118>	callback for umount event has not been registered yet.
+[2025-09-14T20:43:17.261215] <118>MSG AutoMounterMelUtil(int32_t sceAutomounterMelUtil::getDiscStatus(int *) 1403):
+[2025-09-14T20:43:17.261342] <118>	no-disc state.
+[2025-09-14T20:43:17.261465] <118>enableUsbStorage()[749]: [MediaEvent] enableUsbStorage() locked.
+[2025-09-14T20:43:17.261580] <118>ERROR AutoMounterMelUtil(int32_t sceAutomounterMelUtil::unregisterUsbStorageMountCallback() 1320):
+[2025-09-14T20:43:17.261681] <118>	callback for mount event has been not registered yet.
+[2025-09-14T20:43:17.261842] <118>ERROR AutoMounterMelUtil(int32_t sceAutomounterMelUtil::unregisterUsbStorageUnmountCallback() 1361):
+[2025-09-14T20:43:17.262507] <118>	callback for umount event has not been registered yet.
+[2025-09-14T20:43:17.262643] <118>MSG AutoMounter(void AutoMount::PsmEventNotifier::enable() 426):
+[2025-09-14T20:43:17.262799] <118>	PsmEventNotifier::enable()
+[2025-09-14T20:43:17.262919] <118>InitializeExternalHddManager()[1248]: [MediaEvent] InitializeExternalHddManager()
+[2025-09-14T20:43:17.263047] <118>InitializeExternalHddManager()[1250]: [MediaEvent] InitializeExternalHddManager()start
+[2025-09-14T20:43:17.263177] <118>InitializeExternalHddManager()[1288]: [MediaEvent] usbId=0x0,last_connect=0,now_connect=0
+[2025-09-14T20:43:17.266317] <118>InitializeExternalHddManager()[1361]: [MediaEvent] InitializeExternalHddManager()end.ret=0x0,promote_result=0x0
+[2025-09-14T20:43:17.266449] <118>[Performance Warning] framedrop count 8
+[2025-09-14T20:43:17.266541] <118>[Performance Warning] framedrop count 3
+[2025-09-14T20:43:17.266624] <118>[SceShellUI] I/PSM.UI : SceneQ : Loaded[0.01msec] Layout[0.00msec/0widgets] : Notification : NotificationScene
+[2025-09-14T20:43:17.266731] <118>[Performance Warning] framedrop count 1
+[2025-09-14T20:43:17.266809] <118>[SceShellUI] I/PSM.UI : SceneQ : Loaded[0.01msec] Layout[0.00msec/0widgets] : VoiceRecognitionUI : VoiceRecognitionScene
+[2025-09-14T20:43:17.266885] <118>[SceShellUI] I/PSM.UI : SceneQ : Loaded[0.00msec] Layout[0.00msec/0widgets] : CdlgShellContainer : ContainerScene
+[2025-09-14T20:43:17.268019] <118>[SceShellUI] I/PSM.UI : SceneQ : Loaded[0.00msec] Layout[0.00msec/0widgets] : CdlgShellContainer : ContainerScene
+[2025-09-14T20:43:17.268213] <118>[SceShellUI] I/PSM.UI : SceneQ : Loaded[0.00msec] Layout[0.00msec/0widgets] : ScreenShotScene : ScreenShotScene
+[2025-09-14T20:43:17.268322] <118>[SceShellUI] I/PSM.UI : SceneQ : Loaded[2.78msec] Layout[0.00msec/0widgets] : ShareNavigationScene : ShareNavigationScene
+[2025-09-14T20:43:17.268413] <118>[Theme/I] : OnUnload : [ANONYMOUS(userId = ffffffff)]
+[2025-09-14T20:43:17.268501] <118>[Theme/I] : OnPreload : [BLUE(userId = 10df5bd5)]
+[2025-09-14T20:43:17.268583] <118>[SceShellUI] I/PSM.UI : SceneQ : Loaded[3.64msec] Layout[0.00msec/0widgets] : TopMenuControlPlugin : TopMenuControlPlugin
+[2025-09-14T20:43:17.268659] <118>GetLocaleElement() failed in SetLocale
+[2025-09-14T20:43:17.268755] <118>[Performance Warning] framedrop count 1
+[2025-09-14T20:43:17.268846] <118>[AppDb] DequeueCmdMsgFromShellUI()[518]: app_db_client: [queue]: 0, [msg] cmd: 13, opt:4, index: 0
+[2025-09-14T20:43:17.268923] <118>[AudioOut] sceAudioOutOpen() with restricted flag:pid=0x2a ch=8
+[2025-09-14T20:43:17.268993] <118>[Theme/I] : ** Unload started : [ANONYMOUS][Type:Original] **
+[2025-09-14T20:43:17.269066] <118>[Theme/I] : ** Unload finished : [ANONYMOUS][Type:Original] **
+[2025-09-14T20:43:17.269140] <118>[Theme/I] : ** Preload started : [BLUE][Type:SystemEmbedded] **
+[2025-09-14T20:43:17.269244] <118>[Theme/I] : Preload[BLUE] : [BgTexture] : no entry
+[2025-09-14T20:43:17.269320] <118>[Theme/I] : Preload[BLUE] : [Icons] : default icons
+[2025-09-14T20:43:17.269393] <118>[Theme/I] : Preload[BLUE] : [BgSceneGraph] : no entry
+[2025-09-14T20:43:17.269468] <118>[Theme/I] : Preload[BLUE] : [Color] : [Font:FFFFFFFF][FontShadow:00000000]
+[2025-09-14T20:43:17.270810] <118>[Theme/I] : Preload[BLUE] : [Dimmer] : [Home:00000000][Function:00000000][Title:00000000]
+[2025-09-14T20:43:17.270981] <118>[Theme/I] : Preload[BLUE] : [Bgm] : default sounds
+[2025-09-14T20:43:17.271088] <118>[SceShellUI] I/PSM.UI : LoadAsync of custom SE is finished.
+[2025-09-14T20:43:17.271177] <118>[Theme/I] : ** Preload finished : [BLUE][Type:SystemEmbedded] **
+[2025-09-14T20:43:17.271321] <118>[Theme/I] : Apply [BLUE] : [Option:111111]: with preloaded user
+[2025-09-14T20:43:17.271435] <118>[ThemeColorManager] Update ThemeColor Skin to DualColor3
+[2025-09-14T20:43:17.271519] <118>[SceShellUI] W/PSM.UI : ** NOTICE: LoadSync : TopMenuFrameScene : VoiceRecognitionFrameScene
+[2025-09-14T20:43:17.271595] <118>[SceShellUI] I/PSM.UI : Created font: name=[__System__], size=[30], style=[Normal], weight=[Light], handle=[0x94517b2f]
+[2025-09-14T20:43:17.271669] <118>[SceShellUI] W/PSM.UI : ** NOTICE: LoadSync : LiveArea : ContainerScene
+[2025-09-14T20:43:17.272393] <118>[SceShellUI] W/PSM.UI : ** NOTICE: LoadSync : ContentsArea : ContainerScene
+[2025-09-14T20:43:17.272512] <118>[SceShellUI] W/PSM.UI : ** NOTICE: LoadSync : SystemArea : ContainerScene
+[2025-09-14T20:43:17.272602] <118>[SceShellUI] W/PSM.UI : ** NOTICE: LoadSync : TopMenuFG : Scene
+[2025-09-14T20:43:17.272681] <118>[SceLncService] Enable SecureWebProcess.self to expand CPU
+[2025-09-14T20:43:17.272787] <118>[Syscore App] Start sceApplicationAddProcess /ns48PBbnM6/common/lib/SecureWebProcess.self
+[2025-09-14T20:43:17.272860] <118>[Syscore App] calling add process
+[2025-09-14T20:43:17.272934] <118>[Syscore App] processSpawn(pid, 0x60000201, 0x102010f2, appParam, processParam, 0, 0, 0, param, debug, 0)
+[2025-09-14T20:43:17.273004] <118>[Syscore App] appParam: appType = 0x5, rootPath = /mnt/sandbox/NPXS20001_000, titleId = NPXS20001
+[2025-09-14T20:43:17.273074] <118>[Syscore App] processParam: elfPath = /ns48PBbnM6/common/lib/SecureWebProcess.self, fullPath = /system/common/lib/SecureWebProcess.self
+[2025-09-14T20:43:17.273146] <118>[Syscore App] new pid=0x3a[Syscore App] attributeExe= 0
+[2025-09-14T20:43:17.273215] <118>[Syscore App] Ready to exec
+[2025-09-14T20:43:17.273287] <118>[Syscore App] wait for NOTE_EXIT|NOTE_EXEC
+[2025-09-14T20:43:17.273365] <118>[SceShellUI][BVT] TopMenuPlugin Loaded.
+[2025-09-14T20:43:17.273453] <118>[SceShellUI] I/PSM.UI : SceneQ : Loaded[0.01msec] Layout[0.00msec/0widgets] : TopMenuPlugin : TopMenuPlugin
+[2025-09-14T20:43:17.273550] <118>[Syscore App] Add event : pid=0x3a
+[2025-09-14T20:43:17.273688] <118>[AppMgr Trace]: New Process, pid=0x3a, created.
+[2025-09-14T20:43:17.273845] <118>[Performance Warning] framedrop count 2
+[2025-09-14T20:43:17.273931] <118>[SceShellUI] I/PSM.UI : SceneQ : Loaded[1.34msec] Layout[0.00msec/0widgets] : TopMenuControlPlugin : TopMenuControlPlugin
+[2025-09-14T20:43:17.274013] <118>[SceShellUI] I/PSM.UI : SceneQ : Unloaded[0.20msec] : HealthWarning : Scene
+[2025-09-14T20:43:17.274124] <118>[SceShellUI] I/PSM.UI : Created font: name=[__System__], size=[22], style=[Normal], weight=[Medium], handle=[0x94517a2f]
+[2025-09-14T20:43:17.274198] <118>[SceShellUI] I/PSM.UI : Created font: name=[__System__], size=[26], style=[Normal], weight=[Light], handle=[0x9451792f]
+[2025-09-14T20:43:17.274258] <118>[SceShellUI] W/PSM.UI : WARNING : Scene LayoutBuild : [9.47msec/52widgets] : SystemArea : SystemAreaScene
+[2025-09-14T20:43:17.274329] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 49861729991
+[2025-09-14T20:43:17.274399] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.274466] <118>[SceShellUI] I/PSM.UI : Created font: name=[__System__], size=[22], style=[Normal], weight=[Light], handle=[0x94516b2f]
+[2025-09-14T20:43:17.274605] <118>[SceShellUI] I/PSM.UI : SceneQ : Loaded[0.01msec] Layout[9.47msec/52widgets] : SystemArea : SystemAreaScene
+[2025-09-14T20:43:17.274691] <118>[SceShellUI] I/PSM.UI : Created font: name=[__System__], size=[26], style=[Normal], weight=[Normal], handle=[0x94516e2f]
+[2025-09-14T20:43:17.274784] <118>[Performance Warning] framedrop count 5
+[2025-09-14T20:43:17.274861] <118>[SceShellUI] I/PSM.UI : SceneQ : Loaded[0.05msec] Layout[0.48msec/1widgets] : LiveAreaScene : LiveAreaScene
+[2025-09-14T20:43:17.274899] <118>[SceShellUI] I/PSM.UI : Created font: name=[__System__], size=[26], style=[Italic], weight=[Light], handle=[0x9451552f]
+[2025-09-14T20:43:17.274931] <118>PRINT_TIME_TICK#: 31322 msec -- BootEffect : start
+[2025-09-14T20:43:17.274963] SERIAL_PRINT_TIME_TICK#: 31322 msec -- BootEffect : start
+[2025-09-14T20:43:17.274993] <118>[SceShellUI] I/PSM.UI : OnFocusActiveSceneChanged [TopMenuBG : Scene] -> [ContentAreaScene : ContentAreaScene]
+[2025-09-14T20:43:17.275024] <118>[SceShellUI] I/PSM.UI :      Scene [ContentAreaScene : ContentAreaScene] : Alive
+[2025-09-14T20:43:17.275054] <118>SetDeviceIndexBehavior: mode=SpecificUser, param=0x10df5bd5
+[2025-09-14T20:43:17.275088] <118>[Theme/I] : Apply [BLUE] : [Option:111111]: with preloaded user
+[2025-09-14T20:43:17.275116] <118>[SceShellUI] I/PSM.UI : SceneQ : Loaded[0.01msec] Layout[0.21msec/1widgets] : ContentAreaScene : ContentAreaScene
+[2025-09-14T20:43:17.275146] <118>[Performance Warning] framedrop count 8
+[2025-09-14T20:43:17.275175] <118>[SceShellUI] I/PSM.UI : Created font: name=[__System__], size=[30], style=[Italic], weight=[Light], handle=[0x94514f2f]
+[2025-09-14T20:43:17.275204] <118>GetPlusInfoJob : Run(Start)
+[2025-09-14T20:43:17.275233] <118>GetPlusInfoJob : Run(End)
+[2025-09-14T20:43:17.275270] <118>GetPlusInfoJob : Finish / Cancelled False / Result True
+[2025-09-14T20:43:17.275330] <118>[UpdateUserInfoforPlus] upd_userId : 283073493 / type : None
+[2025-09-14T20:43:17.275381] <118>[Performance Warning] framedrop count 2
+[2025-09-14T20:43:17.275440] <118>D/88391:NPXS20108
+[2025-09-14T20:43:17.275517] <118>[Syscore App] Start sceApplicationAddProcess /ns48PBbnM6/common/lib/orbis-jsc-compiler.self
+[2025-09-14T20:43:17.275597] <118>[Syscore App] calling add process
+[2025-09-14T20:43:17.275656] <118>[Syscore App] processSpawn(pid, 0x60000201, 0x10201103, appParam, processParam, 0, 0, 0, param, debug, 0)
+[2025-09-14T20:43:17.275786] <118>[Syscore App] appParam: appType = 0x5, rootPath = /mnt/sandbox/NPXS20001_000, titleId = NPXS20001
+[2025-09-14T20:43:17.275835] <118>[Syscore App] processParam: elfPath = /ns48PBbnM6/common/lib/orbis-jsc-compiler.self, fullPath = /system/common/lib/orbis-jsc-compiler.self
+[2025-09-14T20:43:17.275867] <118>[Syscore App] new pid=0x3b[Syscore App] attributeExe= 0
+[2025-09-14T20:43:17.275898] <118>[Syscore App] Ready to exec
+[2025-09-14T20:43:17.275927] <118>[Syscore App] wait for NOTE_EXIT|NOTE_EXEC
+[2025-09-14T20:43:17.275957] <118>[Syscore App] Add event : pid=0x3b
+[2025-09-14T20:43:17.275987] <118>[AppMgr Trace]: New Process, pid=0x3b, created.
+[2025-09-14T20:43:17.276019] <118>[Sce.Vsh.Db.Shared.ConnectionManager] Open /ns48PBbnM6/priv/messages/10df5bd5/messages.db(),/ns48PBbnM6/priv/messages/10df5bd5/attachment.db(attach1), ReadOnly 
+[2025-09-14T20:43:17.276051] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 51820571929
+[2025-09-14T20:43:17.276085] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.276115] <118>#LOGIN MGR# : \event_thread.cpp(129) : Run : Event Received : SCE_LOGIN_MGR_EVENT_RESUME_EVENT_WATCH
+[2025-09-14T20:43:17.276146] <118>#LOGIN MGR# [RunDisableWaitData]
+[2025-09-14T20:43:17.276177] <118>#LOGIN MGR# [DequeueDisableWaitData] deviceId : 0xffffffffffffffff / size : 0 
+[2025-09-14T20:43:17.276208] <118>#LOGIN MGR# [RunDisableWaitData] ret : -2135556087 / deviceId : 0xffffffffffffffff 
+[2025-09-14T20:43:17.276239] <118>PRINT_TIME_TICK#: 33269 msec -- BootEffect : end
+[2025-09-14T20:43:17.276307] <118>PRINT_TIME_TICK#: 33269 msec -- FinishBootEffect : Shell UI is Ready.
+[2025-09-14T20:43:17.276365] SERIAL_PRINT_TIME_TICK#: 33269 msec -- BootEffect : end
+[2025-09-14T20:43:17.276421] SERIAL_PRINT_TIME_TICK#: 33305 msec -- FinishBootEffect : Shell UI is Ready.
+[2025-09-14T20:43:17.276479] <118>[BVT] Cold boot time : 33313 msec
+[2025-09-14T20:43:17.276538] <118>[BVT] frame drop : 414
+[2025-09-14T20:43:17.276593] <118>[SceShellUI] I/PSM.UI : Created font: name=[__System__], size=[60], style=[Normal], weight=[Light], handle=[0x9451132f]
+[2025-09-14T20:43:17.276649] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 53795315260
+[2025-09-14T20:43:17.276729] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.276774] <118>[ShellUI][SharedWebView][BVT] OnFinishedLoad : 2650 ms
+[2025-09-14T20:43:17.276808] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 55754158744
+[2025-09-14T20:43:17.276841] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.276874] <118>[SceShellUI] I/RNPS : CCTOR WarmUp - unable to find type by name: ReactNative.Views.Web.Dialog.Font, ReactNative.PUI.
+[2025-09-14T20:43:17.276907] <118>[avs] no need to change 0,1,57675217754
+[2025-09-14T20:43:17.276939] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.276971] <118>* registerDevice:L1621 not found sub device id.
+[2025-09-14T20:43:17.277002] <118>* setAudioInDevConnection:L891 not found sub device id.
+[2025-09-14T20:43:17.277035] <118>* setAudioOutDevConnection:L995 not found sub device id.
+[2025-09-14T20:43:17.277125] <118>ScePsP[TID:0x18873]: sceMbusEvent has been received. (eventId=1 ADD, deviceId=0x30300)
+[2025-09-14T20:43:17.277187] <118>ScePsP[TID:0x18873]: Open Pad [0x0000000000030300, 0, 0]: ret=0x03020301
+[2025-09-14T20:43:17.277250] <118>ScePsP[TID:0x18873]: ConnectedDeviceStatus: count=2
+[2025-09-14T20:43:17.277305] <118>  [c][DeviceId          ][UserId    ][Model     ]
+[2025-09-14T20:43:17.277362] <118>  [o][0x0000000000030300][0xffffffff][REMOTEPLAY]
+[2025-09-14T20:43:17.277419] <118>  [ ][0xffffffffffffffff][0xffffffff][none      ]
+[2025-09-14T20:43:17.277477] <118>  [ ][0xffffffffffffffff][0xffffffff][none      ]
+[2025-09-14T20:43:17.277535] <118>  [ ][0xffffffffffffffff][0xffffffff][none      ]
+[2025-09-14T20:43:17.277605] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_DEVICE_ADDED [DeviceId:0x30300][type:4][subType:2]
+[2025-09-14T20:43:17.277673] <118>D/125878 X
+[2025-09-14T20:43:17.277755] <118>#LOGIN MGR# isIduMode = 0
+[2025-09-14T20:43:17.277815] <118>#LOGIN MGR# [TriggerPapcUpdate] userId=0x10df5bd5
+[2025-09-14T20:43:17.277869] <118>#LOGIN MGR# getControllerNum() : 1
+[2025-09-14T20:43:17.277922] <118>ForegroundUser : 0x10df5bd5
+[2025-09-14T20:43:17.277978] <118>#LOGIN MGR# [Login] userId=0x10df5bd5, isLoged-in=1
+[2025-09-14T20:43:17.278034] <118>#LOGIN MGR# isIduMode = 0
+[2025-09-14T20:43:17.278092] <118>#LOGIN MGR# #### LoginProcess start ####
+[2025-09-14T20:43:17.278153] <118>#LOGIN MGR# isLogin = 1
+[2025-09-14T20:43:17.278221] <118>#LOGIN MGR# #### LoginProcess end ####
+[2025-09-14T20:43:17.278280] <118>#LOGIN MGR# [Assign] DeviceId:0x0000000000030300 / UserId:0x10df5bd5
+[2025-09-14T20:43:17.278337] <118>#LOGIN MGR# [Controller::onHoldDevice] userId = 0x10df5bd5 / holdAudioOutDeivice : 0
+[2025-09-14T20:43:17.278396] <118>#LOGIN MGR# [AudioDeviceStateChange] updState : 0 / functionType : 1 / scrachData : 128
+[2025-09-14T20:43:17.278464] <118>#LOGIN MGR# [AudioDeviceStateChange] function : 0 / isEnabled : 110 / realState : 543301733
+[2025-09-14T20:43:17.278524] <118>#LOGIN MGR# [AudioDeviceStateChange] updState : 0 / functionType : 2 / scrachData : 64
+[2025-09-14T20:43:17.278583] <118>#LOGIN MGR# [AudioDeviceStateChange] function : 0 / isEnabled : 114 / realState : 8
+[2025-09-14T20:43:17.278636] <118>@ connectDeviceByFunction:L1258
+[2025-09-14T20:43:17.278729] <118>@ checkAudioOutHandleStatus:L2487
+[2025-09-14T20:43:17.278770] <118>#LOGIN MGR# sceMbusBindDeviceWithUserId( 0x0000000000030300, 0x10df5bd5 ) : 0(0x00000000)
+[2025-09-14T20:43:17.278820] <118>#LOGIN MGR# SetDisableVibration( 0x0000000000030300, 0 )
+[2025-09-14T20:43:17.278852] <118>#LOGIN MGR# EnablePadKeyRemapping start( 1, 0x30300, 0x10df5bd5, 1 )
+[2025-09-14T20:43:17.278883] <118>#LOGIN MGR# IsKeyRemapEnable start( 0x10df5bd5 )
+[2025-09-14T20:43:17.278914] <118>#LOGIN MGR# IsKeyRemapEnable end( 0x10df5bd5 ) -> 0 
+[2025-09-14T20:43:17.278943] <118>#LOGIN MGR# EnablePadKeyRemapping end( 1, 0x30300, 0x10df5bd5, 1 ) -> 0(0x00000000)
+[2025-09-14T20:43:17.278974] <118>#LOGIN MGR# : \login_mgr.cpp(423) : NotifyDeviceAssign : OnDeviceAdded(NotifyDeviceAssign) event send.
+[2025-09-14T20:43:17.279006] <118>sceRegMgrGetInt() : ret=0x00000000, AutoLoginUserId=0x10df5bd5
+[2025-09-14T20:43:17.279037] <118>#LOGIN MGR# SCE_REMOTEPLAY_LOGIN_STATUS_BINDED
+[2025-09-14T20:43:17.279067] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 57752910869
+[2025-09-14T20:43:17.279097] <118>ScePsP[TID:0x18873]: sceMbusEvent has been received. (eventId=16 OWNERCHG, deviceId=0x30300)
+[2025-09-14T20:43:17.279128] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_DEVICE_OWNER_CHANGED [DeviceId:0x30300][UserId:0x10df5bd5]
+[2025-09-14T20:43:17.279160] <118>#LOGIN MGR# [OnDeviceOwnerChanged] deviceId : 0x30300 / userId : 0x10df5bd5 
+[2025-09-14T20:43:17.279190] <118>ScePsP[TID:0x18873]: ConnectedDeviceStatus: count=2
+[2025-09-14T20:43:17.279223] <118>  [c][DeviceId          ][UserId    ][Model     ]
+[2025-09-14T20:43:17.279254] <118>  [o][0x0000000000030300][0x10df5bd5][REMOTEPLAY]
+[2025-09-14T20:43:17.279284] <118>  [ ][0xffffffffffffffff][0xffffffff][none      ]
+[2025-09-14T20:43:17.279314] <118>  [ ][0xffffffffffffffff][0xffffffff][none      ]
+[2025-09-14T20:43:17.279343] <118>  [ ][0xffffffffffffffff][0xffffffff][none      ]
+[2025-09-14T20:43:17.279371] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.279432] <118>[SceSystemStateMgr] Power Mode Change: NAVIGATION
+[2025-09-14T20:43:17.279500] <118>[SceSystemStateMgr] CPU  HLT CP SE CU ACLK DCLK ECLK LCLK SCLK SAMCLK VCLK DispCLK NCLK MemCLK MemP GMC DPM VDD      VDDNB    SOC      
+[2025-09-14T20:43:17.279628] <118>[SceSystemStateMgr] 1600   1 NA  0  8  711  609  609  711  711    609  711     673 1400   1375   NA  NA   3 03c/1156 044/1106 00710f13
+[2025-09-14T20:43:17.279747] <118>[ProfileCacheManager] JobUpdate.Run(0x10DF5BD5, FirstTime)
+[2025-09-14T20:43:17.279826] <118>[ProfileCacheManager] JobUpdate.Finish(0x10DF5BD5)
+[2025-09-14T20:43:17.279882] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 59727685041
+[2025-09-14T20:43:17.279916] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.279963] <118>D/88391:
+[2025-09-14T20:43:17.280029] <118>D/88391:CUSA01015
+[2025-09-14T20:43:17.280149] <118>D/88391:
+[2025-09-14T20:43:17.280232] <118>D/88391:NPXS20102
+[2025-09-14T20:43:17.280309] <118>[SceShellUI] I/PSM.UI : OnFocusActiveSceneChanged [ContentAreaScene : ContentAreaScene] -> []
+[2025-09-14T20:43:17.280388] <118>SetDeviceIndexBehavior: mode=SpecificUser, param=0x10df5bd5
+[2025-09-14T20:43:17.280480] <118>[SceShellUI] I/PSM.UI : SceneQ : Loaded[0.01msec] Layout[0.00msec/0widgets] : WebBrowserPlugin : WebBrowserPlugin
+[2025-09-14T20:43:17.280578] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 61686465639
+[2025-09-14T20:43:17.280657] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.280978] <118>[SceShellUI] I/PSM.UI : SceneQ : Loaded[0.00msec] Layout[0.00msec/0widgets] : WebBrowserScene : WebBrowserScene
+[2025-09-14T20:43:17.281078] <118>[SceShellUI] I/PSM.UI : OnFocusActiveSceneChanged [] -> [SettingsScene : SettingScene]
+[2025-09-14T20:43:17.281152] <118>[SceShellUI] I/PSM.UI :      Scene [SettingsScene : SettingScene] : Alive
+[2025-09-14T20:43:17.281221] <118>SetDeviceIndexBehavior: mode=SpecificUser, param=0x10df5bd5
+[2025-09-14T20:43:17.281289] <118>[Theme/I] : Apply [BLUE] : [Option:111111]: with preloaded user
+[2025-09-14T20:43:17.281353] <118>[Syscore App] Start sceApplicationAddProcess /ns48PBbnM6/common/lib/NKUIProcess.self
+[2025-09-14T20:43:17.281410] <118>[Syscore App] calling add process
+[2025-09-14T20:43:17.281463] <118>[Syscore App] processSpawn(pid, 0x60000201, 0x10201114, appParam, processParam, 0, 0, 0, param, debug, 0)
+[2025-09-14T20:43:17.281516] <118>[Syscore App] appParam: appType = 0x5, rootPath = /mnt/sandbox/NPXS20001_000, titleId = NPXS20001
+[2025-09-14T20:43:17.281569] <118>[Syscore App] processParam: elfPath = /ns48PBbnM6/common/lib/NKUIProcess.self, fullPath = /system/common/lib/NKUIProcess.self
+[2025-09-14T20:43:17.281640] <118>[Syscore App] new pid=0x3c[Syscore App] attributeExe= 0
+[2025-09-14T20:43:17.281734] <118>[Syscore App] Ready to exec
+[2025-09-14T20:43:17.281804] <118>[Syscore App] wait for NOTE_EXIT|NOTE_EXEC
+[2025-09-14T20:43:17.281859] <118>[Syscore App] Add event : pid=0x3c
+[2025-09-14T20:43:17.281912] <118>[AppMgr Trace]: New Process, pid=0x3c, created.
+[2025-09-14T20:43:17.281968] <118>[SceShellUI] I/PSM.UI : SceneQ : Loaded[0.00msec] Layout[0.00msec/0widgets] : BrowserMain : MainScene
+[2025-09-14T20:43:17.282024] <118>[SceShellUI] I/PSM.UI : OnFocusActiveSceneChanged [SettingsScene : SettingScene] -> [WebViewDialog : WebViewDialogScene]
+[2025-09-14T20:43:17.282079] <118>[SceShellUI] I/PSM.UI :      Scene [WebViewDialog : WebViewDialogScene] : Alive
+[2025-09-14T20:43:17.282134] <118>SetDeviceIndexBehavior: mode=SpecificUser, param=0x10df5bd5
+[2025-09-14T20:43:17.282186] <118>[Theme/I] : Apply [BLUE] : [Option:111111]: with preloaded user
+[2025-09-14T20:43:17.282238] <118>[SceShellUI] I/PSM.UI : Created font: name=[__System__], size=[30], style=[Normal], weight=[Medium], handle=[0x9451ef2f]
+[2025-09-14T20:43:17.282291] <118>[SceShellUI] I/PSM.UI : SceneQ : Loaded[0.01msec] Layout[0.00msec/0widgets] : SettingsScene : SettingScene
+[2025-09-14T20:43:17.282343] <118>[SceShellUI] I/PSM.UI : SceneQ : Loaded[0.01msec] Layout[0.00msec/0widgets] : BookmarkScene : BookmarkView
+[2025-09-14T20:43:17.282395] <118>[SceShellUI] I/PSM.UI : SceneQ : Loaded[0.00msec] Layout[0.00msec/0widgets] : BookmarkEditScene : BookmarkEditView
+[2025-09-14T20:43:17.282454] <118>[SceShellUI] I/PSM.UI : SceneQ : Loaded[0.00msec] Layout[0.00msec/0widgets] : HistoryScene : HistoryView
+[2025-09-14T20:43:17.282528] <118>[SceShellUI] I/PSM.UI : SceneQ : Loaded[0.01msec] Layout[0.00msec/0widgets] : WebViewDialog : WebViewDialogScene
+[2025-09-14T20:43:17.282583] <118>[SceShellUI] I/PSM.UI : OnFocusActiveSceneChanged [WebViewDialog : WebViewDialogScene] -> [BrowserMain : MainScene]
+[2025-09-14T20:43:17.282630] <118>[SceShellUI] I/PSM.UI :      Scene [BrowserMain : MainScene] : Alive
+[2025-09-14T20:43:17.282679] <118>SetDeviceIndexBehavior: mode=SpecificUser, param=0x10df5bd5
+[2025-09-14T20:43:17.282756] <118>[Theme/I] : Apply [BLUE] : [Option:111111]: with preloaded user
+[2025-09-14T20:43:17.282810] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 63661253035
+[2025-09-14T20:43:17.282867] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.282915] <118>[Syscore App] Start sceApplicationAddProcess /ns48PBbnM6/common/lib/NKNetworkProcess.self
+[2025-09-14T20:43:17.282962] <118>[Syscore App] calling add process
+[2025-09-14T20:43:17.283016] <118>[Syscore App] processSpawn(pid, 0x60000201, 0x10201125, appParam, processParam, 0, 0, 0, param, debug, 0)
+[2025-09-14T20:43:17.283072] <118>[Syscore App] appParam: appType = 0x5, rootPath = /mnt/sandbox/NPXS20001_000, titleId = NPXS20001
+[2025-09-14T20:43:17.283127] <118>[Syscore App] processParam: elfPath = /ns48PBbnM6/common/lib/NKNetworkProcess.self, fullPath = /system/common/lib/NKNetworkProcess.self
+[2025-09-14T20:43:17.283175] <118>[Syscore App] new pid=0x3d[Syscore App] attributeExe= 0
+[2025-09-14T20:43:17.283297] <118>[Syscore App] Ready to exec
+[2025-09-14T20:43:17.283358] <118>[Syscore App] wait for NOTE_EXIT|NOTE_EXEC
+[2025-09-14T20:43:17.283413] <118>[Syscore App] Add event : pid=0x3d
+[2025-09-14T20:43:17.283457] <118>[AppMgr Trace]: New Process, pid=0x3d, created.
+[2025-09-14T20:43:17.283500] <118>[Syscore App] Start sceApplicationAddProcess /ns48PBbnM6/common/lib/NKWebProcess.self
+[2025-09-14T20:43:17.283567] <118>[Syscore App] calling add process
+[2025-09-14T20:43:17.283616] <118>[Syscore App] processSpawn(pid, 0x60000201, 0x10201136, appParam, processParam, 0, 0, 0, param, debug, 0)
+[2025-09-14T20:43:17.283667] <118>[Syscore App] appParam: appType = 0x5, rootPath = /mnt/sandbox/NPXS20001_000, titleId = NPXS20001
+[2025-09-14T20:43:17.283734] <118>[Syscore App] processParam: elfPath = /ns48PBbnM6/common/lib/NKWebProcess.self, fullPath = /system/common/lib/NKWebProcess.self
+[2025-09-14T20:43:17.283780] <118>[Syscore App] new pid=0x3e[Syscore App] attributeExe= 0
+[2025-09-14T20:43:17.283826] <118>[Syscore App] Ready to exec
+[2025-09-14T20:43:17.283870] <118>[Syscore App] wait for NOTE_EXIT|NOTE_EXEC
+[2025-09-14T20:43:17.283913] <118>[Syscore App] Add event : pid=0x3e
+[2025-09-14T20:43:17.284066] <118>[AppMgr Trace]: New Process, pid=0x3e, created.
+[2025-09-14T20:43:17.284123] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 65620053909
+[2025-09-14T20:43:17.284168] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.284214] <118>[SceShellUI] E/PSM.UI : ### EditorStateChangedFromNativeWebView: The given key was not present in the dictionary. ###
+[2025-09-14T20:43:17.284273] <118>[SceShellUI] E/PSM.UI : ### EditorStateChangedFromNativeWebView: The given key was not present in the dictionary. ###
+[2025-09-14T20:43:17.284318] <118>[SceShellUI] E/PSM.UI : ### EditorStateChangedFromNativeWebView: The given key was not present in the dictionary. ###
+[2025-09-14T20:43:17.284362] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 67594856945
+[2025-09-14T20:43:17.284407] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.284451] <118>[SceSysCore] System CPU cores: c0
+[2025-09-14T20:43:17.284499] <118>[SceShellCore] Libc Heap Status: free 53%, in-use 2866.2 KB, trend +5547.5 KB/min, peak 2882.3 KB, when 31 [sec]
+[2025-09-14T20:43:17.284544] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 69553676905
+[2025-09-14T20:43:17.284588] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.284633] ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[2025-09-14T20:43:17.284687]   _________________  .____  ________    ___ ______________ _______
+[2025-09-14T20:43:17.284740]  /  _____________  \ |    | \______ \  /   |   \_   _____/ \      \
+[2025-09-14T20:43:17.284766] /   \  ___  /   |   \|    |  |    |  \/    ~    \    __)_  /   |   \
+[2025-09-14T20:43:17.284791] \    \_\  \/    |    \    |__|    `   \    Y    /        \/    |    \
+[2025-09-14T20:43:17.284816]  \______  /\_______  /_______ \_____  /\___|_  /_______  /\____|__  /
+[2025-09-14T20:43:17.284840]         \/         \/        \/     \/       \/        \/         \/
+[2025-09-14T20:43:17.284866]                               Coded By
+[2025-09-14T20:43:17.284889]         _________.__  ____________________________ ________
+[2025-09-14T20:43:17.284913]        /   _____/|__|/   _________    _________   \_____   \
+[2025-09-14T20:43:17.284936]        \_____  \ |  |\_____  \   |    |  |       _/ /   |   \
+[2025-09-14T20:43:17.284961]        /        \|  |/        \  |    |  |    |   \/    |    \
+[2025-09-14T20:43:17.284984]       /_______  /|__/_______  /  |____|  |____|_  /\_________/
+[2025-09-14T20:43:17.285008]               \/            \/                  \/
+[2025-09-14T20:43:17.285035] ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[2025-09-14T20:43:17.285084] [GoldHEN] Installing GoldHEN in Kernel...
+[2025-09-14T20:43:17.285203] [DEBUG] [source/main.c (_main:125)] [NOTIFICATION]: Kernel patches applied!
+[2025-09-14T20:43:17.285312] [GoldHEN] FakePKG hooks installed!
+[2025-09-14T20:43:17.285442] [GoldHEN] FakeSelf hooks installed!
+[2025-09-14T20:43:17.285548] [GoldHEN] SceShellCore patches installed!
+[2025-09-14T20:43:17.285631] [GoldHEN] Kernel patches installed!
+[2025-09-14T20:43:17.285778] [GoldHEN] SceShellUI patches installed!
+[2025-09-14T20:43:17.285877] [GoldHEN] SceRemotePlay patches installed!
+[2025-09-14T20:43:17.285980] [GoldHEN] Klog server on port 3232
+[2025-09-14T20:43:17.286053] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 71531817918
+[2025-09-14T20:43:17.286107] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.286144] [GoldHEN] All done!
+[2025-09-14T20:43:17.286187] [GoldHEN] <binloader> Server started at 9090 port
+[2025-09-14T20:43:17.286225] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 73487227322
+[2025-09-14T20:43:17.286268] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.286309] <118>[SceShellUI] I/PSM.UI : OnFocusActiveSceneChanged [BrowserMain : MainScene] -> [ContentAreaScene : ContentAreaScene]
+[2025-09-14T20:43:17.286350] <118>[SceShellUI] I/PSM.UI :      Scene [ContentAreaScene : ContentAreaScene] : Alive
+[2025-09-14T20:43:17.286390] <118>SetDeviceIndexBehavior: mode=SpecificUser, param=0x10df5bd5
+[2025-09-14T20:43:17.286428] <118>[Theme/I] : Apply [BLUE] : [Option:111111]: with preloaded user
+[2025-09-14T20:43:17.286466] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 75462099176
+[2025-09-14T20:43:17.286509] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.286553] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 77436956539
+[2025-09-14T20:43:17.286582] <118>[avs] update 32:30
+[2025-09-14T20:43:17.286613] <118>[avs] lock 0:45
+[2025-09-14T20:43:17.286683] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.286755] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 79395587896
+[2025-09-14T20:43:17.286807] <118>[avs] update 30:32
+[2025-09-14T20:43:17.286850] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.286901] <118>[SceShellUI] I/PSM.UI : OnFocusActiveSceneChanged [ContentAreaScene : ContentAreaScene] -> [SystemArea : SystemAreaScene]
+[2025-09-14T20:43:17.286948] <118>[SceShellUI] I/PSM.UI :      Scene [SystemArea : SystemAreaScene] : Alive
+[2025-09-14T20:43:17.286992] <118>SetDeviceIndexBehavior: mode=SpecificUser, param=0x10df5bd5
+[2025-09-14T20:43:17.287037] <118>[Theme/I] : Apply [BLUE] : [Option:111111]: with preloaded user
+[2025-09-14T20:43:17.287081] <118>[SceShellUI] I/PSM.UI : SceneQ : Loaded[0.01msec] Layout[2.22msec/4widgets] : SystemAreaNotification : SystemAreaPluginNotification
+[2025-09-14T20:43:17.287184] <118>[SceShellUI] W/PSM.UI : UIImage.Create(): Failed to create Image from '/update/fakepic.png'
+[2025-09-14T20:43:17.287240] <118>[SceShellUI] I/PSM.UI : ** Unload enqueue: SystemAreaNotification : SystemAreaPluginNotification
+[2025-09-14T20:43:17.287289] <118>[SceShellUI] I/PSM.UI : SceneQ : Unloaded[3.64msec] : SystemAreaNotification : SystemAreaPluginNotification
+[2025-09-14T20:43:17.287338] <118>[SceShellUI] I/PSM.UI : SceneQ : Loaded[0.01msec] Layout[0.00msec/0widgets] : SystemAreaPSPlus : SystemAreaPluginPSPlus
+[2025-09-14T20:43:17.287392] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 81370395643
+[2025-09-14T20:43:17.287436] <118>[avs] lock 45:0
+[2025-09-14T20:43:17.287478] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.287519] <118>[SceShellUI] I/PSM.UI : ** Unload enqueue: BrowserMain : MainScene
+[2025-09-14T20:43:17.287560] <118>[SceShellUI] I/PSM.UI : ** Unload enqueue: SettingsScene : SettingScene
+[2025-09-14T20:43:17.287600] <118>[SceShellUI] I/PSM.UI : ** Unload enqueue: BookmarkScene : BookmarkView
+[2025-09-14T20:43:17.287640] <118>[SceShellUI] I/PSM.UI : ** Unload enqueue: BookmarkEditScene : BookmarkEditView
+[2025-09-14T20:43:17.287681] <118>[SceShellUI] I/PSM.UI : ** Unload enqueue: HistoryScene : HistoryView
+[2025-09-14T20:43:17.287740] <118>[SceShellUI] I/PSM.UI : ** Unload enqueue: WebViewDialog : WebViewDialogScene
+[2025-09-14T20:43:17.287782] <118>[SceShellUI] I/PSM.UI : ** Unload enqueue: WebBrowserScene : WebBrowserScene
+[2025-09-14T20:43:17.287829] <118>[SceShellUI] I/PSM.UI : ** Unload enqueue: WebBrowserPlugin : WebBrowserPlugin
+[2025-09-14T20:43:17.287863] <118>[SceShellUI] I/PSM.UI : OnFocusActiveSceneChanged [SystemArea : SystemAreaScene] -> []
+[2025-09-14T20:43:17.287901] <118>SetDeviceIndexBehavior: mode=SpecificUser, param=0x10df5bd5
+[2025-09-14T20:43:17.287954] <118>[SceShellUI] W/PSM.UI : SystemSound called when there is no FocusActiveScene !
+[2025-09-14T20:43:17.288012] <118>[SceShellUI] I/PSM.UI : SceneQ : Unloaded[0.39msec] : BrowserMain : MainScene
+[2025-09-14T20:43:17.288065] <118>[SceShellUI] I/PSM.UI : SceneQ : Unloaded[0.04msec] : SettingsScene : SettingScene
+[2025-09-14T20:43:17.288109] <118>[SceShellUI] I/PSM.UI : SceneQ : Unloaded[0.04msec] : BookmarkScene : BookmarkView
+[2025-09-14T20:43:17.288157] <118>[SceShellUI] I/PSM.UI : SceneQ : Unloaded[0.03msec] : BookmarkEditScene : BookmarkEditView
+[2025-09-14T20:43:17.288201] <118>
+[2025-09-14T20:43:17.288227] <118>
+[2025-09-14T20:43:17.288251] <118>~~~~~~~~~~ 	int CreateWithSystemPermission() type=FILE, path='/user/home/10df5bd5/webbrowser/window_left.txt', permission=00700
+[2025-09-14T20:43:17.288276] <118>
+[2025-09-14T20:43:17.288301] <118>
+[2025-09-14T20:43:17.288324] <118>[SceShellUI] I/PSM.UI : SceneQ : Unloaded[0.03msec] : HistoryScene : HistoryView
+[2025-09-14T20:43:17.288347] <118>[SceShellUI] I/PSM.UI : SceneQ : Unloaded[0.35msec] : WebViewDialog : WebViewDialogScene
+[2025-09-14T20:43:17.288370] <118>[SceShellUI] I/PSM.UI : **** SceneQueue Reordered : rule 1-A: WebBrowserScene to QueueTop.
+[2025-09-14T20:43:17.288393] <118>[SceShellUI] I/PSM.UI : ** Unload enqueue: WebBrowserScene : WebBrowserScene
+[2025-09-14T20:43:17.288416] <118>[SceShellUI] I/PSM.UI : SceneQ : Unloaded[1.01msec] : WebBrowserScene : WebBrowserScene
+[2025-09-14T20:43:17.288439] <118>[SceShellUI] I/PSM.UI : **** SceneQueue Reordered : rule 1-A: WebBrowserScene to QueueTop.
+[2025-09-14T20:43:17.288462] <118>[SceShellUI] I/PSM.UI : SceneQ : Unloaded[0.27msec] : WebBrowserScene : WebBrowserScene
+[2025-09-14T20:43:17.288485] <118>[SceShellUI] I/PSM.UI : SceneQ : Unloaded[0.05msec] : WebBrowserScene : WebBrowserScene
+[2025-09-14T20:43:17.288510] <118>[VCS]closeSession() [APP->VCS] clientPid = 0x3e.
+[2025-09-14T20:43:17.288533] <118>[Syscore App] EVFILT_PROC NOTE_EXIT received : pid=0x3e
+[2025-09-14T20:43:17.288555] <118>[Syscore App] process delete event : pid=0x3e
+[2025-09-14T20:43:17.288578] <118>[AppMgr Trace]: pid=0x3e, deleted.
+[2025-09-14T20:43:17.288600] <118>[Syscore App] Syscore Event Queue Push : SCE_SYSCORE_EVENT_ON_PROCESS_UNLOADED
+[2025-09-14T20:43:17.288623] <118>[AppMgr] checkAppTerminated pid=0x2a is still alive in 0x60000201
+[2025-09-14T20:43:17.288646] <118>[Syscore App]  ExpandCpuSetMode : enable
+[2025-09-14T20:43:17.288669] <118>[Syscore App] Syscore Event Queue Pop : SCE_SYSCORE_EVENT_ON_PROCESS_UNLOADED
+[2025-09-14T20:43:17.288713] <118>
+[2025-09-14T20:43:17.288745] <118>
+[2025-09-14T20:43:17.288768] <118>~~~~~~~~~~ 	int CreateWithSystemPermission() type=FILE, path='/user/home/10df5bd5/webbrowser/window_right.txt', permission=00700
+[2025-09-14T20:43:17.288792] <118>
+[2025-09-14T20:43:17.288815] <118>
+[2025-09-14T20:43:17.288839] <118>
+[2025-09-14T20:43:17.288863] <118>
+[2025-09-14T20:43:17.288909] <118>~~~~~~~~~~ 	int CreateWithSystemPermission() type=FILE, path='/user/home/10df5bd5/webbrowser/endhistory.txt', permission=00700
+[2025-09-14T20:43:17.288954] <118>
+[2025-09-14T20:43:17.288996] <118>
+[2025-09-14T20:43:17.289039] <118>
+[2025-09-14T20:43:17.289080] <118>
+[2025-09-14T20:43:17.289122] <118>~~~~~~~~~~ 	int CreateWithSystemPermission() type=FILE, path='/user/home/10df5bd5/webbrowser/setting.txt', permission=00700
+[2025-09-14T20:43:17.289163] <118>
+[2025-09-14T20:43:17.289202] <118>
+[2025-09-14T20:43:17.289241] <118>[SceShellUI] I/PSM.UI : [WebSecurity] Dispose start
+[2025-09-14T20:43:17.289283] <118>[Syscore App] EVFILT_PROC NOTE_EXIT received : pid=0x3d
+[2025-09-14T20:43:17.289326] <118>[Syscore App] process delete event : pid=0x3d
+[2025-09-14T20:43:17.289370] <118>[AppMgr Trace]: pid=0x3d, deleted.
+[2025-09-14T20:43:17.289414] <118>[Syscore App] Syscore Event Queue Push : SCE_SYSCORE_EVENT_ON_PROCESS_UNLOADED
+[2025-09-14T20:43:17.290168] <118>[AppMgr] checkAppTerminated pid=0x2a is still alive in 0x60000201
+[2025-09-14T20:43:17.290237] <118>[Syscore App]  ExpandCpuSetMode : enable
+[2025-09-14T20:43:17.290626] <118>[Syscore App] Syscore Event Queue Pop : SCE_SYSCORE_EVENT_ON_PROCESS_UNLOADED
+[2025-09-14T20:43:17.290755] <118>exit NKUIProcess 
+[2025-09-14T20:43:17.290829] <118>[Syscore App] EVFILT_PROC NOTE_EXIT received : pid=0x3c
+[2025-09-14T20:43:17.290894] <118>[Syscore App] process delete event : pid=0x3c
+[2025-09-14T20:43:17.290932] <118>[AppMgr Trace]: pid=0x3c, deleted.
+[2025-09-14T20:43:17.290960] <118>[Syscore App] Syscore Event Queue Push : SCE_SYSCORE_EVENT_ON_PROCESS_UNLOADED
+[2025-09-14T20:43:17.290987] <118>[AppMgr] checkAppTerminated pid=0x2a is still alive in 0x60000201
+[2025-09-14T20:43:17.291012] <118>[Syscore App]  ExpandCpuSetMode : enable
+[2025-09-14T20:43:17.291038] <118>[Syscore App] Syscore Event Queue Pop : SCE_SYSCORE_EVENT_ON_PROCESS_UNLOADED
+[2025-09-14T20:43:17.291063] <118>[SceShellUI] I/PSM.UI : SceneQ : Unloaded[1.35msec] : WebBrowserPlugin : WebBrowserPlugin
+[2025-09-14T20:43:17.291089] <118>[SceShellUI] I/PSM.UI : SceneQ : Loaded[0.01msec] Layout[0.00msec/0widgets] : SettingsPlugin : SettingsApplication
+[2025-09-14T20:43:17.291114] <118>[SceShellUI] I/PSM.UI : SceneQ : Loaded[0.00msec] Layout[0.00msec/0widgets] : Noname : FrameScene
+[2025-09-14T20:43:17.291139] <118>[SceShellUI] I/PSM.UI : SceneQ : Loaded[0.00msec] Layout[0.00msec/0widgets] : NormalStack : SettingPageNormalStack
+[2025-09-14T20:43:17.291163] <118>sceRemoteplayInitialize: 0x80fc0003
+[2025-09-14T20:43:17.291187] <118>[SceShellUI] I/PSM.UI : SceneQ : Loaded[0.00msec] Layout[0.00msec/0widgets] : SettingsBGScene : Scene
+[2025-09-14T20:43:17.291213] <118>[SceShellUI] I/PSM.UI : OnFocusActiveSceneChanged [] -> [id_goldhen_menu : SettingPage]
+[2025-09-14T20:43:17.291239] <118>[SceShellUI] I/PSM.UI :      Scene [id_goldhen_menu : SettingPage] : Alive
+[2025-09-14T20:43:17.291265] <118>SetDeviceIndexBehavior: mode=SpecificUser, param=0x10df5bd5
+[2025-09-14T20:43:17.291292] <118>[Theme/I] : Apply [BLUE] : [Option:111111]: with preloaded user
+[2025-09-14T20:43:17.291321] <118>[SceShellUI] I/PSM.UI : SceneQ : Loaded[0.01msec] Layout[0.00msec/0widgets] : id_goldhen_menu : SettingPage
+[2025-09-14T20:43:17.291350] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 83329226081
+[2025-09-14T20:43:17.291377] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.291435] <118>[SceShellUI] I/PSM.UI : OnFocusActiveSceneChanged [id_goldhen_menu : SettingPage] -> [id_goldhen_servers_settings : SettingPage]
+[2025-09-14T20:43:17.291486] <118>[SceShellUI] I/PSM.UI :      Scene [id_goldhen_servers_settings : SettingPage] : Alive
+[2025-09-14T20:43:17.291604] <118>SetDeviceIndexBehavior: mode=SpecificUser, param=0x10df5bd5
+[2025-09-14T20:43:17.291668] <118>[Theme/I] : Apply [BLUE] : [Option:111111]: with preloaded user
+[2025-09-14T20:43:17.291728] <118>[SceShellUI] I/PSM.UI : SceneQ : Loaded[0.01msec] Layout[0.00msec/0widgets] : id_goldhen_servers_settings : SettingPage
+[2025-09-14T20:43:17.291768] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 85303956461
+[2025-09-14T20:43:17.291809] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.291855] <118>[SL][00:00:00:000][Thread 0x0001884d][INFO][TRACE][ALWAYS][INITIALIZE][SubThread][END  ][Heap]sanity OK, free 2282688 (37%), in-use 3943232 (63%), peak 3948992 (63%), when 52 [sec]
+[2025-09-14T20:43:17.291895] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 87264395807
+[2025-09-14T20:43:17.291933] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.291972] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 89229584317
+[2025-09-14T20:43:17.292011] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.292051] <118>[SceShellUI] I/PSM.UI : OnFocusActiveSceneChanged [id_goldhen_servers_settings : SettingPage] -> [ContentAreaScene : ContentAreaScene]
+[2025-09-14T20:43:17.292092] <118>[SceShellUI] I/PSM.UI :      Scene [ContentAreaScene : ContentAreaScene] : Alive
+[2025-09-14T20:43:17.292133] <118>SetDeviceIndexBehavior: mode=SpecificUser, param=0x10df5bd5
+[2025-09-14T20:43:17.292176] <118>[Theme/I] : Apply [BLUE] : [Option:111111]: with preloaded user
+[2025-09-14T20:43:17.292219] <118>[SceShellUI] I/PSM.UI : ** Unload enqueue: SystemAreaPSPlus : SystemAreaPluginPSPlus
+[2025-09-14T20:43:17.292261] <118>[SceShellUI] I/PSM.UI : SceneQ : Unloaded[0.24msec] : SystemAreaPSPlus : SystemAreaPluginPSPlus
+[2025-09-14T20:43:17.292303] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 91196403425
+[2025-09-14T20:43:17.292342] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.292384] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 93171130669
+[2025-09-14T20:43:17.292425] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.292465] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 95129989395
+[2025-09-14T20:43:17.292518] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.292571] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 97104815081
+[2025-09-14T20:43:17.292619] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.292661] <118>[SceWorkaroundCtl] PERIODIC_DOWNLOAD_INTERVAL_SEC={86400} elapsed={48} isFirstTime={1}
+[2025-09-14T20:43:17.292714] <118>[SceWorkaroundCtl] start DownloadFile
+[2025-09-14T20:43:17.292741] <118>[SceWorkaroundCtl] ifModifiedSince={Thu, 10 Dec 2020 08:29:25 +0000}
+[2025-09-14T20:43:17.292805] <118>[SceWorkaroundCtl] W:\Build\J02541112\vsh\shell\shell_core\workaround_ctl\http_client.cpp(132) Get: WC_ISOK::0x8041013d
+[2025-09-14T20:43:17.292836] <118>[SceWorkaroundCtl] W:\Build\J02541112\vsh\shell\shell_core\workaround_ctl\workaround_ctl_manager.cpp(287) DownloadFile: WC_ISOK::0x8041013d
+[2025-09-14T20:43:17.292859] <118>[SceWorkaroundCtl] W:\Build\J02541112\vsh\shell\shell_core\workaround_ctl\workaround_ctl_manager.cpp(441) Run: WC_CONTINUE::0x8041013d
+[2025-09-14T20:43:17.292882] <118>[SceWorkaroundCtl] PERIODIC_CHECK_INTERVAL_SEC={420}
+[2025-09-14T20:43:17.292903] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 99079546112
+[2025-09-14T20:43:17.292923] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.292944] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 101038370075
+[2025-09-14T20:43:17.292965] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.292986] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 103013143344
+[2025-09-14T20:43:17.293006] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.293027] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 104971943568
+[2025-09-14T20:43:17.293048] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.293069] <118>[SceSystemStateMgr] Power Mode Change: NAVIGATION
+[2025-09-14T20:43:17.293091] <118>[SceSystemStateMgr] CPU  HLT CP SE CU ACLK DCLK ECLK LCLK SCLK SAMCLK VCLK DispCLK NCLK MemCLK MemP GMC DPM VDD      VDDNB    SOC      
+[2025-09-14T20:43:17.293112] <118>[SceSystemStateMgr] 1600   1 NA  0  8  711  609  533  711  711    609  711     673 1400   1375   NA  NA   2 03c/1162 04a/1068 00710f13
+[2025-09-14T20:43:17.293134] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 106946812237
+[2025-09-14T20:43:17.293157] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.293179] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 108913497861
+[2025-09-14T20:43:17.293202] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.293224] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 110872281620
+[2025-09-14T20:43:17.293249] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.293270] <118>[BVT] CPU Time : 3892 usec. 
+[2025-09-14T20:43:17.293292] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 112847081618
+[2025-09-14T20:43:17.293314] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.293337] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 114807521753
+[2025-09-14T20:43:17.293359] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.293381] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 116782263477
+[2025-09-14T20:43:17.293404] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.293425] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 118757028599
+[2025-09-14T20:43:17.293447] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.293469] <118>[SceShellCore] Libc Heap Status: free 40%, in-use 3653.6 KB, trend +3535.7 KB/min, peak 3876.0 KB, when 62 [sec]
+[2025-09-14T20:43:17.293493] <118>[SceShellCore] VM Stats: RSS 524.6, kernel 262.6, wire count 321.8, swap out 0.0, page table CPU 2331/6144 GPU 272/2048
+[2025-09-14T20:43:17.293515] <118>[SceShellCore] FMEM   1.3/   4.5 NPXS20977 SceSysAvControl.elf
+[2025-09-14T20:43:17.293537] <118>[SceShellCore] FMEM  10.7/  74.3 NPXS20991 SceSysCore.elf
+[2025-09-14T20:43:17.293560] <118>[SceShellCore] FMEM   9.3/  54.3 NPXS20973 orbis_audiod.elf
+[2025-09-14T20:43:17.293581] <118>[SceShellCore] FMEM   3.2/  11.1 NPXS20976 GnmCompositor.elf
+[2025-09-14T20:43:17.293605] <118>[SceShellCore] FMEM  26.4/ 334.3 NPXS20000 SceShellCore
+[2025-09-14T20:43:17.293628] <118>[SceShellCore] FMEM 309.3/ 841.7 NPXS20001 SceShellUI
+[2025-09-14T20:43:17.293651] <118>[SceShellCore] FMEM   6.4/  11.6 NPXS21003 SceAvCapture
+[2025-09-14T20:43:17.293674] <118>[SceShellCore] FMEM   8.8/  24.4 NPXS21000 SceGameLiveStreaming
+[2025-09-14T20:43:17.293717] <118>[SceShellCore] FMEM  13.2/  48.4 NPXS21002 ScePartyDaemon
+[2025-09-14T20:43:17.293753] <118>[SceShellCore] FMEM   4.3/  25.4 NPXS21004 SceVideoCoreServer
+[2025-09-14T20:43:17.293775] <118>[SceShellCore] FMEM  20.1/  52.7 NPXS21006 SceRemotePlay
+[2025-09-14T20:43:17.293794] <118>[SceShellCore] FMEM   7.6/  38.8 NPXS21010 SceCloudClientDaemon
+[2025-09-14T20:43:17.293813] <118>[SceShellCore] FMEM   3.3/  10.7 NPXS21016 SceSpZeroConf
+[2025-09-14T20:43:17.293834] <118>[SceShellCore] FMEM   8.7/ 154.2 NPXS21002 webrtc_daemon.self
+[2025-09-14T20:43:17.293854] <118>[SceShellCore] FMEM   6.8/  18.0 NPXS21019 SceSocialScreenMgr
+[2025-09-14T20:43:17.293875] <118>[SceShellCore] FMEM   4.9/   9.6 NPXS21007 SceMusicCoreServer
+[2025-09-14T20:43:17.293895] <118>[SceShellCore] FMEM   7.0/  14.2 NPXS21020 SceVoiceAndAgent
+[2025-09-14T20:43:17.293914] <118>[SceShellCore] FMEM   2.1/   5.0 NPXS20967 fs_cleaner.elf
+[2025-09-14T20:43:17.293935] <118>[SceShellCore] FMEM   2.1/  10.2 NPXS20974 SceVdecProxy.elf
+[2025-09-14T20:43:17.293958] <118>[SceShellCore] FMEM   2.3/  10.5 NPXS20975 SceVencProxy.elf
+[2025-09-14T20:43:17.293980] <118>[SceShellCore] FMEM  23.8/ 264.2 NPXS20001 SecureUIProcess.self
+[2025-09-14T20:43:17.294001] <118>[SceShellCore] FMEM  32.4/ 526.1 NPXS20001 SecureWebProcess.self
+[2025-09-14T20:43:17.294076] <118>[SceShellCore] FMEM  10.7/ 358.8 NPXS20001 orbis-jsc-compiler.self
+[2025-09-14T20:43:17.294110] <118>[SceNetEv] PERIODIC_DOWNLOAD_INTERVAL_SEC={86400} contentId={8}, serviceName={netev}
+[2025-09-14T20:43:17.294131] <118>[SceNetEv] start DownloadFile, contentId={8}, serviceName={netev}
+[2025-09-14T20:43:17.294152] <118>[SceNetEv] ifModifiedSince={Tue, 02 Mar 2021 16:11:59 +0000}
+[2025-09-14T20:43:17.294173] <118>[SceNetEv] W:\Build\J02541112\vsh\shell\shell_core\netev\netev_http_client.cpp(132) Get: NETEV_ISOK::0x8041013d
+[2025-09-14T20:43:17.294195] <118>[SceNetEv] W:\Build\J02541112\vsh\shell\shell_core\netev\netev_manager.cpp(345) DownloadFile: NETEV_ISOK::0x8041013d
+[2025-09-14T20:43:17.294216] <118>[SceNetEv] W:\Build\J02541112\vsh\shell\shell_core\netev\netev_manager.cpp(493) Run: NETEV_CONTINUE::0x8041013d
+[2025-09-14T20:43:17.294237] <118>[SceNetEv] PERIODIC_CHECK_INTERVAL_SEC={480}
+[2025-09-14T20:43:17.294258] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 120715861445
+[2025-09-14T20:43:17.294278] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.294298] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 122690664813
+[2025-09-14T20:43:17.294317] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.294336] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 124649476184
+[2025-09-14T20:43:17.294356] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.294377] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 126624198881
+[2025-09-14T20:43:17.294398] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.294418] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 128583085718
+[2025-09-14T20:43:17.294439] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.294460] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 130558095521
+[2025-09-14T20:43:17.294497] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.294539] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 132516591501
+[2025-09-14T20:43:17.294582] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.294621] <118>[SceShellUI] I/PSM.UI : UI system timer elapsed 00:01:00
+[2025-09-14T20:43:17.294659] <118>[SceShellCore] Delete /user/TRASH/0/_temp.dat
+[2025-09-14T20:43:17.294724] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 134491446093
+[2025-09-14T20:43:17.294767] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.294806] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 136450232149
+[2025-09-14T20:43:17.294841] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.294877] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 138425015770
+[2025-09-14T20:43:17.294913] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.294948] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 140399797953
+[2025-09-14T20:43:17.294982] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.295018] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 142382536061
+[2025-09-14T20:43:17.295054] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.295088] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 144357351783
+[2025-09-14T20:43:17.295125] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.295160] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 146316104777
+[2025-09-14T20:43:17.295201] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.295244] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 148290884901
+[2025-09-14T20:43:17.295279] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.295316] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 150249687174
+[2025-09-14T20:43:17.295355] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.295394] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 152224491631
+[2025-09-14T20:43:17.295438] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.295487] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 154199272370
+[2025-09-14T20:43:17.295534] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.295618] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 156159699085
+[2025-09-14T20:43:17.295668] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.295758] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 158134457071
+[2025-09-14T20:43:17.295810] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.295861] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 160093242470
+[2025-09-14T20:43:17.295926] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.295991] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 162068046999
+[2025-09-14T20:43:17.296058] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.296109] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 164026850136
+[2025-09-14T20:43:17.296277] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.296340] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 166001923598
+[2025-09-14T20:43:17.296389] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.296439] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 167960475251
+[2025-09-14T20:43:17.296487] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.296533] <118>[SceShellCore] Libc Heap Status: free 40%, in-use 3639.3 KB, trend +787.0 KB/min, peak 3876.0 KB, when 93 [sec]
+[2025-09-14T20:43:17.296582] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 169935292193
+[2025-09-14T20:43:17.296635] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.296824] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 171894084065
+[2025-09-14T20:43:17.296891] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.296936] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 173868866259
+[2025-09-14T20:43:17.296974] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.297012] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 175843593472
+[2025-09-14T20:43:17.297049] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.297086] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 177802405370
+[2025-09-14T20:43:17.297123] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.297160] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 179777211306
+[2025-09-14T20:43:17.297199] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.297237] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 181735987340
+[2025-09-14T20:43:17.297278] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.297315] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 183710764862
+[2025-09-14T20:43:17.297355] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.297396] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 185669555178
+[2025-09-14T20:43:17.297438] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.297477] <118>[SceSystemStateMgr] No user input for 60 seconds
+[2025-09-14T20:43:17.297514] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 187644336837
+[2025-09-14T20:43:17.297554] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.297600] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 189603165732
+[2025-09-14T20:43:17.297639] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.297682] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 191577997927
+[2025-09-14T20:43:17.298285] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.298358] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 193552735887
+[2025-09-14T20:43:17.298407] <118>[avs] update 32:30
+[2025-09-14T20:43:17.298450] <118>[avs] lock 0:45
+[2025-09-14T20:43:17.298491] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.298531] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 195511508523
+[2025-09-14T20:43:17.298571] <118>[avs] update 30:32
+[2025-09-14T20:43:17.298613] <118>[avs] lock 45:0
+[2025-09-14T20:43:17.298649] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.298687] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 197486312517
+[2025-09-14T20:43:17.298739] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.298775] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 199445094911
+[2025-09-14T20:43:17.298815] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.298856] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 201419905023
+[2025-09-14T20:43:17.298900] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.298945] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 203378683531
+[2025-09-14T20:43:17.298990] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.299030] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 205353465704
+[2025-09-14T20:43:17.299070] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.299114] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 207312293647
+[2025-09-14T20:43:17.299153] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.299191] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 209301464554
+[2025-09-14T20:43:17.299228] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.299270] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 211284228129
+[2025-09-14T20:43:17.299313] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.299356] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 213243066979
+[2025-09-14T20:43:17.299395] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.299434] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 215217790399
+[2025-09-14T20:43:17.299476] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.299577] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 217176654015
+[2025-09-14T20:43:17.299622] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.299664] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 219151394259
+[2025-09-14T20:43:17.299717] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.299755] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 221126188149
+[2025-09-14T20:43:17.299792] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.299829] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 223085027590
+[2025-09-14T20:43:17.299872] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.299916] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 225059769038
+[2025-09-14T20:43:17.299960] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.300006] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 227018574812
+[2025-09-14T20:43:17.300050] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.300091] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 228993361921
+[2025-09-14T20:43:17.300131] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.300176] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 230952138226
+[2025-09-14T20:43:17.300215] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.300254] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 232926999155
+[2025-09-14T20:43:17.300295] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.300334] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 234885779796
+[2025-09-14T20:43:17.300377] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.300419] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 236860507149
+[2025-09-14T20:43:17.300473] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.300513] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 238819342006
+[2025-09-14T20:43:17.300549] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.300586] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 240794112983
+[2025-09-14T20:43:17.300624] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.300659] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 242768930915
+[2025-09-14T20:43:17.300711] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.300750] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 244727724607
+[2025-09-14T20:43:17.300784] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.300819] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 246702525453
+[2025-09-14T20:43:17.300867] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.300900] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 248661313214
+[2025-09-14T20:43:17.300935] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.300969] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 250636137662
+[2025-09-14T20:43:17.301004] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.301049] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 252594913524
+[2025-09-14T20:43:17.301079] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.301116] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 254569676675
+[2025-09-14T20:43:17.301157] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.301203] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 256528491415
+[2025-09-14T20:43:17.301249] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.301287] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 258503261109
+[2025-09-14T20:43:17.301320] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.301351] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 260478408285
+[2025-09-14T20:43:17.301382] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.301412] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 262436895213
+[2025-09-14T20:43:17.301445] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.301478] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 264411618805
+[2025-09-14T20:43:17.301510] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.301545] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 266370425531
+[2025-09-14T20:43:17.301589] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.301632] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 268345181109
+[2025-09-14T20:43:17.301670] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:17.301729] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 270304017725
+[2025-09-14T20:43:17.301756] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:18.406817] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 272278826970
+[2025-09-14T20:43:18.406952] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:19.807252] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 274237581808
+[2025-09-14T20:43:19.807552] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:21.009804] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 276212395391
+[2025-09-14T20:43:21.010080] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:22.206759] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 278187139640
+[2025-09-14T20:43:22.206892] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:23.406807] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 280146004816
+[2025-09-14T20:43:23.406961] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:24.606804] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 282120801759
+[2025-09-14T20:43:24.606949] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:26.006965] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 284079567740
+[2025-09-14T20:43:26.007272] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
+[2025-09-14T20:43:27.207016] <118>[avs] hdmi event: hdcp done(2), 0x9000000000100, 286054403765
+[2025-09-14T20:43:27.207395] <118>#LOGIN MGR# Receive Event : SCE_MBUS_EVENT_VIDEO_OUT_EVENT eventType=0x2
