@@ -17,8 +17,8 @@ MarkupSafe==3.0.2
 packaging==25.0
 proxy_tools==0.1.0
 ps4debug
-PyQt5==5.15.11
-PyQt5-Qt5==5.15.17
+PyQt5
+PyQt5-Qt5
 PyQt5_sip==12.17.0
 PyQtWebEngine==5.15.7
 PyQtWebEngine-Qt5==5.15.17
