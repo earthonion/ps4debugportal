@@ -1,0 +1,3555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PS4 Memory Debugger</title>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            font-family: 'Segoe UI', monospace;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* Sidebar styles */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 250px;
+            background-color: #252525;
+            border-right: 1px solid #444;
+            overflow-y: auto;
+            z-index: 100;
+        }
+
+        .sidebar-header {
+            padding: 15px;
+            background-color: #1a1a1a;
+            border-bottom: 2px solid #007acc;
+        }
+
+        .sidebar-header h5 {
+            margin: 0 0 10px 0;
+            color: #007acc;
+            font-size: 1.1rem;
+            text-align: center;
+        }
+
+        #ps4StatusInfo {
+            background-color: #252525;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #333;
+        }
+
+        #ps4StatusInfo .mb-2 {
+            padding: 3px 0;
+            border-bottom: 1px solid #333;
+        }
+
+        #ps4StatusInfo .mb-2:last-of-type {
+            border-bottom: none;
+        }
+
+        #ps4StatusInfo strong {
+            color: #888;
+            font-size: 11px;
+            display: block;
+        }
+
+        #ps4StatusInfo span {
+            color: #e0e0e0;
+            font-size: 12px;
+        }
+
+        .tools-section-header {
+            padding: 10px 20px;
+            color: #666;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background-color: #1a1a1a;
+            border-top: 1px solid #444;
+            margin-top: 10px;
+        }
+
+        .sidebar-nav {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        .sidebar-nav .nav-item {
+            border-bottom: 1px solid #333;
+        }
+
+        .sidebar-nav .nav-link {
+            display: block;
+            padding: 15px 20px;
+            color: #e0e0e0;
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+        }
+
+        .sidebar-nav .nav-link:hover {
+            background-color: #333;
+            color: #007acc;
+            padding-left: 25px;
+        }
+
+        .sidebar-nav .nav-link.active {
+            background-color: #007acc;
+            color: white;
+            border-left: 4px solid #00a0ff;
+        }
+
+        .sidebar-nav .nav-link.disabled {
+            color: #666;
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        .sidebar-nav .nav-link.disabled:hover {
+            background-color: transparent;
+            padding-left: 20px;
+            color: #666;
+        }
+
+        .sidebar-nav .nav-link i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Main content */
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+            min-height: 100vh;
+            padding-bottom: 60px;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Existing styles */
+        .card {
+            background-color: #2a2a2a;
+            border: 1px solid #444;
+            margin-bottom: 20px;
+        }
+        .card-header {
+            background-color: #333;
+            border-bottom: 1px solid #444;
+            font-weight: bold;
+        }
+        .btn-primary {
+            background-color: #007acc;
+            border-color: #007acc;
+        }
+        .btn-danger {
+            background-color: #cc0000;
+            border-color: #cc0000;
+        }
+        .table {
+            color: #e0e0e0;
+        }
+        .table-dark {
+            background-color: #2a2a2a;
+        }
+        .form-control, .form-select {
+            background-color: #333;
+            color: #e0e0e0;
+            border: 1px solid #555;
+        }
+        .form-control:focus, .form-select:focus {
+            background-color: #404040;
+            color: #fff;
+            border-color: #007acc;
+            box-shadow: 0 0 0 0.2rem rgba(0, 122, 204, 0.25);
+        }
+        .hex-display {
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            background-color: #1a1a1a;
+            padding: 10px;
+            border-radius: 4px;
+            white-space: pre;
+            overflow-x: auto;
+        }
+        .instruction-row {
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+        }
+        .address-col {
+            color: #007acc;
+            font-weight: bold;
+        }
+        .mnemonic-col {
+            color: #4ec9b0;
+        }
+        .operand-col {
+            color: #9cdcfe;
+        }
+        .bytes-col {
+            color: #666;
+            font-size: 11px;
+        }
+        .status-connected {
+            color: #4ec9b0;
+        }
+        .status-disconnected {
+            color: #f48771;
+        }
+        .scan-result-row:hover {
+            background-color: #333;
+            cursor: pointer;
+        }
+        .monitor-value {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #4ec9b0;
+        }
+        #statusBar {
+            background-color: #007acc;
+            color: white;
+            padding: 5px 15px;
+            position: fixed;
+            bottom: 0;
+            left: 250px;
+            right: 0;
+            z-index: 1000;
+        }
+        .spinner-border-sm {
+            width: 1rem;
+            height: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h5 class="mb-2 d-flex justify-content-between align-items-center" style="cursor: pointer;" onclick="togglePS4Status()">
+                <span><i class="fas fa-gamepad"></i> PS4 Status</span>
+                <i class="fas fa-chevron-down" id="ps4StatusToggle" style="font-size: 12px;"></i>
+            </h5>
+            <div id="ps4StatusInfo" class="small">
+                <pre id="consoleInfoOutput" style="background: #1a1a1a; padding: 8px; border-radius: 3px; border: 1px solid #333; color: #0f0; font-family: monospace; font-size: 11px; max-height: 300px; overflow-y: auto; margin-bottom: 10px;">
+Not connected
+                </pre>
+                <button class="btn btn-sm btn-outline-info w-100" onclick="refreshPS4Info()" id="refreshPS4InfoBtn" disabled>
+                    <i class="fas fa-sync-alt"></i> Refresh Info
+                </button>
+            </div>
+        </div>
+        <ul class="sidebar-nav">
+            <!-- Main Navigation -->
+            <li class="nav-item">
+                <button class="nav-link active" onclick="switchTab('connection')">
+                    <i class="fas fa-plug"></i> Connection
+                </button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link disabled" onclick="switchTab('debugger')" id="nav-debugger">
+                    <i class="fas fa-bug"></i> Debugger
+                </button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link" onclick="switchTab('payload')" id="nav-payload">
+                    <i class="fas fa-upload"></i> Payload Sender
+                </button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link" onclick="switchTab('ftp')" id="nav-ftp">
+                    <i class="fas fa-folder-open"></i> FTP Browser
+                </button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link" onclick="switchTab('klog')" id="nav-klog">
+                    <i class="fas fa-terminal"></i> Kernel Log
+                </button>
+            </li>
+
+            <!-- Tools Section (Disabled until connected) -->
+            <li class="nav-item">
+                <div class="tools-section-header" style="cursor: pointer; display: flex; justify-content: space-between; align-items: center;" onclick="toggleToolsSection()">
+                    <div>
+                        <i class="fas fa-tools"></i> Tools
+                    </div>
+                    <i class="fas fa-chevron-right" id="toolsToggle" style="font-size: 10px;"></i>
+                </div>
+            </li>
+            <div id="toolsSection" style="display: none;">
+                <li class="nav-item">
+                    <button class="nav-link disabled" onclick="switchTab('scanner')" id="nav-scanner">
+                        <i class="fas fa-search"></i> Memory Scanner
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link disabled" onclick="switchTab('editor')" id="nav-editor">
+                        <i class="fas fa-edit"></i> Memory Editor
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link disabled" onclick="switchTab('disasm')" id="nav-disasm">
+                        <i class="fas fa-microchip"></i> Disassembler
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link disabled" onclick="switchTab('monitor')" id="nav-monitor">
+                        <i class="fas fa-chart-line"></i> Monitor
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link disabled" onclick="switchTab('hexviewer')" id="nav-hexviewer">
+                        <i class="fas fa-th"></i> Hex Viewer
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link disabled" onclick="switchTab('rce')" id="nav-rce">
+                        <i class="fas fa-code"></i> RCE
+                    </button>
+                </li>
+            </div>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Connection Tab -->
+        <div class="tab-content active" id="connection">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-plug"></i> PS4 Connection Manager
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="ipAddress" class="form-label">PS4 IP Address</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="ipAddress" placeholder="Leave empty for auto-discovery" value="192.168.0.106">
+                                <button class="btn btn-primary" onclick="connectPS4()" id="connectBtn">
+                                    <i class="fas fa-link"></i> Connect
+                                </button>
+                                <button class="btn btn-danger" onclick="disconnectPS4()" id="disconnectBtn" style="display: none;">
+                                    <i class="fas fa-unlink"></i> Disconnect
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="processList" class="form-label">Process Selection</label>
+                            <div class="input-group">
+                                <select class="form-select" id="processList" onchange="selectProcess()" disabled>
+                                    <option value="">Connect to PS4 first...</option>
+                                </select>
+                                <button class="btn btn-outline-secondary" onclick="refreshProcessList()" id="refreshProcessBtn" disabled title="Refresh process list">
+                                    <i class="fas fa-sync-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="alert alert-info" role="alert">
+                                <h5>Connection Status</h5>
+                                <p class="mb-2">
+                                    <strong>PS4 Status:</strong> <span id="connectionStatus" class="status-disconnected">
+                                        <i class="fas fa-circle"></i> Disconnected
+                                    </span>
+                                </p>
+                                <p class="mb-2">
+                                    <strong>Selected Process:</strong> <span id="selectedProcessInfo">None</span>
+                                </p>
+                                <p class="mb-0">
+                                    <strong>IP Address:</strong> <span id="connectedIP">Not connected</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <!-- Memory Scanner Tab -->
+            <div class="tab-content" id="scanner">
+                <div class="card">
+                    <div class="card-header">Search Parameters</div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <input type="text" class="form-control" id="scanValue" placeholder="Value to search">
+                            </div>
+                            <div class="col-md-2">
+                                <select class="form-select" id="scanType" onchange="onScanTypeChange()">
+                                    <option value="float">Float</option>
+                                    <option value="int32">Int32</option>
+                                    <option value="double">Double</option>
+                                    <option value="string">String</option>
+                                    <option value="bytes">Hex Bytes</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="text" class="form-control" id="scanTolerance" placeholder="Tolerance" value="0.1">
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn btn-primary w-100" onclick="performScan()">
+                                    <i class="fas fa-search"></i> New Scan
+                                </button>
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn btn-warning w-100" onclick="filterScan()" id="filterBtn" disabled>
+                                    <i class="fas fa-filter"></i> Filter
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        Scan Results <span id="resultCount" class="badge bg-info">0</span>
+                    </div>
+                    <div class="card-body" style="max-height: 400px; overflow-y: auto;">
+                        <table class="table table-dark table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Address</th>
+                                    <th>Value</th>
+                                    <th>Type</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="scanResults"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Memory Editor Tab -->
+            <div class="tab-content" id="editor">
+                <div class="card">
+                    <div class="card-header">Memory Read/Write</div>
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" id="editAddress" placeholder="Address (hex)">
+                            </div>
+                            <div class="col-md-2">
+                                <input type="number" class="form-control" id="readLength" placeholder="Length" value="256">
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn btn-primary w-100" onclick="readMemory()">
+                                    <i class="fas fa-download"></i> Read
+                                </button>
+                            </div>
+                        </div>
+                        <div class="hex-display" id="hexDisplay"></div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <input type="text" class="form-control" id="writeAddress" placeholder="Address (hex)">
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" class="form-control" id="writeValue" placeholder="Value">
+                            </div>
+                            <div class="col-md-2">
+                                <select class="form-select" id="writeType">
+                                    <option value="int32">Int32</option>
+                                    <option value="float">Float</option>
+                                    <option value="double">Double</option>
+                                    <option value="bytes">Hex Bytes</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn btn-danger w-100" onclick="writeMemory()">
+                                    <i class="fas fa-upload"></i> Write
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Disassembler Tab -->
+            <div class="tab-content" id="disasm">
+                <div class="card">
+                    <div class="card-header">Disassemble Code</div>
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <input type="text" class="form-control" id="disasmAddress" placeholder="Address (hex)">
+                            </div>
+                            <div class="col-md-2">
+                                <input type="number" class="form-control" id="disasmLength" placeholder="Bytes" value="100">
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn btn-primary w-100" onclick="disassemble()">
+                                    <i class="fas fa-microchip"></i> Disassemble
+                                </button>
+                            </div>
+                        </div>
+                        <div style="max-height: 500px; overflow-y: auto;">
+                            <table class="table table-dark table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Address</th>
+                                        <th>Bytes</th>
+                                        <th>Mnemonic</th>
+                                        <th>Operands</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="disasmResults"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Monitor Tab -->
+            <div class="tab-content" id="monitor">
+                <div class="card">
+                    <div class="card-header">Real-time Monitor</div>
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <input type="text" class="form-control" id="monitorAddress" placeholder="Address (hex)">
+                            </div>
+                            <div class="col-md-2">
+                                <select class="form-select" id="monitorType">
+                                    <option value="float">Float</option>
+                                    <option value="int32">Int32</option>
+                                    <option value="double">Double</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="number" class="form-control" id="monitorInterval" placeholder="Interval (ms)" value="500">
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn btn-success w-100" onclick="startMonitor()">
+                                    <i class="fas fa-play"></i> Start
+                                </button>
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn btn-danger w-100" onclick="stopMonitor()">
+                                    <i class="fas fa-stop"></i> Stop
+                                </button>
+                            </div>
+                        </div>
+                        <div id="monitorDisplay">
+                            <h3>Current Value: <span class="monitor-value" id="monitorValue">--</span></h3>
+                            <canvas id="monitorChart" width="800" height="200"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hex Viewer Tab -->
+            <div class="tab-content" id="hexviewer">
+                <div class="card">
+                    <div class="card-header">Live Memory Hex Viewer</div>
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <input type="text" class="form-control" id="hexViewerAddress" placeholder="Start Address (hex)">
+                            </div>
+                            <div class="col-md-2">
+                                <input type="number" class="form-control" id="hexViewerLength" placeholder="Length" value="512">
+                            </div>
+                            <div class="col-md-2">
+                                <select class="form-select" id="hexViewerInterval">
+                                    <option value="500">0.5 sec</option>
+                                    <option value="1000" selected>1 sec</option>
+                                    <option value="2000">2 sec</option>
+                                    <option value="5000">5 sec</option>
+                                    <option value="10000">10 sec</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn btn-primary w-100" onclick="startHexViewer()">
+                                    <i class="fas fa-play"></i> Start
+                                </button>
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn btn-danger w-100" onclick="stopHexViewer()">
+                                    <i class="fas fa-stop"></i> Stop
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-md-12">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" id="hexViewerHighlight" checked>
+                                    <label class="form-check-label" for="hexViewerHighlight">
+                                        Highlight Changes
+                                    </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" id="hexViewerAscii" checked>
+                                    <label class="form-check-label" for="hexViewerAscii">
+                                        Show ASCII
+                                    </label>
+                                </div>
+                                <span class="ms-3">
+                                    Status: <span id="hexViewerStatus" class="badge bg-secondary">Stopped</span>
+                                </span>
+                                <span class="ms-3">
+                                    Last Update: <span id="hexViewerTimestamp">--</span>
+                                </span>
+                            </div>
+                        </div>
+                        <div style="max-height: 600px; overflow-y: auto; font-family: 'Courier New', monospace; font-size: 13px;">
+                            <table class="table table-dark table-sm" id="hexViewerTable">
+                                <thead style="position: sticky; top: 0; background-color: #2a2a2a;">
+                                    <tr>
+                                        <th style="width: 100px;">Offset</th>
+                                        <th style="width: 430px;">Hex</th>
+                                        <th>ASCII</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="hexViewerContent">
+                                    <tr>
+                                        <td colspan="3" class="text-center text-muted">
+                                            Enter an address and click Start to begin viewing
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Debugger Tab -->
+            <div class="tab-content" id="debugger">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-bug"></i> Process Debugger
+                        <span class="float-end">
+                            <span id="debuggerStatus" class="badge bg-secondary">Inactive</span>
+                        </span>
+                    </div>
+                    <div class="card-body">
+                        <!-- Debugger Controls -->
+                        <div class="row mb-3">
+                            <div class="col-md-2">
+                                <button class="btn btn-success w-100" onclick="startDebugger()" id="startDebuggerBtn">
+                                    <i class="fas fa-play"></i> Start Debugger
+                                </button>
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn btn-danger w-100" onclick="stopDebugger()" id="stopDebuggerBtn" disabled>
+                                    <i class="fas fa-stop"></i> Stop Debugger
+                                </button>
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn btn-primary w-100" onclick="continueExecution()" id="continueBtn" disabled>
+                                    <i class="fas fa-forward"></i> Continue
+                                </button>
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn btn-warning w-100" onclick="stepInstruction()" id="stepBtn" disabled>
+                                    <i class="fas fa-step-forward"></i> Step
+                                </button>
+                            </div>
+                            <div class="col-md-2">
+                                <select class="form-select" id="threadSelect">
+                                    <option value="">Select Thread</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Breakpoint Management -->
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <h5>Breakpoints</h5>
+                                <div class="input-group mb-2">
+                                    <input type="text" class="form-control" id="breakpointAddress" placeholder="Breakpoint Address (hex)">
+                                    <button class="btn btn-primary" onclick="setBreakpoint()">
+                                        <i class="fas fa-plus"></i> Add Breakpoint
+                                    </button>
+                                </div>
+                                <div style="max-height: 200px; overflow-y: auto;">
+                                    <table class="table table-dark table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Address</th>
+                                                <th>Enabled</th>
+                                                <th>Hit Count</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="breakpointList"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Register Display -->
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <h5>Registers</h5>
+                                <div class="bg-dark p-2" style="font-family: monospace; font-size: 12px;">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div>RAX: <span id="reg_rax" class="text-info">--------</span></div>
+                                            <div>RBX: <span id="reg_rbx" class="text-info">--------</span></div>
+                                            <div>RCX: <span id="reg_rcx" class="text-info">--------</span></div>
+                                            <div>RDX: <span id="reg_rdx" class="text-info">--------</span></div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div>RSI: <span id="reg_rsi" class="text-info">--------</span></div>
+                                            <div>RDI: <span id="reg_rdi" class="text-info">--------</span></div>
+                                            <div>RBP: <span id="reg_rbp" class="text-info">--------</span></div>
+                                            <div>RSP: <span id="reg_rsp" class="text-info">--------</span></div>
+                                        </div>
+                                    </div>
+                                    <div class="mt-2">
+                                        <div>RIP: <span id="reg_rip" class="text-warning">--------</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <h5>Breakpoint Hits</h5>
+                                <div class="bg-dark p-2" style="max-height: 150px; overflow-y: auto; font-family: monospace; font-size: 12px;">
+                                    <div id="breakpointHits"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Disassembly at Current Position -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h5>Disassembly at RIP</h5>
+                                <div style="max-height: 300px; overflow-y: auto;">
+                                    <table class="table table-dark table-sm" style="font-family: monospace; font-size: 12px;">
+                                        <thead>
+                                            <tr>
+                                                <th>Address</th>
+                                                <th>Bytes</th>
+                                                <th>Instruction</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="debuggerDisasm"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payload Sender Tab -->
+            <div class="tab-content" id="payload">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span><i class="fas fa-upload"></i> Send Payload to PS4</span>
+                            <button class="btn btn-sm btn-info" onclick="refreshPayloads()">
+                                <i class="fas fa-sync"></i> Refresh Payloads
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="payloadIP" class="form-label">PS4 IP Address</label>
+                                <input type="text" class="form-control" id="payloadIP" value="192.168.0.106">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="payloadPort" class="form-label">Port</label>
+                                <input type="number" class="form-control" id="payloadPort" value="9090">
+                                <small class="text-muted">Default: 9090 (GoldHEN)</small>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">&nbsp;</label>
+                                <button class="btn btn-primary w-100" onclick="sendSelectedPayload()" id="sendPayloadBtn">
+                                    <i class="fas fa-paper-plane"></i> Send Payload
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h5>Available Payloads</h5>
+                                <div class="alert alert-info" role="alert">
+                                    <i class="fas fa-info-circle"></i> Place .bin files in the <code>payloads/</code> directory to make them available here.
+                                </div>
+                                <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+                                    <table class="table table-dark table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th width="50">Select</th>
+                                                <th>Payload Name</th>
+                                                <th>Size</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="payloadList">
+                                            <tr>
+                                                <td colspan="4" class="text-center text-muted">
+                                                    <i class="fas fa-spinner fa-spin"></i> Loading payloads...
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col-md-12">
+                                <h5>Send Log</h5>
+                                <div class="bg-dark p-2" style="max-height: 200px; overflow-y: auto; font-family: monospace; font-size: 12px;" id="payloadLog">
+                                    <div class="text-muted">No payloads sent yet.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FTP Browser Tab -->
+            <div class="tab-content" id="ftp">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span><i class="fas fa-folder-open"></i> FTP File Browser</span>
+                            <div>
+                                <button class="btn btn-sm btn-success" onclick="connectFTP()" id="ftpConnectBtn">
+                                    <i class="fas fa-plug"></i> Connect
+                                </button>
+                                <button class="btn btn-sm btn-danger" onclick="disconnectFTP()" id="ftpDisconnectBtn" style="display: none;">
+                                    <i class="fas fa-times"></i> Disconnect
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="ftpIP" class="form-label">PS4 IP Address</label>
+                                <input type="text" class="form-control" id="ftpIP" value="192.168.0.106">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="ftpPort" class="form-label">FTP Port</label>
+                                <input type="number" class="form-control" id="ftpPort" value="2121">
+                                <small class="text-muted">Default: 2121</small>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">&nbsp;</label>
+                                <div class="btn-group w-100" role="group">
+                                    <button class="btn btn-primary" onclick="refreshFTPDirectory()" title="Refresh">
+                                        <i class="fas fa-sync"></i>
+                                    </button>
+                                    <button class="btn btn-secondary" onclick="goToParentDirectory()" title="Parent Directory">
+                                        <i class="fas fa-level-up-alt"></i>
+                                    </button>
+                                    <input type="file" id="ftpUploadFile" style="display: none;" onchange="uploadFile()">
+                                    <button class="btn btn-success" onclick="document.getElementById('ftpUploadFile').click()" title="Upload File">
+                                        <i class="fas fa-upload"></i>
+                                    </button>
+                                    <button class="btn btn-info" onclick="createNewFolder()" title="New Folder">
+                                        <i class="fas fa-folder-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-md-12">
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-folder"></i> Path:</span>
+                                    <input type="text" class="form-control" id="ftpCurrentPath" value="/" readonly>
+                                    <button class="btn btn-outline-secondary" onclick="goToPath()">
+                                        <i class="fas fa-arrow-right"></i> Go
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="table-responsive" style="max-height: 500px; overflow-y: auto;">
+                                    <table class="table table-dark table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th width="40">Type</th>
+                                                <th>Name</th>
+                                                <th width="120">Size</th>
+                                                <th width="180">Modified</th>
+                                                <th width="150">Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="ftpFileList">
+                                            <tr>
+                                                <td colspan="5" class="text-center text-muted">
+                                                    <i class="fas fa-info-circle"></i> Not connected. Enter IP and port, then click Connect.
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col-md-12">
+                                <div class="alert alert-info" role="alert">
+                                    <i class="fas fa-info-circle"></i> Make sure FTP is enabled on your PS4. For GoldHEN, FTP typically runs on port 2121.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kernel Log Tab -->
+            <div class="tab-content" id="klog">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span><i class="fas fa-terminal"></i> Kernel Log Viewer</span>
+                            <div>
+                                <button class="btn btn-sm btn-success" onclick="startKlog()" id="klogStartBtn">
+                                    <i class="fas fa-play"></i> Start
+                                </button>
+                                <button class="btn btn-sm btn-danger" onclick="stopKlog()" id="klogStopBtn" style="display: none;">
+                                    <i class="fas fa-stop"></i> Stop
+                                </button>
+                                <button class="btn btn-sm btn-warning" onclick="clearKlog()">
+                                    <i class="fas fa-trash"></i> Clear
+                                </button>
+                                <button class="btn btn-sm btn-secondary" onclick="copyKlogToClipboard()">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                                <button class="btn btn-sm btn-info" onclick="exportKlog()">
+                                    <i class="fas fa-download"></i> Export
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="klogIP" class="form-label">PS4 IP Address</label>
+                                <input type="text" class="form-control" id="klogIP" value="192.168.0.106">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="klogPort" class="form-label">Klog Port</label>
+                                <input type="number" class="form-control" id="klogPort" value="3232">
+                                <small class="text-muted">Default: 3232 (GoldHEN)</small>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Options</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="klogAutoScroll" checked>
+                                    <label class="form-check-label" for="klogAutoScroll">
+                                        Auto-scroll
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="klogTimestamp" checked>
+                                    <label class="form-check-label" for="klogTimestamp">
+                                        Show timestamps
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-md-12">
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-filter"></i></span>
+                                    <input type="text" class="form-control" id="klogFilter" placeholder="Filter log entries (regex supported)">
+                                    <button class="btn btn-outline-secondary" onclick="applyKlogFilter()">Apply</button>
+                                    <button class="btn btn-outline-secondary" onclick="clearKlogFilter()">Clear</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="alert alert-info" id="klogStatus">
+                                    <i class="fas fa-info-circle"></i> Not connected. Click Start to begin reading kernel log.
+                                </div>
+                                <div style="background-color: #1a1a1a; border: 1px solid #444; border-radius: 4px; padding: 10px; height: 500px; overflow-y: auto; font-family: 'Courier New', monospace; font-size: 12px;" id="klogOutput">
+                                    <div class="text-muted text-center" style="padding: 20px;">
+                                        Kernel log output will appear here...
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mt-2">
+                            <div class="col-md-12">
+                                <small class="text-muted">
+                                    <i class="fas fa-info-circle"></i> Make sure kernel log is enabled on your PS4.
+                                    For GoldHEN, the klog server typically runs on port 3232.
+                                    Lines: <span id="klogLineCount">0</span> |
+                                    Filtered: <span id="klogFilteredCount">0</span>
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RCE Tab -->
+            <div class="tab-content" id="rce">
+                <div class="card">
+                    <div class="card-header">
+                        <span><i class="fas fa-code"></i> Remote Code Execution</span>
+                    </div>
+                    <div class="card-body">
+                        <!-- Function Call Section -->
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <h6><i class="fas fa-phone"></i> Function Call</h6>
+                                <div class="form-group">
+                                    <label>Function Address:</label>
+                                    <input type="text" class="form-control" id="rceAddress" placeholder="0x12345678">
+                                </div>
+                                <div class="form-group">
+                                    <label>Parameters (up to 6, comma-separated):</label>
+                                    <input type="text" class="form-control" id="rceParams" placeholder="1, 0x1000, 3.14, 42">
+                                    <small class="text-muted">Supports integers, hex (0x...), and floats</small>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Parameter Format (optional):</label>
+                                        <input type="text" class="form-control" id="rceParamFormat" placeholder="<2i2f">
+                                        <small class="text-muted">Python struct format string</small>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Output Format (optional):</label>
+                                        <input type="text" class="form-control" id="rceOutputFormat" placeholder="Q">
+                                        <small class="text-muted">Default: Q (unsigned long)</small>
+                                    </div>
+                                </div>
+                                <button class="btn btn-primary mt-2" onclick="callFunction()">
+                                    <i class="fas fa-play"></i> Call Function
+                                </button>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <!-- Assembly Injection Section -->
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <h6><i class="fas fa-syringe"></i> Assembly Injection</h6>
+                                <div class="form-group">
+                                    <label>Assembly (hex bytes):</label>
+                                    <textarea class="form-control" id="rceAssembly" rows="3" placeholder="90 90 90 C3 (NOP NOP NOP RET)"></textarea>
+                                    <small class="text-muted">Enter x86-64 machine code as hex bytes</small>
+                                </div>
+                                <div class="form-group">
+                                    <label>Parameters (optional):</label>
+                                    <input type="text" class="form-control" id="rceInjectParams" placeholder="1, 2, 3">
+                                </div>
+                                <button class="btn btn-warning" onclick="injectAssembly()">
+                                    <i class="fas fa-syringe"></i> Inject & Execute
+                                </button>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <!-- Memory Management Section -->
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <h6><i class="fas fa-memory"></i> Memory Management</h6>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Allocate Memory (bytes):</label>
+                                            <input type="number" class="form-control" id="allocSize" value="4096" min="1">
+                                            <button class="btn btn-success mt-2" onclick="allocateMemory()">
+                                                <i class="fas fa-plus"></i> Allocate
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Free Memory:</label>
+                                            <input type="text" class="form-control" id="freeAddress" placeholder="0x12345678">
+                                            <input type="number" class="form-control mt-1" id="freeSize" placeholder="Size" value="4096">
+                                            <button class="btn btn-danger mt-2" onclick="freeMemory()">
+                                                <i class="fas fa-trash"></i> Free
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <!-- Results Section -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h6><i class="fas fa-terminal"></i> Results</h6>
+                                <div style="background-color: #1a1a1a; border: 1px solid #444; border-radius: 4px; padding: 10px; height: 200px; overflow-y: auto; font-family: 'Courier New', monospace; font-size: 12px;" id="rceOutput">
+                                    <div class="text-muted text-center" style="padding: 20px;">
+                                        Results will appear here...
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End of main-content -->
+
+    <!-- Status Bar -->
+    <div id="statusBar">
+        <i class="fas fa-info-circle"></i> <span id="statusText">Ready</span>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const socket = io();
+        let currentScanId = null;
+        let monitorData = [];
+        let isMonitoring = false;
+        let isConnected = false;
+        let currentTab = 'connection';
+
+        // Tab switching function
+        function switchTab(tabName) {
+            // Check if tab is disabled
+            const navButton = document.querySelector(`#nav-${tabName}`);
+            if (navButton && navButton.classList.contains('disabled')) {
+                return;
+            }
+
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Show selected tab
+            const selectedTab = document.getElementById(tabName);
+            if (selectedTab) {
+                selectedTab.classList.add('active');
+            }
+
+            // Update nav buttons
+            document.querySelectorAll('.sidebar-nav .nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+
+            // Find and activate the button for this tab
+            document.querySelectorAll('.sidebar-nav .nav-link').forEach(link => {
+                if (link.getAttribute('onclick') === `switchTab('${tabName}')`) {
+                    link.classList.add('active');
+                }
+            });
+
+            currentTab = tabName;
+
+            // Trigger tab-specific initialization
+            if (tabName === 'payload') {
+                refreshPayloads();
+            } else if (tabName === 'ftp' && typeof ftpConnected !== 'undefined' && ftpConnected) {
+                refreshFTPDirectory();
+            }
+        }
+
+        // Enable/disable tabs based on connection status
+        function updateTabStates(connected) {
+            const tabs = ['scanner', 'editor', 'disasm', 'monitor', 'hexviewer', 'debugger', 'rce'];
+
+            tabs.forEach(tab => {
+                const navButton = document.getElementById(`nav-${tab}`);
+                if (navButton) {
+                    if (connected) {
+                        navButton.classList.remove('disabled');
+                    } else {
+                        navButton.classList.add('disabled');
+                    }
+                }
+            });
+
+            // Payload and FTP tabs are always enabled
+            const payloadNav = document.getElementById('nav-payload');
+            const ftpNav = document.getElementById('nav-ftp');
+            if (payloadNav) payloadNav.classList.remove('disabled');
+            if (ftpNav) ftpNav.classList.remove('disabled');
+        }
+
+        // Disconnect function
+        function disconnectPS4() {
+            isConnected = false;
+            updateTabStates(false);
+            $('#connectionStatus').html('<i class="fas fa-circle"></i> Disconnected').removeClass('status-connected').addClass('status-disconnected');
+            $('#connectedIP').text('Not connected');
+            $('#selectedProcessInfo').text('None');
+            $('#processList').html('<option value="">Connect to PS4 first...</option>').prop('disabled', true);
+            $('#refreshProcessBtn').prop('disabled', true);
+            $('#connectBtn').show();
+            $('#disconnectBtn').hide();
+
+            // Update sidebar status
+            updateSidebarStatus(false);
+
+            // Switch to connection tab if on a disabled tab
+            if (['scanner', 'editor', 'disasm', 'monitor', 'hexviewer', 'debugger', 'rce'].includes(currentTab)) {
+                switchTab('connection');
+            }
+
+            setStatus('Disconnected from PS4', false);
+        }
+
+        function refreshProcessList() {
+            if (!isConnected) {
+                alert('Not connected to PS4');
+                return;
+            }
+
+            // Store current selection
+            const currentSelection = $('#processList').val();
+
+            // Show loading state
+            $('#refreshProcessBtn').html('<i class="fas fa-spinner fa-spin"></i>');
+            $('#refreshProcessBtn').prop('disabled', true);
+
+            $.ajax({
+                url: '/api/processes',
+                method: 'GET',
+                success: function(data) {
+                    if (data.success) {
+                        // Clear and repopulate process list
+                        $('#processList').empty().append('<option value="">Select Process...</option>');
+
+                        let foundCurrentSelection = false;
+                        data.processes.forEach(p => {
+                            $('#processList').append(`<option value="${p.pid}">${p.name} (${p.pid})</option>`);
+                            if (p.pid == currentSelection) {
+                                foundCurrentSelection = true;
+                            }
+                        });
+
+                        // Restore selection if process still exists
+                        if (foundCurrentSelection && currentSelection) {
+                            $('#processList').val(currentSelection);
+                        } else if (currentSelection) {
+                            // Process no longer exists
+                            $('#selectedProcessInfo').text('None');
+                            setStatus('Previously selected process no longer exists', true);
+                        }
+
+                        setStatus(`Process list refreshed - ${data.processes.length} processes found`, false);
+                    } else {
+                        setStatus('Failed to refresh process list: ' + data.error, true);
+                    }
+                },
+                error: function() {
+                    setStatus('Failed to refresh process list', true);
+                },
+                complete: function() {
+                    // Restore button state
+                    $('#refreshProcessBtn').html('<i class="fas fa-sync-alt"></i>');
+                    $('#refreshProcessBtn').prop('disabled', false);
+                }
+            });
+        }
+
+        function setStatus(text, isError = false) {
+            $('#statusText').text(text);
+            $('#statusBar').css('background-color', isError ? '#cc0000' : '#007acc');
+        }
+
+        let ps4StatusCollapsed = false;
+        let toolsSectionCollapsed = true;  // Default to collapsed
+
+        function togglePS4Status() {
+            ps4StatusCollapsed = !ps4StatusCollapsed;
+            if (ps4StatusCollapsed) {
+                $('#ps4StatusInfo').slideUp(200);
+                $('#ps4StatusToggle').removeClass('fa-chevron-down').addClass('fa-chevron-right');
+            } else {
+                $('#ps4StatusInfo').slideDown(200);
+                $('#ps4StatusToggle').removeClass('fa-chevron-right').addClass('fa-chevron-down');
+            }
+        }
+
+        function toggleToolsSection() {
+            toolsSectionCollapsed = !toolsSectionCollapsed;
+            if (toolsSectionCollapsed) {
+                $('#toolsSection').slideUp(200);
+                $('#toolsToggle').removeClass('fa-chevron-down').addClass('fa-chevron-right');
+            } else {
+                $('#toolsSection').slideDown(200);
+                $('#toolsToggle').removeClass('fa-chevron-right').addClass('fa-chevron-down');
+            }
+        }
+
+        function refreshPS4Info() {
+            if (!isConnected) {
+                return;
+            }
+
+            $('#refreshPS4InfoBtn').html('<i class="fas fa-spinner fa-spin"></i> Loading...');
+            $('#refreshPS4InfoBtn').prop('disabled', true);
+
+            $.ajax({
+                url: '/api/ps4/info',
+                method: 'GET',
+                success: function(data) {
+                    if (data.success) {
+                        let infoText = `=== PS4 System Information ===\n`;
+                        infoText += `Connection: ${data.ip || 'Connected'}\n`;
+                        infoText += `Debug Version: ${data.version || 'Unknown'}\n`;
+                        infoText += `Kernel Base: ${data.kernel_base ? '0x' + data.kernel_base.toString(16).toUpperCase() : 'N/A'}\n`;
+
+                        if (data.process_info) {
+                            infoText += `Process: ${data.process_info}\n`;
+                        }
+
+                        if (data.console_info) {
+                            infoText += `\n=== Console Info (Raw) ===\n`;
+                            infoText += data.console_info;
+                        }
+
+                        $('#consoleInfoOutput').text(infoText);
+                    } else {
+                        $('#consoleInfoOutput').text(`Error: ${data.error || 'Failed to get PS4 info'}`);
+                    }
+                },
+                error: function() {
+                    $('#consoleInfoOutput').text('Failed to connect to PS4 info endpoint');
+                },
+                complete: function() {
+                    $('#refreshPS4InfoBtn').html('<i class="fas fa-sync-alt"></i> Refresh Info');
+                    $('#refreshPS4InfoBtn').prop('disabled', false);
+                }
+            });
+        }
+
+        function updateSidebarStatus(connected, ipAddress = null, processInfo = null) {
+            if (connected) {
+                $('#refreshPS4InfoBtn').prop('disabled', false);
+                $('#consoleInfoOutput').text(`Connected to ${ipAddress || 'PS4'}\nRefreshing info...`);
+
+                // Auto-refresh PS4 info on connection
+                refreshPS4Info();
+            } else {
+                $('#consoleInfoOutput').text('Not connected');
+                $('#refreshPS4InfoBtn').prop('disabled', true);
+            }
+        }
+
+        function checkDebuggerStatus() {
+            // Check if debugger is already running
+            $.ajax({
+                url: '/api/debugger/status',
+                method: 'GET',
+                success: function(data) {
+                    if (data.success) {
+                        if (data.active) {
+                            // Debugger is active, restore UI state
+                            debuggerActive = true;
+                            $('#debuggerStatus').removeClass('bg-secondary').addClass('bg-success').text('Active');
+                            $('#startDebuggerBtn').prop('disabled', true);
+                            $('#stopDebuggerBtn').prop('disabled', false);
+                            $('#continueBtn').prop('disabled', false);
+                            $('#stepBtn').prop('disabled', false);
+
+                            // Update process info if PID is available
+                            if (data.pid) {
+                                $('#processList').val(data.pid);
+                                $('#selectedProcessInfo').text(`PID: ${data.pid}`);
+                            }
+
+                            // Populate thread list if available
+                            if (data.threads && data.threads.length > 0) {
+                                $('#threadSelect').empty().append('<option value="">All Threads</option>');
+                                data.threads.forEach(t => {
+                                    $('#threadSelect').append(`<option value="${t.id}">${t.name || 'Thread ' + t.id}</option>`);
+                                });
+                            }
+
+                            // Restore breakpoints if available
+                            if (data.breakpoints && data.breakpoints.length > 0) {
+                                currentBreakpoints = data.breakpoints;
+                                refreshBreakpoints();
+                            }
+
+                            if (data.reconnected) {
+                                setStatus('Reconnected to existing debugger session', false);
+                            } else {
+                                setStatus('Debugger already active', false);
+                            }
+
+                            // Mark connection as active if port is in use
+                            if (data.port_in_use && !isConnected) {
+                                // Try to restore connection status
+                                isConnected = true;
+                                $('#connectionStatus').html('<i class="fas fa-circle"></i> Connected');
+                                $('#connectionStatus').removeClass('status-disconnected').addClass('status-connected');
+                                $('#connectBtn').hide();
+                                $('#disconnectBtn').show();
+                                updateTabStates(true);
+                            }
+                        } else if (data.port_in_use) {
+                            setStatus('Port 755 is in use but debugger not attached', true);
+                        }
+                    }
+                },
+                error: function() {
+                    // Silently fail on error (e.g., not connected)
+                    console.log('Could not check debugger status');
+                }
+            });
+        }
+
+        function connectPS4() {
+            const ip = $('#ipAddress').val();
+            setStatus('Connecting...', false);
+
+            $.ajax({
+                url: '/api/connect',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ip_address: ip}),
+                success: function(data) {
+                    if (data.success) {
+                        isConnected = true;
+                        $('#connectionStatus').html('<i class="fas fa-circle"></i> Connected');
+                        $('#connectionStatus').removeClass('status-disconnected').addClass('status-connected');
+                        $('#connectedIP').text(data.ip_address);
+                        $('#connectBtn').hide();
+                        $('#disconnectBtn').show();
+
+                        // Populate process list
+                        $('#processList').empty().append('<option value="">Select Process...</option>');
+                        data.processes.forEach(p => {
+                            $('#processList').append(`<option value="${p.pid}">${p.name} (${p.pid})</option>`);
+                        });
+                        $('#processList').prop('disabled', false);
+                        $('#refreshProcessBtn').prop('disabled', false);
+
+                        // Enable tabs
+                        updateTabStates(true);
+
+                        setStatus('Connected successfully to ' + data.ip_address, false);
+
+                        // Update sidebar status
+                        updateSidebarStatus(true, data.ip_address);
+
+                        // Check debugger status after connection
+                        checkDebuggerStatus();
+                    } else {
+                        setStatus('Connection failed: ' + data.error, true);
+                    }
+                }
+            });
+        }
+
+        function selectProcess() {
+            const pid = $('#processList').val();
+            if (!pid) return;
+
+            $.ajax({
+                url: '/api/select_process',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({pid: parseInt(pid)}),
+                success: function(data) {
+                    if (data.success) {
+                        const selectedOption = $('#processList option:selected').text();
+                        $('#selectedProcessInfo').text(selectedOption);
+                        setStatus('Process selected: ' + selectedOption, false);
+                        // Refresh PS4 info to show updated process
+                        refreshPS4Info();
+                    }
+                }
+            });
+        }
+
+        function performScan() {
+            const value = $('#scanValue').val();
+            const type = $('#scanType').val();
+            const tolerance = $('#scanTolerance').val();
+            
+            setStatus('Scanning memory...', false);
+            $('#scanResults').empty();
+            
+            $.ajax({
+                url: '/api/scan',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({value: value, type: type, tolerance: tolerance}),
+                success: function(data) {
+                    if (data.success) {
+                        currentScanId = data.scan_id;
+                        $('#filterBtn').prop('disabled', false);
+                        $('#resultCount').text(data.count);
+                        
+                        data.results.forEach(r => {
+                            $('#scanResults').append(`
+                                <tr class="scan-result-row" data-address="${r.address}">
+                                    <td class="address-col">${r.address}</td>
+                                    <td>${r.value}</td>
+                                    <td>${r.type}</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-primary" onclick="editValue('${r.address}', '${r.type}')">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-info" onclick="monitorAddress('${r.address}', '${r.type}')">
+                                            <i class="fas fa-chart-line"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            `);
+                        });
+                        
+                        setStatus(`Scan complete: ${data.count} results found`, false);
+                    } else {
+                        setStatus('Scan failed: ' + data.error, true);
+                    }
+                }
+            });
+        }
+
+        function filterScan() {
+            if (!currentScanId) return;
+            
+            const value = $('#scanValue').val();
+            const tolerance = $('#scanTolerance').val();
+            
+            setStatus('Filtering results...', false);
+            
+            $.ajax({
+                url: '/api/filter_scan',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({scan_id: currentScanId, value: value, tolerance: tolerance}),
+                success: function(data) {
+                    if (data.success) {
+                        $('#resultCount').text(data.count);
+                        $('#scanResults').empty();
+                        
+                        data.results.forEach(r => {
+                            $('#scanResults').append(`
+                                <tr class="scan-result-row">
+                                    <td class="address-col">${r.address}</td>
+                                    <td>${r.value} <small>(was ${r.old_value})</small></td>
+                                    <td>${r.type}</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-primary" onclick="editValue('${r.address}', '${r.type}')">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-info" onclick="monitorAddress('${r.address}', '${r.type}')">
+                                            <i class="fas fa-chart-line"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            `);
+                        });
+                        
+                        setStatus(`Filter complete: ${data.count} results`, false);
+                    }
+                }
+            });
+        }
+
+        function readMemory() {
+            const address = $('#editAddress').val();
+            const length = $('#readLength').val();
+            
+            $.ajax({
+                url: '/api/read',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({address: address, length: length, format: 'hex'}),
+                success: function(data) {
+                    if (data.success) {
+                        $('#hexDisplay').text(data.data);
+                        setStatus('Memory read complete', false);
+                    } else {
+                        setStatus('Read failed: ' + data.error, true);
+                    }
+                }
+            });
+        }
+
+        function writeMemory() {
+            const address = $('#writeAddress').val();
+            const value = $('#writeValue').val();
+            const type = $('#writeType').val();
+            
+            $.ajax({
+                url: '/api/write',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({address: address, value: value, type: type}),
+                success: function(data) {
+                    if (data.success) {
+                        setStatus('Memory written successfully', false);
+                    } else {
+                        setStatus('Write failed: ' + data.error, true);
+                    }
+                }
+            });
+        }
+
+        function disassemble() {
+            const address = $('#disasmAddress').val();
+            const length = $('#disasmLength').val();
+            
+            $.ajax({
+                url: '/api/disassemble',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({address: address, length: length}),
+                success: function(data) {
+                    if (data.success) {
+                        $('#disasmResults').empty();
+                        
+                        data.instructions.forEach(inst => {
+                            $('#disasmResults').append(`
+                                <tr class="instruction-row">
+                                    <td class="address-col">${inst.address}</td>
+                                    <td class="bytes-col">${inst.bytes}</td>
+                                    <td class="mnemonic-col">${inst.mnemonic}</td>
+                                    <td class="operand-col">${inst.op_str}</td>
+                                </tr>
+                            `);
+                        });
+                        
+                        setStatus('Disassembly complete', false);
+                    } else {
+                        setStatus('Disassembly failed: ' + data.error, true);
+                    }
+                }
+            });
+        }
+
+        function editValue(address, type) {
+            $('#writeAddress').val(address);
+            $('#writeType').val(type);
+            $('#editor-tab').tab('show');
+        }
+
+        function monitorAddress(address, type) {
+            $('#monitorAddress').val(address);
+            $('#monitorType').val(type);
+            $('#monitor-tab').tab('show');
+        }
+
+        function startMonitor() {
+            const address = $('#monitorAddress').val();
+            const type = $('#monitorType').val();
+            const interval = $('#monitorInterval').val();
+            
+            if (!address) return;
+            
+            isMonitoring = true;
+            monitorData = [];
+            
+            socket.emit('monitor_address', {
+                address: address,
+                type: type,
+                interval: parseInt(interval) / 1000
+            });
+            
+            setStatus('Monitoring started', false);
+        }
+
+        function stopMonitor() {
+            isMonitoring = false;
+            setStatus('Monitoring stopped', false);
+        }
+
+        // Socket event handlers
+        socket.on('monitor_update', function(data) {
+            if (!isMonitoring) return;
+            
+            $('#monitorValue').text(data.value.toFixed(2));
+            
+            // Update chart (simplified)
+            monitorData.push({time: data.timestamp, value: data.value});
+            if (monitorData.length > 100) monitorData.shift();
+            
+            // You could add a proper chart library here
+        });
+
+        socket.on('error', function(data) {
+            setStatus('Error: ' + data.message, true);
+        });
+
+        function onScanTypeChange() {
+            const type = $('#scanType').val();
+            const toleranceInput = $('#scanTolerance');
+            const valueInput = $('#scanValue');
+            
+            if (type === 'string') {
+                toleranceInput.prop('disabled', true).val('N/A');
+                valueInput.attr('placeholder', 'String to search');
+            } else if (type === 'bytes') {
+                toleranceInput.prop('disabled', true).val('N/A');
+                valueInput.attr('placeholder', 'Hex bytes (e.g., DE AD BE EF)');
+            } else {
+                toleranceInput.prop('disabled', false).val('0.1');
+                valueInput.attr('placeholder', 'Value to search');
+            }
+        }
+
+        // Hex Viewer functions
+        let hexViewerInterval = null;
+        let previousHexData = {};
+        let currentHexAddress = null;
+        let currentHexLength = 512;
+
+        function startHexViewer(customAddress = null) {
+            const address = customAddress || $('#hexViewerAddress').val();
+            const length = $('#hexViewerLength').val() || 512;
+            const interval = parseInt($('#hexViewerInterval').val());
+            
+            if (!address) {
+                setStatus('Please enter a start address', true);
+                return;
+            }
+            
+            // Update current values
+            currentHexAddress = address;
+            currentHexLength = parseInt(length);
+            $('#hexViewerAddress').val(address);
+            
+            // Stop any existing viewer
+            stopHexViewer();
+            
+            // Update status
+            $('#hexViewerStatus').removeClass('bg-secondary bg-danger').addClass('bg-success').text('Running');
+            
+            // Function to refresh hex view
+            const refreshHexView = () => {
+                $.ajax({
+                    url: '/api/hex_viewer',
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        start_address: currentHexAddress,
+                        length: currentHexLength
+                    }),
+                    success: function(data) {
+                        if (data.success) {
+                            displayHexData(data.lines);
+                            const now = new Date();
+                            $('#hexViewerTimestamp').text(now.toLocaleTimeString());
+                        } else {
+                            setStatus('Hex viewer error: ' + data.error, true);
+                            stopHexViewer();
+                        }
+                    },
+                    error: function() {
+                        setStatus('Failed to refresh hex view', true);
+                        stopHexViewer();
+                    }
+                });
+            };
+            
+            // Initial refresh
+            refreshHexView();
+            
+            // Set up interval
+            hexViewerInterval = setInterval(refreshHexView, interval);
+            setStatus(`Hex viewer started at 0x${parseInt(currentHexAddress, 16).toString(16)} (refreshing every ${interval/1000}s)`, false);
+        }
+
+        function stopHexViewer() {
+            if (hexViewerInterval) {
+                clearInterval(hexViewerInterval);
+                hexViewerInterval = null;
+            }
+            $('#hexViewerStatus').removeClass('bg-success bg-danger').addClass('bg-secondary').text('Stopped');
+            setStatus('Hex viewer stopped', false);
+        }
+
+        function displayHexData(lines) {
+            const tbody = $('#hexViewerContent');
+            const showAscii = $('#hexViewerAscii').is(':checked');
+            const highlightChanges = $('#hexViewerHighlight').is(':checked');
+            
+            tbody.empty();
+            
+            lines.forEach((line) => {
+                const row = $('<tr>');
+                
+                // Offset column
+                row.append(`<td class="address-col">${line.offset}</td>`);
+                
+                // Hex column with change highlighting
+                let hexHtml = '';
+                const hexBytes = line.hex.split(' ');
+                
+                if (highlightChanges && previousHexData[line.offset]) {
+                    const prevBytes = previousHexData[line.offset].split(' ');
+                    hexBytes.forEach((byte, index) => {
+                        if (byte && prevBytes[index] && byte !== prevBytes[index]) {
+                            hexHtml += `<span style="background-color: #cc0000; color: white;">${byte}</span> `;
+                        } else {
+                            hexHtml += byte + ' ';
+                        }
+                    });
+                } else {
+                    hexHtml = line.hex;
+                }
+                
+                row.append(`<td style="font-family: monospace;">${hexHtml}</td>`);
+                
+                // ASCII column
+                if (showAscii) {
+                    row.append(`<td style="font-family: monospace; color: #9cdcfe;">${line.ascii}</td>`);
+                } else {
+                    row.append('<td></td>');
+                }
+                
+                tbody.append(row);
+                
+                // Store for next comparison
+                previousHexData[line.offset] = line.hex;
+            });
+        }
+
+        function navigateHexViewer(direction) {
+            if (!currentHexAddress) {
+                setStatus('No hex viewer session active', true);
+                return;
+            }
+            
+            // Parse current address
+            let addr = parseInt(currentHexAddress, 16);
+            
+            switch(direction) {
+                case 'down':
+                    addr += currentHexLength;
+                    break;
+                case 'up':
+                    addr -= currentHexLength;
+                    if (addr < 0) addr = 0;
+                    break;
+                case 'pagedown':
+                    addr += currentHexLength * 4;
+                    break;
+                case 'pageup':
+                    addr -= currentHexLength * 4;
+                    if (addr < 0) addr = 0;
+                    break;
+            }
+            
+            // Convert back to hex string
+            const newAddress = '0x' + addr.toString(16);
+            
+            // Clear previous data for fresh highlighting
+            previousHexData = {};
+            
+            // Start viewer at new address
+            startHexViewer(newAddress);
+            
+            setStatus(`Navigated to ${newAddress}`, false);
+        }
+
+        // Keyboard navigation for hex viewer
+        $(document).keydown(function(e) {
+            // Only respond if hex viewer tab is active
+            if (!$('#hexviewer-tab').hasClass('active')) {
+                return;
+            }
+            
+            // Check if we're not in an input field
+            if ($(e.target).is('input, textarea, select')) {
+                return;
+            }
+            
+            switch(e.key) {
+                case 'ArrowDown':
+                    e.preventDefault();
+                    navigateHexViewer('down');
+                    break;
+                case 'ArrowUp':
+                    e.preventDefault();
+                    navigateHexViewer('up');
+                    break;
+                case 'PageDown':
+                    e.preventDefault();
+                    navigateHexViewer('pagedown');
+                    break;
+                case 'PageUp':
+                    e.preventDefault();
+                    navigateHexViewer('pageup');
+                    break;
+                case ' ':  // Spacebar to pause/resume
+                    e.preventDefault();
+                    if (hexViewerInterval) {
+                        stopHexViewer();
+                    } else if (currentHexAddress) {
+                        startHexViewer();
+                    }
+                    break;
+            }
+        });
+
+        // Add keyboard shortcuts info to hex viewer
+        $(document).ready(function() {
+            const helpText = `
+                <div class="mt-2 text-muted small">
+                    <strong>Keyboard shortcuts:</strong>
+                    ↑/↓ = Navigate up/down by chunk size |
+                    PgUp/PgDn = Navigate by 4x chunk size |
+                    Space = Pause/Resume auto-refresh
+                </div>
+            `;
+            $('#hexviewer .card-body').append(helpText);
+
+            // Check debugger status on page load
+            checkDebuggerStatus();
+        });
+
+        // Debugger functions
+        let debuggerActive = false;
+        let currentBreakpoints = [];
+
+        function startDebugger() {
+            $.ajax({
+                url: '/api/debugger/start',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({}),
+                success: function(data) {
+                    if (data.success) {
+                        debuggerActive = true;
+                        $('#debuggerStatus').removeClass('bg-secondary').addClass('bg-success').text('Active');
+                        $('#startDebuggerBtn').prop('disabled', true);
+                        $('#stopDebuggerBtn').prop('disabled', false);
+                        $('#continueBtn').prop('disabled', false);
+                        $('#stepBtn').prop('disabled', false);
+
+                        // Populate thread list
+                        $('#threadSelect').empty().append('<option value="">All Threads</option>');
+                        if (data.threads) {
+                            data.threads.forEach(t => {
+                                $('#threadSelect').append(`<option value="${t.id}">${t.name || 'Thread ' + t.id}</option>`);
+                            });
+                        }
+
+                        setStatus('Debugger started', false);
+                        refreshBreakpoints();
+                    } else {
+                        setStatus('Failed to start debugger: ' + data.error, true);
+                    }
+                }
+            });
+        }
+
+        function stopDebugger() {
+            $.ajax({
+                url: '/api/debugger/stop',
+                method: 'POST',
+                success: function(data) {
+                    if (data.success) {
+                        debuggerActive = false;
+                        $('#debuggerStatus').removeClass('bg-success').addClass('bg-secondary').text('Inactive');
+                        $('#startDebuggerBtn').prop('disabled', false);
+                        $('#stopDebuggerBtn').prop('disabled', true);
+                        $('#continueBtn').prop('disabled', true);
+                        $('#stepBtn').prop('disabled', true);
+                        $('#threadSelect').empty().append('<option value="">Select Thread</option>');
+                        setStatus('Debugger stopped', false);
+                    }
+                }
+            });
+        }
+
+        function setBreakpoint() {
+            const address = $('#breakpointAddress').val();
+            if (!address) return;
+
+            $.ajax({
+                url: '/api/debugger/breakpoint',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({address: address, enabled: true}),
+                success: function(data) {
+                    if (data.success) {
+                        $('#breakpointAddress').val('');
+                        setStatus('Breakpoint set at ' + data.breakpoint.address, false);
+                        refreshBreakpoints();
+                    } else {
+                        setStatus('Failed to set breakpoint: ' + data.error, true);
+                    }
+                }
+            });
+        }
+
+        function removeBreakpoint(bpId) {
+            $.ajax({
+                url: '/api/debugger/breakpoint/' + bpId,
+                method: 'DELETE',
+                success: function(data) {
+                    if (data.success) {
+                        setStatus('Breakpoint removed', false);
+                        refreshBreakpoints();
+                    }
+                }
+            });
+        }
+
+        function refreshBreakpoints() {
+            $.ajax({
+                url: '/api/debugger/breakpoints',
+                method: 'GET',
+                success: function(data) {
+                    if (data.success) {
+                        currentBreakpoints = data.breakpoints;
+                        const tbody = $('#breakpointList');
+                        tbody.empty();
+
+                        data.breakpoints.forEach(bp => {
+                            tbody.append(`
+                                <tr>
+                                    <td>${bp.id}</td>
+                                    <td class="address-col">${bp.address}</td>
+                                    <td>${bp.enabled ? '✓' : '✗'}</td>
+                                    <td>${bp.hit_count}</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-danger" onclick="removeBreakpoint(${bp.id})">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            `);
+                        });
+
+                        // Update hits display - commented out to preserve WebSocket-added hits with buttons
+                        // The hits are now managed by the WebSocket breakpoint_hit event
+                        // which adds them with replay buttons
+                        /*
+                        if (data.hits && data.hits.length > 0) {
+                            const hitsDiv = $('#breakpointHits');
+                            hitsDiv.empty();
+                            data.hits.forEach(hit => {
+                                const time = new Date(hit.timestamp * 1000).toLocaleTimeString();
+                                hitsDiv.append(`<div class="text-warning">[${time}] Hit at ${hit.address} (Thread ${hit.thread_id})</div>`);
+                            });
+                        }
+                        */
+                    }
+                }
+            });
+        }
+
+        function stepInstruction() {
+            const threadId = $('#threadSelect').val() || 0;
+
+            $.ajax({
+                url: '/api/debugger/step',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({thread_id: parseInt(threadId)}),
+                success: function(data) {
+                    if (data.success) {
+                        updateRegisters(data.registers);
+                        setStatus('Stepped one instruction', false);
+
+                        // Update disassembly at new position
+                        if (data.registers && data.registers.rip) {
+                            updateDisassembly(data.registers.rip);
+                        }
+                    } else {
+                        setStatus('Step failed: ' + data.error, true);
+                    }
+                }
+            });
+        }
+
+        function continueExecution() {
+            const threadId = $('#threadSelect').val() || null;
+
+            $.ajax({
+                url: '/api/debugger/continue',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({thread_id: threadId ? parseInt(threadId) : null}),
+                success: function(data) {
+                    if (data.success) {
+                        setStatus('Execution continued', false);
+                    } else {
+                        setStatus('Continue failed: ' + data.error, true);
+                    }
+                }
+            });
+        }
+
+        function updateRegisters(registers) {
+            if (!registers) return;
+
+            $('#reg_rax').text(registers.rax || '--------');
+            $('#reg_rbx').text(registers.rbx || '--------');
+            $('#reg_rcx').text(registers.rcx || '--------');
+            $('#reg_rdx').text(registers.rdx || '--------');
+            $('#reg_rsi').text(registers.rsi || '--------');
+            $('#reg_rdi').text(registers.rdi || '--------');
+            $('#reg_rbp').text(registers.rbp || '--------');
+            $('#reg_rsp').text(registers.rsp || '--------');
+            $('#reg_rip').text(registers.rip || '--------');
+        }
+
+        function updateDisassembly(address) {
+            if (!address) return;
+
+            $.ajax({
+                url: '/api/disassemble',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({address: address, length: 64}),
+                success: function(data) {
+                    if (data.success) {
+                        const tbody = $('#debuggerDisasm');
+                        tbody.empty();
+
+                        data.instructions.forEach((inst, index) => {
+                            const isCurrent = index === 0;
+                            tbody.append(`
+                                <tr ${isCurrent ? 'class="bg-warning text-dark"' : ''}>
+                                    <td class="address-col">${inst.address}</td>
+                                    <td class="bytes-col">${inst.bytes}</td>
+                                    <td class="mnemonic-col">${inst.mnemonic} ${inst.op_str}</td>
+                                </tr>
+                            `);
+                        });
+                    }
+                }
+            });
+        }
+
+        // Store breakpoint hits for replay
+        let breakpointHitHistory = [];
+
+        // Listen for breakpoint hits via WebSocket
+        socket.on('breakpoint_hit', function(data) {
+            console.log('Breakpoint hit received:', data); // Debug log
+            console.log('breakpointHits element exists:', $('#breakpointHits').length > 0);
+
+            // Update registers
+            updateRegisters(data.registers);
+
+            // Store hit data for replay with unique ID
+            const hitId = `hit_${Date.now()}_${Math.floor(Math.random() * 10000)}`; // Unique string ID for this hit
+            data.hitId = hitId;
+            breakpointHitHistory.unshift(data);
+            console.log('Storing breakpoint hit with ID:', hitId, 'Total hits stored:', breakpointHitHistory.length);
+            if (breakpointHitHistory.length > 50) {
+                breakpointHitHistory.pop(); // Keep only last 50 hits
+            }
+
+            // Add to hits display with replay button
+            const time = new Date(data.timestamp * 1000).toLocaleTimeString();
+            const hitHtml = `
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; padding: 5px; background: #2a2a2a; border: 1px solid #444; border-radius: 3px;">
+                    <span class="text-warning" style="flex: 1;">[${time}] Hit at ${data.address} (Thread ${data.thread_id})</span>
+                    <div style="display: flex; gap: 5px;">
+                        <button class="btn btn-sm btn-info" onclick="viewBreakpointRegisters('${hitId}')" title="View registers" style="padding: 2px 8px; font-size: 11px;">
+                            <i class="fas fa-eye"></i> View
+                        </button>
+                        <button class="btn btn-sm btn-success" onclick="replayBreakpointHit('${hitId}')" title="Replay as function call" style="padding: 2px 8px; font-size: 11px;">
+                            <i class="fas fa-play"></i> RCE
+                        </button>
+                    </div>
+                </div>`;
+            $('#breakpointHits').prepend(hitHtml);
+            console.log('Added breakpoint hit HTML, total hits displayed:', $('#breakpointHits').children().length);
+
+            // Update disassembly
+            updateDisassembly(data.address);
+
+            // Show notification
+            setStatus(`Breakpoint hit at ${data.address}`, false);
+
+            // Increment hit count in table
+            refreshBreakpoints();
+        });
+
+        // Test function to manually add a breakpoint hit for debugging
+        function testBreakpointHit() {
+            const testData = {
+                timestamp: Date.now() / 1000,
+                address: '0x12345678',
+                thread_id: 1,
+                breakpoint_index: 0,
+                registers: {
+                    rax: '0x1111111111111111',
+                    rbx: '0x2222222222222222',
+                    rcx: '0x3333333333333333',
+                    rdx: '0x4444444444444444',
+                    rsi: '0x5555555555555555',
+                    rdi: '0x6666666666666666',
+                    rbp: '0x7777777777777777',
+                    rsp: '0x8888888888888888',
+                    rip: '0x12345678',
+                    r8: '0x9999999999999999',
+                    r9: '0xaaaaaaaaaaaaaaaa',
+                    r10: '0xbbbbbbbbbbbbbbbb',
+                    r11: '0xcccccccccccccccc',
+                    r12: '0xdddddddddddddddd',
+                    r13: '0xeeeeeeeeeeeeeeee',
+                    r14: '0xffffffffffffffff',
+                    r15: '0x0000000000000000',
+                    rflags: '0x246'
+                }
+            };
+
+            // Trigger the breakpoint hit handler
+            socket.emit('trigger', 'breakpoint_hit', testData);
+
+            // Or directly call the handler
+            const hitId = `hit_${Date.now()}_${Math.floor(Math.random() * 10000)}`;
+            testData.hitId = hitId;
+            breakpointHitHistory.unshift(testData);
+
+            const time = new Date(testData.timestamp * 1000).toLocaleTimeString();
+            const hitHtml = `
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; border: 1px solid #444; padding: 5px; border-radius: 3px;">
+                    <span class="text-warning" style="flex: 1;">[${time}] TEST Hit at ${testData.address} (Thread ${testData.thread_id})</span>
+                    <div style="display: flex; gap: 5px;">
+                        <button class="btn btn-sm btn-outline-info" onclick="viewBreakpointRegisters('${hitId}')" title="View registers" style="padding: 2px 8px;">
+                            <i class="fas fa-eye"></i> View
+                        </button>
+                        <button class="btn btn-sm btn-outline-success" onclick="replayBreakpointHit('${hitId}')" title="Replay as function call" style="padding: 2px 8px;">
+                            <i class="fas fa-play"></i> Replay
+                        </button>
+                    </div>
+                </div>`;
+            $('#breakpointHits').prepend(hitHtml);
+
+            console.log('Test breakpoint hit added');
+        }
+
+        function viewBreakpointRegisters(hitId) {
+            console.log('View - Looking for hit ID:', hitId);
+            console.log('View - Available hits:', breakpointHitHistory.map(h => h.hitId));
+
+            const hitData = breakpointHitHistory.find(h => h.hitId === hitId);
+            if (!hitData) {
+                console.error('View - Hit not found. ID:', hitId, 'Available IDs:', breakpointHitHistory.map(h => h.hitId));
+                alert('Breakpoint hit data not found. Check console for details.');
+                return;
+            }
+
+            const registers = hitData.registers;
+            const regInfo = `Breakpoint hit at ${hitData.address}\n\n` +
+                `General Purpose Registers:\n` +
+                `RAX: ${registers.rax}\n` +
+                `RBX: ${registers.rbx}\n` +
+                `RCX: ${registers.rcx}\n` +
+                `RDX: ${registers.rdx}\n` +
+                `RSI: ${registers.rsi}\n` +
+                `RDI: ${registers.rdi}\n` +
+                `RBP: ${registers.rbp}\n` +
+                `RSP: ${registers.rsp}\n` +
+                `RIP: ${registers.rip}\n\n` +
+                `Extended Registers:\n` +
+                `R8:  ${registers.r8}\n` +
+                `R9:  ${registers.r9}\n` +
+                `R10: ${registers.r10}\n` +
+                `R11: ${registers.r11}\n` +
+                `R12: ${registers.r12}\n` +
+                `R13: ${registers.r13}\n` +
+                `R14: ${registers.r14}\n` +
+                `R15: ${registers.r15}\n\n` +
+                `RFLAGS: ${registers.rflags}`;
+
+            alert(regInfo);
+        }
+
+        let currentReplayData = null;
+
+        function replayBreakpointHit(hitId) {
+            console.log('Looking for hit ID:', hitId);
+            console.log('Available hits:', breakpointHitHistory.map(h => h.hitId));
+
+            const hitData = breakpointHitHistory.find(h => h.hitId === hitId);
+            if (!hitData) {
+                console.error('Hit not found. ID:', hitId, 'Available IDs:', breakpointHitHistory.map(h => h.hitId));
+                alert('Breakpoint hit data not found. Check console for details.');
+                return;
+            }
+
+            currentReplayData = hitData;
+            const registers = hitData.registers;
+
+            // Populate modal with register values
+            $('#replayAddress').val(hitData.address);
+            $('#replayRDI').val(registers.rdi || '0x0');
+            $('#replayRSI').val(registers.rsi || '0x0');
+            $('#replayRDX').val(registers.rdx || '0x0');
+            $('#replayRCX').val(registers.rcx || '0x0');
+            $('#replayR8').val(registers.r8 || '0x0');
+            $('#replayR9').val(registers.r9 || '0x0');
+
+            // Clear the compact params field
+            $('#replayParamsCompact').val('');
+
+            // Show the modal
+            $('#replayModal').modal('show');
+        }
+
+        function executeReplay() {
+            // Check if compact params are provided
+            const compactParams = $('#replayParamsCompact').val().trim();
+            let params;
+
+            if (compactParams) {
+                // Use compact params if provided
+                params = compactParams;
+            } else {
+                // Otherwise use individual register values
+                const paramValues = [
+                    $('#replayRDI').val() || '0x0',
+                    $('#replayRSI').val() || '0x0',
+                    $('#replayRDX').val() || '0x0',
+                    $('#replayRCX').val() || '0x0',
+                    $('#replayR8').val() || '0x0',
+                    $('#replayR9').val() || '0x0'
+                ];
+
+                // Remove trailing zeros
+                let lastNonZero = -1;
+                for (let i = paramValues.length - 1; i >= 0; i--) {
+                    if (paramValues[i] !== '0x0' && paramValues[i] !== '0x0000000000000000') {
+                        lastNonZero = i;
+                        break;
+                    }
+                }
+
+                // Include at least the first parameter, or up to last non-zero
+                const numParams = Math.max(1, lastNonZero + 1);
+                params = paramValues.slice(0, numParams).join(', ');
+            }
+
+            const address = $('#replayAddress').val();
+
+            // Close modal
+            $('#replayModal').modal('hide');
+
+            // Switch to RCE tab
+            switchTab('rce');
+
+            // Fill in the address and parameters
+            $('#rceAddress').val(address);
+            $('#rceParams').val(params);
+            $('#rceParamFormat').val(''); // Use default format
+            $('#rceOutputFormat').val('Q');
+
+            // Call the function
+            logRCE(`Replaying breakpoint hit at ${address} with edited parameters`);
+            callFunction();
+        }
+
+        // Console functionality
+        let consoleVisible = true;
+        let consoleAutoScroll = true;
+        let currentConsoleTab = 'debugger';
+        let debuggerLogBuffer = [];
+        let consoleKlogBuffer = [];
+
+        function toggleConsole() {
+            consoleVisible = !consoleVisible;
+            const console = document.getElementById('console');
+            const content = document.getElementById('consoleContent');
+            const toggleBtn = document.getElementById('consoleToggle');
+
+            if (consoleVisible) {
+                content.style.display = 'block';
+                toggleBtn.innerHTML = '<i class="fas fa-chevron-down"></i>';
+                console.style.height = 'auto';
+            } else {
+                content.style.display = 'none';
+                toggleBtn.innerHTML = '<i class="fas fa-chevron-up"></i>';
+                console.style.height = '40px';
+            }
+        }
+
+        function switchConsoleTab(tab) {
+            currentConsoleTab = tab;
+
+            // Update tab buttons
+            document.getElementById('consoleDebuggerTab').classList.toggle('active', tab === 'debugger');
+            document.getElementById('consoleKlogTab').classList.toggle('active', tab === 'klog');
+
+            // Show/hide content
+            document.getElementById('consoleDebuggerContent').style.display = tab === 'debugger' ? 'block' : 'none';
+            document.getElementById('consoleKlogContent').style.display = tab === 'klog' ? 'block' : 'none';
+        }
+
+        function clearCurrentConsole() {
+            if (currentConsoleTab === 'debugger') {
+                document.getElementById('consoleDebuggerContent').innerHTML = '';
+                debuggerLogBuffer = [];
+            } else if (currentConsoleTab === 'klog') {
+                document.getElementById('consoleKlogContent').innerHTML = '';
+                consoleKlogBuffer = [];
+            }
+        }
+
+        function toggleAutoScroll() {
+            consoleAutoScroll = !consoleAutoScroll;
+            const btn = document.getElementById('autoScrollBtn');
+            btn.classList.toggle('btn-success');
+            btn.classList.toggle('btn-secondary');
+        }
+
+        function appendToDebuggerLog(message, level = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            const logContent = document.getElementById('consoleDebuggerContent');
+            const entry = document.createElement('div');
+            entry.className = 'log-entry';
+
+            let color = '#e0e0e0';
+            let icon = 'fas fa-info-circle';
+            if (level === 'error') {
+                color = '#ff6b6b';
+                icon = 'fas fa-exclamation-circle';
+            } else if (level === 'warning') {
+                color = '#ffd93d';
+                icon = 'fas fa-exclamation-triangle';
+            } else if (level === 'success') {
+                color = '#6bcf7f';
+                icon = 'fas fa-check-circle';
+            }
+
+            entry.innerHTML = `<span style="color: #666;">[${timestamp}]</span> <i class="${icon}" style="color: ${color};"></i> <span style="color: ${color};">${escapeHtml(message)}</span>`;
+            logContent.appendChild(entry);
+
+            debuggerLogBuffer.push({time: timestamp, level: level, message: message});
+            if (debuggerLogBuffer.length > 1000) {
+                debuggerLogBuffer.shift();
+                logContent.removeChild(logContent.firstChild);
+            }
+
+            if (consoleAutoScroll && currentConsoleTab === 'debugger') {
+                logContent.scrollTop = logContent.scrollHeight;
+            }
+        }
+
+        function appendToConsoleKlog(line) {
+            const logContent = document.getElementById('consoleKlogContent');
+            const entry = document.createElement('div');
+            entry.className = 'klog-entry';
+            entry.innerHTML = line;
+            logContent.appendChild(entry);
+
+            consoleKlogBuffer.push(line);
+            if (consoleKlogBuffer.length > 1000) {
+                consoleKlogBuffer.shift();
+                logContent.removeChild(logContent.firstChild);
+            }
+
+            if (consoleAutoScroll && currentConsoleTab === 'klog') {
+                logContent.scrollTop = logContent.scrollHeight;
+            }
+        }
+
+        // Listen for log messages
+        socket.on('error_log', function(data) {
+            appendToDebuggerLog(data.message, 'error');
+        });
+
+        socket.on('log_info', function(data) {
+            appendToDebuggerLog(data.message, 'info');
+        });
+
+        socket.on('log_warning', function(data) {
+            appendToDebuggerLog(data.message, 'warning');
+        });
+
+        socket.on('log_success', function(data) {
+            appendToDebuggerLog(data.message, 'success');
+        });
+
+        // Load initial error log
+        async function loadErrorLog() {
+            try {
+                const response = await fetch('/api/debugger/error_log');
+                const data = await response.json();
+                if (data.success && data.log) {
+                    data.log.forEach(msg => appendToDebuggerLog(msg, 'error'));
+                }
+            } catch (error) {
+                console.error('Failed to load error log:', error);
+            }
+        }
+
+        // Load error log on page load
+        loadErrorLog();
+
+        // Logging utility functions
+        function logError(message) {
+            appendToDebuggerLog(message, 'error');
+            // Send to server
+            socket.emit('log_error', {message: message});
+        }
+
+        function logInfo(message) {
+            appendToDebuggerLog(message, 'info');
+        }
+
+        function logWarning(message) {
+            appendToDebuggerLog(message, 'warning');
+        }
+
+        function logSuccess(message) {
+            appendToDebuggerLog(message, 'success');
+        }
+
+        // Payload Sender Functions
+        let selectedPayload = null;
+
+        function refreshPayloads() {
+            $('#payloadList').html('<tr><td colspan="4" class="text-center text-muted"><i class="fas fa-spinner fa-spin"></i> Loading payloads...</td></tr>');
+
+            $.ajax({
+                url: '/api/payloads',
+                method: 'GET',
+                success: function(response) {
+                    if (response.payloads && response.payloads.length > 0) {
+                        let html = '';
+                        response.payloads.forEach(function(payload, index) {
+                            html += `
+                                <tr>
+                                    <td>
+                                        <input type="radio" name="payloadSelect" value="${payload.name}"
+                                               onchange="selectPayload('${payload.name}')" id="payload_${index}">
+                                    </td>
+                                    <td>
+                                        <label for="payload_${index}" style="cursor: pointer;">
+                                            <i class="fas fa-file"></i> ${payload.name}
+                                        </label>
+                                    </td>
+                                    <td>${formatBytes(payload.size)}</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-success" onclick="quickSendPayload('${payload.name}')">
+                                            <i class="fas fa-bolt"></i> Quick Send
+                                        </button>
+                                    </td>
+                                </tr>
+                            `;
+                        });
+                        $('#payloadList').html(html);
+                    } else {
+                        $('#payloadList').html(`
+                            <tr>
+                                <td colspan="4" class="text-center text-muted">
+                                    No payloads found. Place .bin files in the payloads/ directory.
+                                </td>
+                            </tr>
+                        `);
+                    }
+                },
+                error: function() {
+                    $('#payloadList').html('<tr><td colspan="4" class="text-center text-danger">Failed to load payloads</td></tr>');
+                    logError('Failed to load payloads');
+                }
+            });
+        }
+
+        function selectPayload(name) {
+            selectedPayload = name;
+            $('#sendPayloadBtn').prop('disabled', false);
+        }
+
+        function sendSelectedPayload() {
+            if (!selectedPayload) {
+                alert('Please select a payload first');
+                return;
+            }
+            sendPayload(selectedPayload);
+        }
+
+        function quickSendPayload(name) {
+            sendPayload(name);
+        }
+
+        function sendPayload(payloadName) {
+            const ip = $('#payloadIP').val();
+            const port = $('#payloadPort').val();
+
+            if (!ip || !port) {
+                alert('Please enter IP address and port');
+                return;
+            }
+
+            const timestamp = new Date().toLocaleTimeString();
+            $('#payloadLog').prepend(`<div class="text-info">[${timestamp}] Sending ${payloadName} to ${ip}:${port}...</div>`);
+
+            $.ajax({
+                url: '/api/payload/send',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    ip_address: ip,
+                    port: parseInt(port),
+                    payload_name: payloadName
+                }),
+                success: function(response) {
+                    const timestamp = new Date().toLocaleTimeString();
+                    if (response.success) {
+                        $('#payloadLog').prepend(`<div class="text-success">[${timestamp}] ✓ Successfully sent ${payloadName} (${formatBytes(response.bytes_sent)})</div>`);
+                        setStatus(`Payload sent successfully: ${payloadName}`, false);
+                    } else {
+                        $('#payloadLog').prepend(`<div class="text-danger">[${timestamp}] ✗ Failed: ${response.error}</div>`);
+                        logError(`Failed to send payload: ${response.error}`);
+                    }
+                },
+                error: function(xhr) {
+                    const timestamp = new Date().toLocaleTimeString();
+                    const error = xhr.responseJSON ? xhr.responseJSON.error : 'Connection failed';
+                    $('#payloadLog').prepend(`<div class="text-danger">[${timestamp}] ✗ Error: ${error}</div>`);
+                    logError(`Failed to send payload: ${error}`);
+                }
+            });
+        }
+
+        function formatBytes(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        // Load payloads when tab is shown
+        $('button[data-bs-target="#payload"]').on('shown.bs.tab', function() {
+            refreshPayloads();
+        });
+
+        // Initialize payloads if the tab is already active
+        if ($('#payload').hasClass('show')) {
+            refreshPayloads();
+        }
+
+        // FTP Browser Functions
+        let ftpConnected = false;
+        let currentFTPPath = '/';
+
+        function connectFTP() {
+            const ip = $('#ftpIP').val();
+            const port = $('#ftpPort').val();
+
+            $.ajax({
+                url: '/api/ftp/connect',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ip: ip, port: parseInt(port)}),
+                success: function(response) {
+                    if (response.success) {
+                        ftpConnected = true;
+                        $('#ftpConnectBtn').hide();
+                        $('#ftpDisconnectBtn').show();
+                        setStatus('Connected to FTP', false);
+                        refreshFTPDirectory();
+                    } else {
+                        alert('Failed to connect: ' + response.error);
+                        logError('FTP connection failed: ' + response.error);
+                    }
+                },
+                error: function() {
+                    alert('Failed to connect to FTP');
+                    logError('FTP connection failed');
+                }
+            });
+        }
+
+        function disconnectFTP() {
+            ftpConnected = false;
+            $('#ftpConnectBtn').show();
+            $('#ftpDisconnectBtn').hide();
+            $('#ftpFileList').html('<tr><td colspan="5" class="text-center text-muted"><i class="fas fa-info-circle"></i> Not connected</td></tr>');
+            setStatus('Disconnected from FTP', false);
+        }
+
+        function refreshFTPDirectory(path = null) {
+            if (!ftpConnected && !$('#ftpIP').val()) {
+                alert('Please connect to FTP first');
+                return;
+            }
+
+            if (path !== null) {
+                currentFTPPath = path;
+            }
+
+            $('#ftpCurrentPath').val(currentFTPPath);
+            $('#ftpFileList').html('<tr><td colspan="5" class="text-center"><i class="fas fa-spinner fa-spin"></i> Loading...</td></tr>');
+
+            $.ajax({
+                url: '/api/ftp/list',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    path: currentFTPPath,
+                    ip: $('#ftpIP').val(),
+                    port: parseInt($('#ftpPort').val())
+                }),
+                success: function(response) {
+                    if (response.success) {
+                        displayFTPFiles(response.items);
+                        currentFTPPath = response.path;
+                        $('#ftpCurrentPath').val(currentFTPPath);
+                        if (!ftpConnected) {
+                            ftpConnected = true;
+                            $('#ftpConnectBtn').hide();
+                            $('#ftpDisconnectBtn').show();
+                        }
+                    } else {
+                        $('#ftpFileList').html('<tr><td colspan="5" class="text-center text-danger">Error: ' + response.error + '</td></tr>');
+                        logError('Failed to list FTP directory: ' + response.error);
+                    }
+                },
+                error: function() {
+                    $('#ftpFileList').html('<tr><td colspan="5" class="text-center text-danger">Failed to list directory</td></tr>');
+                    logError('Failed to list FTP directory');
+                }
+            });
+        }
+
+        function displayFTPFiles(items) {
+            let html = '';
+            items.forEach(function(item) {
+                const icon = item.type === 'dir' ?
+                    '<i class="fas fa-folder text-warning"></i>' :
+                    '<i class="fas fa-file text-info"></i>';
+
+                const size = item.type === 'dir' ? '-' : formatBytes(item.size);
+
+                html += `
+                    <tr>
+                        <td>${icon}</td>
+                        <td>
+                            ${item.type === 'dir' ?
+                                `<a href="#" onclick="refreshFTPDirectory('${currentFTPPath}/${item.name}'); return false;">${item.name}</a>` :
+                                item.name
+                            }
+                        </td>
+                        <td>${size}</td>
+                        <td>${item.modified || '-'}</td>
+                        <td>
+                            ${item.type === 'file' ?
+                                `<button class="btn btn-sm btn-primary" onclick="downloadFTPFile('${currentFTPPath}/${item.name}')" title="Download">
+                                    <i class="fas fa-download"></i>
+                                </button>` : ''
+                            }
+                            <button class="btn btn-sm btn-danger" onclick="deleteFTPItem('${currentFTPPath}/${item.name}', ${item.type === 'dir'})" title="Delete">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            if (html === '') {
+                html = '<tr><td colspan="5" class="text-center text-muted">Empty directory</td></tr>';
+            }
+
+            $('#ftpFileList').html(html);
+        }
+
+        function goToParentDirectory() {
+            const parts = currentFTPPath.split('/').filter(p => p);
+            parts.pop();
+            const newPath = '/' + parts.join('/');
+            refreshFTPDirectory(newPath);
+        }
+
+        function goToPath() {
+            const path = prompt('Enter path:', currentFTPPath);
+            if (path) {
+                refreshFTPDirectory(path);
+            }
+        }
+
+        function downloadFTPFile(path) {
+            const form = $('<form>', {
+                method: 'POST',
+                action: '/api/ftp/download'
+            });
+
+            form.append($('<input>', {
+                type: 'hidden',
+                name: 'path',
+                value: path
+            }));
+
+            // Create temporary iframe for download
+            const iframe = $('<iframe>', {
+                name: 'download_frame',
+                style: 'display: none'
+            });
+
+            $('body').append(iframe);
+            form.attr('target', 'download_frame');
+
+            // Submit form to trigger download
+            $('body').append(form);
+
+            // Actually, let's use a different approach with fetch
+            fetch('/api/ftp/download', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    path: path,
+                    ip: $('#ftpIP').val(),
+                    port: parseInt($('#ftpPort').val())
+                })
+            })
+            .then(response => response.blob())
+            .then(blob => {
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = path.split('/').pop();
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                setStatus('Downloaded: ' + path.split('/').pop(), false);
+            })
+            .catch(error => {
+                alert('Failed to download file');
+                logError('Failed to download file: ' + error);
+            });
+        }
+
+        function uploadFile() {
+            const fileInput = document.getElementById('ftpUploadFile');
+            const file = fileInput.files[0];
+
+            if (!file) return;
+
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('path', currentFTPPath);
+            formData.append('ip', $('#ftpIP').val());
+            formData.append('port', $('#ftpPort').val());
+
+            $.ajax({
+                url: '/api/ftp/upload',
+                method: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    if (response.success) {
+                        setStatus('Uploaded: ' + file.name, false);
+                        refreshFTPDirectory();
+                    } else {
+                        alert('Upload failed: ' + response.error);
+                        logError('Upload failed: ' + response.error);
+                    }
+                },
+                error: function() {
+                    alert('Failed to upload file');
+                    logError('Failed to upload file');
+                }
+            });
+
+            // Clear the file input
+            fileInput.value = '';
+        }
+
+        function deleteFTPItem(path, isDir) {
+            const itemType = isDir ? 'directory' : 'file';
+            if (!confirm(`Delete ${itemType}: ${path.split('/').pop()}?`)) {
+                return;
+            }
+
+            $.ajax({
+                url: '/api/ftp/delete',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    path: path,
+                    is_dir: isDir,
+                    ip: $('#ftpIP').val(),
+                    port: parseInt($('#ftpPort').val())
+                }),
+                success: function(response) {
+                    if (response.success) {
+                        setStatus('Deleted: ' + path.split('/').pop(), false);
+                        refreshFTPDirectory();
+                    } else {
+                        alert('Delete failed: ' + response.error);
+                        logError('Delete failed: ' + response.error);
+                    }
+                },
+                error: function() {
+                    alert('Failed to delete item');
+                    logError('Failed to delete item');
+                }
+            });
+        }
+
+        function createNewFolder() {
+            const folderName = prompt('Enter folder name:');
+            if (!folderName) return;
+
+            const fullPath = currentFTPPath + '/' + folderName;
+
+            $.ajax({
+                url: '/api/ftp/mkdir',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    path: fullPath,
+                    ip: $('#ftpIP').val(),
+                    port: parseInt($('#ftpPort').val())
+                }),
+                success: function(response) {
+                    if (response.success) {
+                        setStatus('Created folder: ' + folderName, false);
+                        refreshFTPDirectory();
+                    } else {
+                        alert('Failed to create folder: ' + response.error);
+                        logError('Failed to create folder: ' + response.error);
+                    }
+                },
+                error: function() {
+                    alert('Failed to create folder');
+                    logError('Failed to create folder');
+                }
+            });
+        }
+
+        // Load FTP directory when tab is shown
+        $('button[data-bs-target="#ftp"]').on('shown.bs.tab', function() {
+            if (ftpConnected) {
+                refreshFTPDirectory();
+            }
+        });
+
+        // Kernel Log Functions
+        let klogLines = [];
+        let klogFilter = null;
+        let klogConnected = false;
+
+        function startKlog() {
+            const ip = $('#klogIP').val();
+            const port = $('#klogPort').val();
+
+            if (!ip || !port) {
+                alert('Please enter IP address and port');
+                return;
+            }
+
+            $.ajax({
+                url: '/api/klog/start',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ip: ip, port: parseInt(port)}),
+                success: function(response) {
+                    if (response.success) {
+                        $('#klogStatus').removeClass('alert-info alert-danger').addClass('alert-success')
+                            .html('<i class="fas fa-check-circle"></i> Connecting to kernel log...');
+                        $('#klogStartBtn').hide();
+                        $('#klogStopBtn').show();
+                        setStatus('Kernel log started', false);
+                    } else {
+                        $('#klogStatus').removeClass('alert-info alert-success').addClass('alert-danger')
+                            .html('<i class="fas fa-exclamation-circle"></i> ' + response.error);
+                        logError('Failed to start klog: ' + response.error);
+                    }
+                },
+                error: function() {
+                    $('#klogStatus').removeClass('alert-info alert-success').addClass('alert-danger')
+                        .html('<i class="fas fa-exclamation-circle"></i> Failed to start kernel log reader');
+                    logError('Failed to start klog reader');
+                }
+            });
+        }
+
+        function stopKlog() {
+            $.ajax({
+                url: '/api/klog/stop',
+                method: 'POST',
+                success: function(response) {
+                    if (response.success) {
+                        $('#klogStatus').removeClass('alert-success alert-danger').addClass('alert-info')
+                            .html('<i class="fas fa-info-circle"></i> Disconnected from kernel log');
+                        $('#klogStartBtn').show();
+                        $('#klogStopBtn').hide();
+                        klogConnected = false;
+                        setStatus('Kernel log stopped', false);
+                    }
+                },
+                error: function() {
+                    logError('Failed to stop klog reader');
+                }
+            });
+        }
+
+        function clearKlog() {
+            klogLines = [];
+            $('#klogOutput').html('<div class="text-muted text-center" style="padding: 20px;">Kernel log cleared...</div>');
+            $('#klogLineCount').text('0');
+            $('#klogFilteredCount').text('0');
+        }
+
+        function applyKlogFilter() {
+            const filterText = $('#klogFilter').val();
+            if (filterText) {
+                try {
+                    klogFilter = new RegExp(filterText, 'i');
+                    updateKlogDisplay();
+                } catch (e) {
+                    alert('Invalid regex pattern');
+                }
+            }
+        }
+
+        function clearKlogFilter() {
+            klogFilter = null;
+            $('#klogFilter').val('');
+            updateKlogDisplay();
+        }
+
+        function updateKlogDisplay() {
+            let html = '';
+            let filteredCount = 0;
+            const showTimestamp = $('#klogTimestamp').is(':checked');
+
+            klogLines.forEach(function(entry) {
+                if (klogFilter && !klogFilter.test(entry.line)) {
+                    return;
+                }
+                filteredCount++;
+
+                const timestamp = showTimestamp ?
+                    `<span style="color: #666;">[${new Date(entry.timestamp * 1000).toLocaleTimeString()}]</span> ` : '';
+
+                // Color code different log levels
+                let lineClass = '';
+                if (entry.line.includes('ERROR') || entry.line.includes('error')) {
+                    lineClass = 'text-danger';
+                } else if (entry.line.includes('WARNING') || entry.line.includes('warn')) {
+                    lineClass = 'text-warning';
+                } else if (entry.line.includes('INFO') || entry.line.includes('info')) {
+                    lineClass = 'text-info';
+                }
+
+                html += `<div class="${lineClass}">${timestamp}${escapeHtml(entry.line)}</div>`;
+            });
+
+            if (html === '') {
+                html = '<div class="text-muted text-center" style="padding: 20px;">No log entries to display...</div>';
+            }
+
+            $('#klogOutput').html(html);
+            $('#klogLineCount').text(klogLines.length);
+            $('#klogFilteredCount').text(filteredCount);
+
+            if ($('#klogAutoScroll').is(':checked')) {
+                const output = document.getElementById('klogOutput');
+                output.scrollTop = output.scrollHeight;
+            }
+        }
+
+        function copyKlogToClipboard() {
+            if (klogLines.length === 0) {
+                alert('No log entries to copy');
+                return;
+            }
+
+            try {
+                // Format the log content
+                const content = klogLines.map(entry => {
+                    const timestamp = new Date(entry.timestamp * 1000).toISOString();
+                    return `[${timestamp}] ${entry.line}`;
+                }).join('\n');
+
+                // Copy to clipboard using modern API
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(content).then(() => {
+                        setStatus(`Copied ${klogLines.length} log entries to clipboard`, false);
+                    }).catch((err) => {
+                        console.error('Failed to copy:', err);
+                        // Fallback to older method
+                        copyUsingTextarea(content);
+                    });
+                } else {
+                    // Fallback for older browsers
+                    copyUsingTextarea(content);
+                }
+            } catch (e) {
+                console.error('Copy error:', e);
+                setStatus('Failed to copy to clipboard: ' + e.message, true);
+            }
+
+            function copyUsingTextarea(text) {
+                const textarea = document.createElement('textarea');
+                textarea.value = text;
+                textarea.style.position = 'fixed';
+                textarea.style.opacity = '0';
+                document.body.appendChild(textarea);
+                textarea.select();
+                try {
+                    document.execCommand('copy');
+                    setStatus(`Copied ${klogLines.length} log entries to clipboard`, false);
+                } catch (err) {
+                    setStatus('Failed to copy to clipboard', true);
+                }
+                document.body.removeChild(textarea);
+            }
+        }
+
+        function exportKlog() {
+            if (klogLines.length === 0) {
+                alert('No log entries to export');
+                return;
+            }
+
+            // First, save to server logs folder
+            $.ajax({
+                url: '/api/klog/export',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({lines: klogLines}),
+                success: function(response) {
+                    if (response.success) {
+                        setStatus(`Kernel log saved to: logs/${response.filename} (${response.lines} lines)`, false);
+                    } else {
+                        setStatus('Failed to save log: ' + response.error, true);
+                    }
+                },
+                error: function() {
+                    setStatus('Failed to save kernel log', true);
+                }
+            });
+
+            // Also trigger browser download
+            try {
+                const content = klogLines.map(entry => {
+                    const timestamp = new Date(entry.timestamp * 1000).toISOString();
+                    return `[${timestamp}] ${entry.line}`;
+                }).join('\n');
+
+                const blob = new Blob([content], {type: 'text/plain'});
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+
+                // Create filename with date
+                const now = new Date();
+                const dateStr = now.toISOString().split('T')[0].replace(/-/g, '');
+                const timeStr = now.toTimeString().split(' ')[0].replace(/:/g, '');
+                a.download = `klog_${dateStr}_${timeStr}.txt`;
+
+                document.body.appendChild(a);
+                a.click();
+
+                setTimeout(() => {
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(a);
+                }, 100);
+
+                setStatus('Kernel log exported and downloaded', false);
+            } catch (e) {
+                console.error('Export error:', e);
+                setStatus('Export failed: ' + e.message, true);
+            }
+        }
+
+        // RCE Functions
+        function callFunction() {
+            const address = $('#rceAddress').val();
+            const params = $('#rceParams').val();
+            const paramFormat = $('#rceParamFormat').val();
+            const outputFormat = $('#rceOutputFormat').val() || 'Q';
+
+            if (!address) {
+                alert('Please enter a function address');
+                return;
+            }
+
+            // Parse parameters
+            let paramArray = [];
+            if (params) {
+                paramArray = params.split(',').map(p => p.trim());
+            }
+
+            socket.emit('call_function', {
+                address: address,
+                parameters: paramArray,
+                parameter_format: paramFormat,
+                output_format: outputFormat
+            });
+
+            logRCE('Calling function at ' + address + '...');
+        }
+
+        function injectAssembly() {
+            const assembly = $('#rceAssembly').val();
+            const params = $('#rceInjectParams').val();
+            const paramFormat = $('#rceParamFormat').val();
+            const outputFormat = $('#rceOutputFormat').val() || 'Q';
+
+            if (!assembly) {
+                alert('Please enter assembly code');
+                return;
+            }
+
+            // Parse parameters
+            let paramArray = [];
+            if (params) {
+                paramArray = params.split(',').map(p => p.trim());
+            }
+
+            socket.emit('inject_assembly', {
+                assembly: assembly,
+                parameters: paramArray,
+                parameter_format: paramFormat,
+                output_format: outputFormat
+            });
+
+            logRCE('Injecting assembly...');
+        }
+
+        function allocateMemory() {
+            const size = $('#allocSize').val();
+
+            if (!size || size <= 0) {
+                alert('Please enter a valid size');
+                return;
+            }
+
+            socket.emit('allocate_memory', {
+                size: parseInt(size)
+            });
+
+            logRCE('Allocating ' + size + ' bytes...');
+        }
+
+        function freeMemory() {
+            const address = $('#freeAddress').val();
+            const size = $('#freeSize').val();
+
+            if (!address || !size) {
+                alert('Please enter address and size');
+                return;
+            }
+
+            socket.emit('free_memory', {
+                address: address,
+                size: parseInt(size)
+            });
+
+            logRCE('Freeing ' + size + ' bytes at ' + address + '...');
+        }
+
+        function logRCE(message) {
+            const timestamp = new Date().toLocaleTimeString();
+            const html = `<div style="color: #4ec9b0;">[${timestamp}] ${message}</div>`;
+            const outputDiv = $('#rceOutput');
+
+            // Clear placeholder if present
+            if (outputDiv.find('.text-muted').length > 0) {
+                outputDiv.html('');
+            }
+
+            outputDiv.append(html);
+            outputDiv.scrollTop(outputDiv[0].scrollHeight);
+        }
+
+        // Socket handlers for RCE
+        socket.on('call_result', function(data) {
+            if (data.success) {
+                const returnHex = data.return_hex ? ` (${data.return_hex})` : '';
+                logRCE(`Function returned: ${data.return_value}${returnHex}`);
+            } else {
+                logRCE(`Error: ${data.error}`);
+            }
+        });
+
+        socket.on('injection_result', function(data) {
+            if (data.success) {
+                const returnHex = data.return_hex ? ` (${data.return_hex})` : '';
+                logRCE(`Assembly executed at ${data.address}, returned: ${data.return_value}${returnHex}`);
+            } else {
+                logRCE(`Error: ${data.error}`);
+            }
+        });
+
+        socket.on('memory_allocated', function(data) {
+            if (data.success) {
+                logRCE(`Allocated ${data.size} bytes at ${data.address}`);
+                // Auto-fill the free address field
+                $('#freeAddress').val(data.address);
+                $('#freeSize').val(data.size);
+            } else {
+                logRCE(`Error: ${data.error}`);
+            }
+        });
+
+        socket.on('memory_freed', function(data) {
+            if (data.success) {
+                logRCE(`Freed ${data.size} bytes at ${data.address}`);
+            } else {
+                logRCE(`Error: ${data.error}`);
+            }
+        });
+
+        function escapeHtml(text) {
+            const map = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            };
+            return text.replace(/[&<>"']/g, m => map[m]);
+        }
+
+        // Socket.IO handlers for klog
+        socket.on('klog_status', function(data) {
+            if (data.connected) {
+                klogConnected = true;
+                $('#klogStatus').removeClass('alert-info alert-danger').addClass('alert-success')
+                    .html(`<i class="fas fa-check-circle"></i> Connected to kernel log at ${data.ip}:${data.port}`);
+            } else {
+                klogConnected = false;
+                $('#klogStatus').removeClass('alert-success alert-danger').addClass('alert-info')
+                    .html('<i class="fas fa-info-circle"></i> Disconnected from kernel log');
+                $('#klogStartBtn').show();
+                $('#klogStopBtn').hide();
+            }
+        });
+
+        socket.on('klog_line', function(data) {
+            klogLines.push(data);
+
+            // Limit to last 10000 lines
+            if (klogLines.length > 10000) {
+                klogLines.shift();
+            }
+
+            // Add line to display
+            const showTimestamp = $('#klogTimestamp').is(':checked');
+            const timestamp = showTimestamp ?
+                `<span style="color: #666;">[${new Date(data.timestamp * 1000).toLocaleTimeString()}]</span> ` : '';
+
+            // Check filter
+            if (klogFilter && !klogFilter.test(data.line)) {
+                $('#klogLineCount').text(klogLines.length);
+            } else {
+                // Color code
+                let lineClass = '';
+                if (data.line.includes('ERROR') || data.line.includes('error')) {
+                    lineClass = 'text-danger';
+                } else if (data.line.includes('WARNING') || data.line.includes('warn')) {
+                    lineClass = 'text-warning';
+                } else if (data.line.includes('INFO') || data.line.includes('info')) {
+                    lineClass = 'text-info';
+                }
+
+                const lineHtml = `<div class="${lineClass}">${timestamp}${escapeHtml(data.line)}</div>`;
+
+                // Remove placeholder if present
+                if ($('#klogOutput').find('.text-center').length > 0) {
+                    $('#klogOutput').html('');
+                }
+
+                $('#klogOutput').append(lineHtml);
+                $('#klogLineCount').text(klogLines.length);
+
+                // Auto-scroll
+                if ($('#klogAutoScroll').is(':checked')) {
+                    const output = document.getElementById('klogOutput');
+                    output.scrollTop = output.scrollHeight;
+                }
+            }
+
+            // Also add to console klog tab
+            const consoleTimestamp = `<span style="color: #666;">[${new Date(data.timestamp * 1000).toLocaleTimeString()}]</span> `;
+            let consoleLineClass = '';
+            if (data.line.includes('ERROR') || data.line.includes('error')) {
+                consoleLineClass = 'text-danger';
+            } else if (data.line.includes('WARNING') || data.line.includes('warn')) {
+                consoleLineClass = 'text-warning';
+            } else if (data.line.includes('INFO') || data.line.includes('info')) {
+                consoleLineClass = 'text-info';
+            }
+            const consoleLineHtml = `<div class="${consoleLineClass}">${consoleTimestamp}${escapeHtml(data.line)}</div>`;
+            appendToConsoleKlog(consoleLineHtml);
+        });
+
+        socket.on('klog_error', function(data) {
+            $('#klogStatus').removeClass('alert-info alert-success').addClass('alert-danger')
+                .html('<i class="fas fa-exclamation-circle"></i> ' + data.error);
+            $('#klogStartBtn').show();
+            $('#klogStopBtn').hide();
+            logError('Klog error: ' + data.error);
+        });
+
+        // Update tab states to include klog
+        const originalUpdateTabStates = updateTabStates;
+        updateTabStates = function(connected) {
+            originalUpdateTabStates(connected);
+            // Klog tab is always enabled
+            const klogNav = document.getElementById('nav-klog');
+            if (klogNav) klogNav.classList.remove('disabled');
+        };
+    </script>
+
+    <!-- Console (fixed at bottom) -->
+    <div id="console" style="position: fixed; bottom: 0; left: 250px; right: 0; background-color: #1a1a1a; border-top: 2px solid #444; z-index: 1000; max-height: 350px;">
+        <div style="background-color: #2a2a2a; padding: 8px; border-bottom: 1px solid #444;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div style="display: flex; align-items: center;">
+                    <button id="consoleToggle" class="btn btn-sm btn-secondary" onclick="toggleConsole()">
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <span style="margin-left: 10px; font-weight: bold;">
+                        <i class="fas fa-terminal"></i> Console
+                    </span>
+                    <!-- Console tabs -->
+                    <div style="margin-left: 20px;">
+                        <button class="btn btn-sm btn-outline-secondary active" id="consoleDebuggerTab" onclick="switchConsoleTab('debugger')">
+                            <i class="fas fa-bug"></i> Debugger
+                        </button>
+                        <button class="btn btn-sm btn-outline-secondary" id="consoleKlogTab" onclick="switchConsoleTab('klog')">
+                            <i class="fas fa-list"></i> Kernel Log
+                        </button>
+                    </div>
+                </div>
+                <div>
+                    <button id="autoScrollBtn" class="btn btn-sm btn-success" onclick="toggleAutoScroll()" title="Auto-scroll">
+                        <i class="fas fa-arrow-down"></i> Auto
+                    </button>
+                    <button class="btn btn-sm btn-warning" onclick="clearCurrentConsole()" title="Clear">
+                        <i class="fas fa-trash"></i> Clear
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="consoleContent" style="height: 250px; overflow-y: auto;">
+            <!-- Debugger Log Tab -->
+            <div id="consoleDebuggerContent" class="console-tab-content" style="padding: 10px; font-family: 'Courier New', monospace; font-size: 12px; color: #e0e0e0; background-color: #1a1a1a; white-space: pre-wrap; word-wrap: break-word;">
+                <!-- Debugger messages will appear here -->
+            </div>
+            <!-- Kernel Log Tab -->
+            <div id="consoleKlogContent" class="console-tab-content" style="display: none; padding: 10px; font-family: 'Courier New', monospace; font-size: 12px; color: #e0e0e0; background-color: #1a1a1a; white-space: pre-wrap; word-wrap: break-word;">
+                <!-- Kernel log messages will appear here -->
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .error-log-entry {
+            padding: 2px 0;
+            border-bottom: 1px solid #333;
+            margin-bottom: 2px;
+        }
+
+        .error-log-entry:hover {
+            background-color: #2a2a2a;
+        }
+
+        /* Add padding to body to prevent content from being hidden behind error console */
+        body {
+            padding-bottom: 250px;
+        }
+    </style>
+
+    <!-- Replay Modal -->
+    <div class="modal fade" id="replayModal" tabindex="-1" role="dialog" aria-labelledby="replayModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content bg-dark text-light">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="replayModalLabel">Replay Breakpoint as Function Call</h5>
+                    <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="replayAddress" class="form-label">Function Address:</label>
+                        <input type="text" class="form-control bg-secondary text-light" id="replayAddress" readonly>
+                    </div>
+
+                    <h6>Function Parameters (x86_64 calling convention):</h6>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="replayRDI">RDI (1st param):</label>
+                                <input type="text" class="form-control bg-secondary text-light" id="replayRDI" placeholder="0x0">
+                            </div>
+                            <div class="form-group">
+                                <label for="replayRSI">RSI (2nd param):</label>
+                                <input type="text" class="form-control bg-secondary text-light" id="replayRSI" placeholder="0x0">
+                            </div>
+                            <div class="form-group">
+                                <label for="replayRDX">RDX (3rd param):</label>
+                                <input type="text" class="form-control bg-secondary text-light" id="replayRDX" placeholder="0x0">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="replayRCX">RCX (4th param):</label>
+                                <input type="text" class="form-control bg-secondary text-light" id="replayRCX" placeholder="0x0">
+                            </div>
+                            <div class="form-group">
+                                <label for="replayR8">R8 (5th param):</label>
+                                <input type="text" class="form-control bg-secondary text-light" id="replayR8" placeholder="0x0">
+                            </div>
+                            <div class="form-group">
+                                <label for="replayR9">R9 (6th param):</label>
+                                <input type="text" class="form-control bg-secondary text-light" id="replayR9" placeholder="0x0">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="replayParamsCompact">Or enter all parameters (comma-separated hex values):</label>
+                        <input type="text" class="form-control bg-secondary text-light" id="replayParamsCompact" placeholder="0x1234, 0x5678, 0x9abc">
+                        <small class="form-text text-muted">This will override individual register values above</small>
+                    </div>
+
+                    <div class="alert alert-info mt-3">
+                        <i class="fas fa-info-circle"></i>
+                        The function will be called with these parameters. Edit values as needed before calling.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-success" onclick="executeReplay()">
+                        <i class="fas fa-play"></i> Call Function
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
