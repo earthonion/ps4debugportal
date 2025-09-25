@@ -7,19 +7,12 @@ jobs:
   pyinstaller-build:
     runs-on: windows-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set up Python 3.10
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-
       - name: Build and Release
         uses: kentsx/Python2Exe@v1.1.1
         with:
           main: main
           exe_name: 'ps4debugportal'
+          python_version: '3.10' 
           #icon: 'logo.png'
           artifact: true
           release: false
