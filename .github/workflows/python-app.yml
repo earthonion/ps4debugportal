@@ -227,6 +227,7 @@ jobs:
       - name: Test executable exists
         run: |
           ls -la dist/
+        shell: bash
 
       - name: Upload executable to artifacts
         uses: actions/upload-artifact@v4
