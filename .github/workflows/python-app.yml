@@ -13,14 +13,12 @@ jobs:
             pyinstaller-args: >
               --onefile --clean --name ps4debugportal
               --add-data "templates;templates"
-              --add-data "static;static"
               app.py
             artifact: dist/ps4debugportal.exe
           - os: ubuntu-latest
             pyinstaller-args: >
               --onefile --clean --name ps4debugportal
               --add-data "templates:templates"
-              --add-data "static:static"
               app.py
             artifact: dist/ps4debugportal
 
