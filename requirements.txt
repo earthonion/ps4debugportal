@@ -2,7 +2,7 @@ bidict==0.23.1
 blinker==1.9.0
 bottle==0.13.4
 capstone==5.0.1
-click==8.2.1
+click
 construct==2.10.70
 dnspython==2.7.0
 eventlet==0.33.3
