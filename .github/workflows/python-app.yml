@@ -10,7 +10,7 @@ jobs:
       - name: Build and Release
         uses: kentsx/Python2Exe@v1.1.1
         with:
-          main: main
+          main: app
           exe_name: 'ps4debugportal'
           python_version: '3.10' 
           #icon: 'logo.png'
