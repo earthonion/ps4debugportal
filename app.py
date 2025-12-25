@@ -1413,6 +1413,64 @@ def hex_viewer():
     except Exception as e:
         return jsonify({'success': False, 'error': str(e)})
 
+@app.route('/api/process_maps', methods=['GET'])
+def get_process_maps():
+    """Get memory maps for current process"""
+    if not manager.connected or not manager.current_pid:
+        return jsonify({'success': False, 'error': 'Not connected or no process selected'})
+
+    async def fetch_maps():
+        try:
+            maps = await manager.ps4.get_process_maps(manager.current_pid)
+
+            # Convert maps to serializable format
+            maps_data = []
+            total_size = 0
+
+            for m in maps:
+                size = m.end - m.start
+                total_size += size
+
+                # Parse protection flags
+                prot_str = ''
+                if m.prot & 0x1:  # Read
+                    prot_str += 'R'
+                else:
+                    prot_str += '-'
+                if m.prot & 0x2:  # Write
+                    prot_str += 'W'
+                else:
+                    prot_str += '-'
+                if m.prot & 0x4:  # Execute
+                    prot_str += 'X'
+                else:
+                    prot_str += '-'
+
+                maps_data.append({
+                    'start': hex(m.start),
+                    'end': hex(m.end),
+                    'size': size,
+                    'size_str': manager.format_size(size),
+                    'prot': m.prot,
+                    'prot_str': prot_str,
+                    'name': m.name if hasattr(m, 'name') and m.name else '<anonymous>',
+                    'offset': m.offset if hasattr(m, 'offset') else 0
+                })
+
+            return {
+                'success': True,
+                'maps': maps_data,
+                'count': len(maps_data),
+                'total_size': total_size,
+                'total_size_str': manager.format_size(total_size)
+            }
+        except Exception as e:
+            manager.log_error(f"Failed to get process maps: {e}")
+            return {'success': False, 'error': str(e)}
+
+    result = manager.run_async(fetch_maps())
+    return jsonify(result)
+
 @app.route('/api/debugger/start', methods=['POST'])
 def start_debugger():
     """Start debugger for current process"""
