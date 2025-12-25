@@ -330,6 +330,11 @@ Not connected
                         <i class="fas fa-code"></i> RCE
                     </button>
                 </li>
+                <li class="nav-item">
+                    <button class="nav-link disabled" onclick="switchTab('pageview')" id="nav-pageview">
+                        <i class="fas fa-file-code"></i> Memory Map
+                    </button>
+                </li>
             </div>
         </ul>
     </div>
@@ -1119,6 +1124,62 @@ Not connected
                     </div>
                 </div>
             </div>
+
+            <!-- Page View Tab -->
+            <div class="tab-content" id="pageview">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-file-code"></i> Process Memory Maps / Libraries
+                        <button class="btn btn-sm btn-outline-primary float-end" onclick="refreshPageView()">
+                            <i class="fas fa-sync-alt"></i> Refresh
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <div class="alert alert-info">
+                                <i class="fas fa-info-circle"></i> This view shows all memory regions mapped in the current process, including libraries like libSceLibcInternal (libcheap).
+                            </div>
+                        </div>
+
+                        <!-- Search/Filter -->
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="pageViewFilter" placeholder="Filter by name or address..." onkeyup="filterPageView()">
+                            </div>
+                            <div class="col-md-6 text-end">
+                                <span>Total Regions: <span id="pageViewCount" class="badge bg-primary">0</span></span>
+                                <span class="ms-2">Total Size: <span id="pageViewSize" class="badge bg-info">0</span></span>
+                            </div>
+                        </div>
+
+                        <!-- Memory Maps Table -->
+                        <div style="max-height: 600px; overflow-y: auto;">
+                            <table class="table table-dark table-sm table-hover">
+                                <thead style="position: sticky; top: 0; background-color: #2a2a2a;">
+                                    <tr>
+                                        <th style="width: 140px;">Start Address</th>
+                                        <th style="width: 140px;">End Address</th>
+                                        <th style="width: 100px;">Size</th>
+                                        <th style="width: 80px;">Protection</th>
+                                        <th>Name</th>
+                                        <th style="width: 120px;">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="pageViewTable">
+                                    <tr>
+                                        <td colspan="6" class="text-center text-muted">
+                                            <div style="padding: 40px;">
+                                                <i class="fas fa-hourglass-half fa-2x mb-3"></i>
+                                                <p>Select a process and click Refresh to load memory maps</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <!-- End of main-content -->
@@ -1180,7 +1241,7 @@ Not connected
 
         // Enable/disable tabs based on connection status
         function updateTabStates(connected) {
-            const tabs = ['scanner', 'editor', 'disasm', 'monitor', 'hexviewer', 'debugger', 'rce'];
+            const tabs = ['scanner', 'editor', 'disasm', 'monitor', 'hexviewer', 'debugger', 'rce', 'pageview'];
 
             tabs.forEach(tab => {
                 const navButton = document.getElementById(`nav-${tab}`);
@@ -3419,6 +3480,133 @@ Not connected
             const klogNav = document.getElementById('nav-klog');
             if (klogNav) klogNav.classList.remove('disabled');
         };
+
+        // ==================== Page View Functions ====================
+        let pageViewData = [];
+
+        function refreshPageView() {
+            if (!isConnected) {
+                logError('Not connected to PS4');
+                return;
+            }
+
+            fetch('/api/process_maps')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        pageViewData = data.maps;
+                        displayPageView(pageViewData);
+
+                        // Update stats
+                        document.getElementById('pageViewCount').textContent = data.count;
+                        document.getElementById('pageViewSize').textContent = data.total_size_str;
+
+                        logSuccess(`Loaded ${data.count} memory regions (Total: ${data.total_size_str})`);
+                    } else {
+                        logError('Failed to get memory maps: ' + data.error);
+                    }
+                })
+                .catch(error => {
+                    logError('Error fetching memory maps: ' + error);
+                });
+        }
+
+        function displayPageView(maps) {
+            const tbody = document.getElementById('pageViewTable');
+            tbody.innerHTML = '';
+
+            if (!maps || maps.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="text-center text-muted">
+                            <div style="padding: 40px;">
+                                <i class="fas fa-exclamation-triangle fa-2x mb-3"></i>
+                                <p>No memory regions found</p>
+                            </div>
+                        </td>
+                    </tr>`;
+                return;
+            }
+
+            maps.forEach((map, index) => {
+                const row = document.createElement('tr');
+
+                // Highlight libcheap and similar libraries
+                const isLibrary = map.name && !map.name.startsWith('<');
+                if (isLibrary) {
+                    row.style.backgroundColor = '#2d3a2d';
+                }
+
+                row.innerHTML = `
+                    <td><code>${map.start}</code></td>
+                    <td><code>${map.end}</code></td>
+                    <td>${map.size_str}</td>
+                    <td>
+                        <span class="badge ${getProtectionBadgeClass(map.prot_str)}">${map.prot_str}</span>
+                    </td>
+                    <td>
+                        ${isLibrary ? '<i class="fas fa-book"></i> ' : ''}
+                        <strong>${map.name}</strong>
+                    </td>
+                    <td>
+                        <button class="btn btn-xs btn-outline-primary" onclick="viewPageInHexViewer('${map.start}', ${map.size})" title="View in Hex Viewer">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="btn btn-xs btn-outline-success" onclick="copyToClipboard('${map.start}')" title="Copy Address">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function getProtectionBadgeClass(prot) {
+            if (prot === 'RWX') return 'bg-danger';
+            if (prot.includes('X')) return 'bg-warning';
+            if (prot.includes('W')) return 'bg-info';
+            return 'bg-secondary';
+        }
+
+        function filterPageView() {
+            const filter = document.getElementById('pageViewFilter').value.toLowerCase();
+
+            if (!filter) {
+                displayPageView(pageViewData);
+                return;
+            }
+
+            const filtered = pageViewData.filter(map => {
+                return map.name.toLowerCase().includes(filter) ||
+                       map.start.toLowerCase().includes(filter) ||
+                       map.end.toLowerCase().includes(filter) ||
+                       map.prot_str.toLowerCase().includes(filter);
+            });
+
+            displayPageView(filtered);
+        }
+
+        function viewPageInHexViewer(address, size) {
+            // Switch to hex viewer tab
+            switchTab('hexviewer');
+
+            // Set the address and length
+            document.getElementById('hexViewerAddress').value = address;
+            document.getElementById('hexViewerLength').value = Math.min(size, 4096); // Limit to 4KB initially
+
+            // Auto-start the viewer
+            setTimeout(() => {
+                startHexViewer();
+            }, 300);
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                logSuccess('Address copied to clipboard: ' + text);
+            }).catch(err => {
+                logError('Failed to copy: ' + err);
+            });
+        }
     </script>
 
     <!-- Console (fixed at bottom) -->
