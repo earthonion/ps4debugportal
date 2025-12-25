@@ -1840,20 +1840,24 @@ def handle_monitor(data):
     thread.start()
 
 def check_root_permissions():
-    """Check if running as root and warn about debugger limitations"""
-    if os.geteuid() != 0:
-        print("\n" + "="*60)
-        print("⚠️  WARNING: Not running as root!")
-        print("="*60)
-        print("The debugger functionality requires root permissions to")
-        print("access port 755 for PS4 debugging operations.")
-        print("\nYou can still use the application, but debugger features")
-        print("will not work properly.")
-        print("\nTo run with full functionality:")
-        print("  sudo python app.py")
-        print("="*60 + "\n")
-        return False
-    return True
+    """Check if running as root/admin and warn about debugger limitations"""
+    if os.name == 'nt': # Windows
+        if (ctypes.windll.shell32.IsUserAnAdmin() != 0):
+            return True
+    elif os.geteuid() == 0: # Unix-like
+        return True
+    print("\n" + "="*60)
+    print("⚠️  WARNING: Not running as root/admin!")
+    print("="*60)
+    print("The debugger functionality requires root/admin permissions")
+    print("to listen on port 755 for PS4 debugging operations.")
+    print("\nYou can still use the application, but debugger features")
+    print("will not work properly.")
+    print("\nTo use with full functionality:")
+    print("  sudo python app.py")
+    print("\nOr run your terminal as administrator if you are on windows.")
+    print("="*60 + "\n")
+    return False
 
 def start_flask():
     """Start Flask server in a separate thread"""
@@ -1894,7 +1898,7 @@ if __name__ == '__main__':
     if not is_root:
         print(f"⚠️  Running with limited functionality (no debugger access)")
     else:
-        print(f"✅ Running with full functionality (root access)")
+        print(f"✅ Running with full functionality (root/admin access)")
 
     # Check if we should skip webview (useful when running as root or if webview has issues)
     skip_webview = '--no-webview' in sys.argv or os.environ.get('NO_WEBVIEW', '').lower() in ('1', 'true', 'yes')
