@@ -2,7 +2,7 @@ bidict==0.23.1
 blinker==1.9.0
 bottle==0.13.4
 capstone==5.0.1
-click==8.2.1
+click
 construct==2.10.70
 dnspython==2.7.0
 eventlet==0.33.3
@@ -16,12 +16,12 @@ Jinja2==3.1.6
 MarkupSafe==3.0.2
 packaging==25.0
 proxy_tools==0.1.0
-ps4debug==0.1.6
-PyQt5==5.15.11
-PyQt5-Qt5==5.15.17
-PyQt5_sip==12.17.0
-PyQtWebEngine==5.15.7
-PyQtWebEngine-Qt5==5.15.17
+ps4debug
+PyQt5
+PyQt5-Qt5
+PyQt5_sip
+PyQtWebEngine
+PyQtWebEngine-Qt5
 python-engineio==4.12.2
 python-socketio==5.9.0
 pywebview==6.0
