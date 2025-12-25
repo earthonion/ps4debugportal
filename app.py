@@ -6,6 +6,7 @@ import os
 import sys
 import socket
 import ftplib
+import ctypes
 from io import BytesIO
 from flask import Flask, render_template, request, jsonify, session, send_file
 from flask_socketio import SocketIO, emit
@@ -1842,7 +1843,7 @@ def handle_monitor(data):
 def check_root_permissions():
     """Check if running as root/admin and warn about debugger limitations"""
     if os.name == 'nt': # Windows
-        if (ctypes.windll.shell32.IsUserAnAdmin() != 0):
+        if ctypes.windll.shell32.IsUserAnAdmin() != 0:
             return True
     elif os.geteuid() == 0: # Unix-like
         return True
@@ -1855,7 +1856,7 @@ def check_root_permissions():
     print("will not work properly.")
     print("\nTo use with full functionality:")
     print("  sudo python app.py")
-    print("\nOr run your terminal as administrator if you are on windows.")
+    print("\nOr run your terminal as administrator if you are on Windows.")
     print("="*60 + "\n")
     return False
 
