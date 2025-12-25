@@ -1,0 +1,361 @@
+name: Build PS4 Debug Portal
+
+on:
+  push:
+    branches:
+      - 'main'
+    
+  pull_request:
+    branches:
+      - 'main'
+  workflow_dispatch:  # Allow manual triggering
+
+permissions:
+  contents: write
+
+jobs:
+  pyinstaller-build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          # Windows builds
+          - os: windows-latest
+            name: windows
+            python-version: '3.10'
+            build-type: full
+            pyinstaller-args: >
+              --onefile
+              --clean
+              --name PS4DebugPortal-Windows
+              --add-data "templates;templates"
+              --hidden-import flask
+              --hidden-import flask_socketio
+              --hidden-import flask_cors
+              --hidden-import engineio.async_drivers.threading
+              --hidden-import ps4debug
+              --hidden-import capstone
+              --hidden-import construct
+              --hidden-import webview
+              --noupx
+              app.py
+            artifact: dist/PS4DebugPortal-Windows.exe
+            artifact-name: PS4DebugPortal-Windows-Full.exe
+
+          - os: windows-latest
+            name: windows
+            python-version: '3.10'
+            build-type: nowebview
+            pyinstaller-args: >
+              --onefile
+              --clean
+              --name PS4DebugPortal-Windows-NoWebview
+              --add-data "templates;templates"
+              --hidden-import flask
+              --hidden-import flask_socketio
+              --hidden-import flask_cors
+              --hidden-import engineio.async_drivers.threading
+              --hidden-import ps4debug
+              --hidden-import capstone
+              --hidden-import construct
+              --exclude-module matplotlib
+              --exclude-module numpy
+              --exclude-module scipy
+              --exclude-module pandas
+              --exclude-module PyQt5
+              --exclude-module PyQt6
+              --exclude-module PySide2
+              --exclude-module PySide6
+              --exclude-module webview
+              --noupx
+              app.py
+            artifact: dist/PS4DebugPortal-Windows-NoWebview.exe
+            artifact-name: PS4DebugPortal-Windows-NoWebview.exe
+
+          # Linux builds
+          - os: ubuntu-latest
+            name: linux
+            python-version: '3.10'
+            build-type: full
+            pyinstaller-args: >
+              --onefile
+              --clean
+              --name PS4DebugPortal-Linux
+              --add-data "templates:templates"
+              --hidden-import flask
+              --hidden-import flask_socketio
+              --hidden-import flask_cors
+              --hidden-import engineio.async_drivers.threading
+              --hidden-import ps4debug
+              --hidden-import capstone
+              --hidden-import construct
+              --hidden-import webview
+              --noupx
+              app.py
+            artifact: dist/PS4DebugPortal-Linux
+            artifact-name: PS4DebugPortal-Linux-Full
+
+          - os: ubuntu-latest
+            name: linux
+            python-version: '3.10'
+            build-type: nowebview
+            pyinstaller-args: >
+              --onefile
+              --clean
+              --name PS4DebugPortal-Linux-NoWebview
+              --add-data "templates:templates"
+              --hidden-import flask
+              --hidden-import flask_socketio
+              --hidden-import flask_cors
+              --hidden-import engineio.async_drivers.threading
+              --hidden-import ps4debug
+              --hidden-import capstone
+              --hidden-import construct
+              --exclude-module matplotlib
+              --exclude-module numpy
+              --exclude-module scipy
+              --exclude-module pandas
+              --exclude-module PyQt5
+              --exclude-module PyQt6
+              --exclude-module PySide2
+              --exclude-module PySide6
+              --exclude-module webview
+              --noupx
+              app.py
+            artifact: dist/PS4DebugPortal-Linux-NoWebview
+            artifact-name: PS4DebugPortal-Linux-NoWebview
+
+          # macOS builds
+          - os: macos-latest
+            name: macos
+            python-version: '3.10'
+            build-type: full
+            pyinstaller-args: >
+              --onefile
+              --clean
+              --name PS4DebugPortal-macOS
+              --add-data "templates:templates"
+              --hidden-import flask
+              --hidden-import flask_socketio
+              --hidden-import flask_cors
+              --hidden-import engineio.async_drivers.threading
+              --hidden-import ps4debug
+              --hidden-import capstone
+              --hidden-import construct
+              --hidden-import webview
+              --noupx
+              app.py
+            artifact: dist/PS4DebugPortal-macOS
+            artifact-name: PS4DebugPortal-macOS-Full
+
+          - os: macos-latest
+            name: macos
+            python-version: '3.10'
+            build-type: nowebview
+            pyinstaller-args: >
+              --onefile
+              --clean
+              --name PS4DebugPortal-macOS-NoWebview
+              --add-data "templates:templates"
+              --hidden-import flask
+              --hidden-import flask_socketio
+              --hidden-import flask_cors
+              --hidden-import engineio.async_drivers.threading
+              --hidden-import ps4debug
+              --hidden-import capstone
+              --hidden-import construct
+              --exclude-module matplotlib
+              --exclude-module numpy
+              --exclude-module scipy
+              --exclude-module pandas
+              --exclude-module PyQt5
+              --exclude-module PyQt6
+              --exclude-module PySide2
+              --exclude-module PySide6
+              --exclude-module webview
+              --noupx
+              app.py
+            artifact: dist/PS4DebugPortal-macOS-NoWebview
+            artifact-name: PS4DebugPortal-macOS-NoWebview
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install system dependencies (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3-gi python3-gi-cairo gir1.2-gtk-3.0 gir1.2-webkit2-4.1
+
+      - name: Create requirements.txt if not exists
+        run: |
+          echo "flask>=2.0.0" > requirements.txt
+          echo "flask-socketio>=5.0.0" >> requirements.txt
+          echo "flask-cors>=3.0.0" >> requirements.txt
+          echo "python-socketio>=5.0.0" >> requirements.txt
+          echo "python-engineio>=4.0.0" >> requirements.txt
+          echo "capstone>=5.0.0" >> requirements.txt
+          echo "construct>=2.10.0" >> requirements.txt
+          echo "pywebview>=4.0.0" >> requirements.txt
+          echo "ps4debug" >> requirements.txt
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pyinstaller
+
+      - name: Create logs directory
+        run: |
+          mkdir -p logs
+
+      - name: Build executable with PyInstaller
+        run: |
+          pyinstaller ${{ matrix.pyinstaller-args }}
+
+      - name: Make Linux/macOS executable
+        if: runner.os != 'Windows'
+        run: |
+          chmod +x ${{ matrix.artifact }}
+
+      - name: Test executable exists
+        run: |
+          ls -la dist/
+        shell: bash
+
+      - name: Upload executable to artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.name }}-${{ matrix.build-type }}-ps4debugportal
+          path: ${{ matrix.artifact }}
+
+  create-release:
+    needs: pyinstaller-build
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && (contains(github.ref, 'refs/tags/') || github.ref == 'refs/heads/main')
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: ./artifacts
+
+      - name: Display structure of downloaded files
+        run: ls -R ./artifacts
+
+      - name: Prepare release files
+        run: |
+          mkdir -p release-files
+
+          # Move Windows executables
+          if [ -f "./artifacts/windows-full-ps4debugportal/PS4DebugPortal-Windows.exe" ]; then
+            cp "./artifacts/windows-full-ps4debugportal/PS4DebugPortal-Windows.exe" "release-files/PS4DebugPortal-Windows-Full.exe"
+          fi
+          if [ -f "./artifacts/windows-nowebview-ps4debugportal/PS4DebugPortal-Windows-NoWebview.exe" ]; then
+            cp "./artifacts/windows-nowebview-ps4debugportal/PS4DebugPortal-Windows-NoWebview.exe" "release-files/PS4DebugPortal-Windows-NoWebview.exe"
+          fi
+
+          # Move Linux executables
+          if [ -f "./artifacts/linux-full-ps4debugportal/PS4DebugPortal-Linux" ]; then
+            cp "./artifacts/linux-full-ps4debugportal/PS4DebugPortal-Linux" "release-files/PS4DebugPortal-Linux-Full"
+            chmod +x "release-files/PS4DebugPortal-Linux-Full"
+          fi
+          if [ -f "./artifacts/linux-nowebview-ps4debugportal/PS4DebugPortal-Linux-NoWebview" ]; then
+            cp "./artifacts/linux-nowebview-ps4debugportal/PS4DebugPortal-Linux-NoWebview" "release-files/PS4DebugPortal-Linux-NoWebview"
+            chmod +x "release-files/PS4DebugPortal-Linux-NoWebview"
+          fi
+
+          # Move macOS executables
+          if [ -f "./artifacts/macos-full-ps4debugportal/PS4DebugPortal-macOS" ]; then
+            cp "./artifacts/macos-full-ps4debugportal/PS4DebugPortal-macOS" "release-files/PS4DebugPortal-macOS-Full"
+            chmod +x "release-files/PS4DebugPortal-macOS-Full"
+          fi
+          if [ -f "./artifacts/macos-nowebview-ps4debugportal/PS4DebugPortal-macOS-NoWebview" ]; then
+            cp "./artifacts/macos-nowebview-ps4debugportal/PS4DebugPortal-macOS-NoWebview" "release-files/PS4DebugPortal-macOS-NoWebview"
+            chmod +x "release-files/PS4DebugPortal-macOS-NoWebview"
+          fi
+
+          ls -la release-files/
+
+      - name: Generate Release Tag
+        id: tag
+        run: |
+          if [[ $GITHUB_REF == refs/tags/* ]]; then
+            echo "tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+          else
+            echo "tag=latest-$(date +'%Y%m%d')-${{ github.run_number }}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create Release Notes
+        run: |
+          cat > release-notes.md << 'EOF'
+          # PS4 Debug Portal
+
+          ## Available Downloads
+
+          ### Windows
+          - **PS4DebugPortal-Windows-Full.exe** - Full version with webview support
+          - **PS4DebugPortal-Windows-NoWebview.exe** - Browser-only version (smaller, no webview)
+
+          ### Linux
+          - **PS4DebugPortal-Linux-Full** - Full version with webview support
+          - **PS4DebugPortal-Linux-NoWebview** - Browser-only version (smaller, no webview)
+
+          ### macOS
+          - **PS4DebugPortal-macOS-Full** - Full version with webview support
+          - **PS4DebugPortal-macOS-NoWebview** - Browser-only version (smaller, no webview)
+
+          ## Running the Application
+
+          ### Windows
+          ```
+          # Run with webview (Full version only)
+          PS4DebugPortal-Windows-Full.exe
+
+          # Run browser-only
+          PS4DebugPortal-Windows-NoWebview.exe
+          ```
+
+          ### Linux/macOS
+          ```bash
+          # Make executable
+          chmod +x PS4DebugPortal-*
+
+          # Run without root (limited functionality)
+          ./PS4DebugPortal-Linux-NoWebview --no-webview
+
+          # Run with root (full debugger access)
+          sudo ./PS4DebugPortal-Linux-NoWebview --no-webview
+          ```
+
+          ## Notes
+          - The debugger functionality requires root/admin permissions to access port 755
+          - NoWebview versions are smaller and don't require Qt/GTK dependencies
+          - Access the web interface at http://localhost:5001
+
+          ## Commit Info
+          - SHA: ${{ github.sha }}
+          - Run: #${{ github.run_number }}
+          EOF
+
+      - name: Create GitHub Release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "release-files/*"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ steps.tag.outputs.tag }}
+          name: "PS4 Debug Portal - ${{ steps.tag.outputs.tag }}"
+          bodyFile: release-notes.md
+          allowUpdates: true
+          draft: false
+          prerelease: ${{ github.ref == 'refs/heads/main' }}
+          makeLatest: true
